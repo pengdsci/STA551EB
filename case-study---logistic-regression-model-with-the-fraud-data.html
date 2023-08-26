@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 12 Case Study - Logistic regression model with the fraud data | STA551 E-Pack: Foundations of Data Science</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 12 Case Study - Logistic regression model with the fraud data | STA551 E-Pack: Foundations of Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/STA551EB" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 12 Case Study - Logistic regression model with the fraud data | STA551 E-Pack: Foundations of Data Science" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="classification-performance-metrics.html"/>
+<link rel="next" href="from-statistics-models-to-machine-learning-algorithms.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 551 E-Pack: Foundations of Data Science</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-origin-of-data-science"><i class="fa fa-check"></i><b>1.1</b> The Origin of Data Science</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#the-coverage-of-the-first-data-science-course"><i class="fa fa-check"></i><b>1.2</b> The Coverage of the First Data Science Course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tentative-topics"><i class="fa fa-check"></i><b>1.3</b> Tentative Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html"><i class="fa fa-check"></i><b>2</b> Data Science - A Big Picture</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-science-process"><i class="fa fa-check"></i><b>2.1</b> Data Science Process</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-data"><i class="fa fa-check"></i><b>2.1.1</b> What is Data?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-storage-and-retrieval"><i class="fa fa-check"></i><b>2.1.2</b> Data Storage and Retrieval</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#different-da-roles-in-industry"><i class="fa fa-check"></i><b>2.1.3</b> Different DA Roles in Industry</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#cloud-computing"><i class="fa fa-check"></i><b>2.1.4</b> Cloud Computing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#from-business-questions-to-analytic-question"><i class="fa fa-check"></i><b>2.2</b> From Business Questions to Analytic Question</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#business-goal"><i class="fa fa-check"></i><b>2.2.1</b> Business Goal</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#analytic-question"><i class="fa fa-check"></i><b>2.2.2</b> Analytic Question</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#concepts-of-relational-databases-and-sql"><i class="fa fa-check"></i><b>2.3</b> Concepts of Relational Databases and SQL</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-database"><i class="fa fa-check"></i><b>2.3.1</b> What is Database?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-a-data-warehouse"><i class="fa fa-check"></i><b>2.3.2</b> What is a Data Warehouse?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#difference-between-database-and-data-warehouse"><i class="fa fa-check"></i><b>2.3.3</b> Difference between Database and Data Warehouse</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#database-management-system-dbms"><i class="fa fa-check"></i><b>2.3.4</b> Database Management System (DBMS)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#some-definitions-and-notations-of-relational-tables"><i class="fa fa-check"></i><b>2.3.5</b> Some Definitions and Notations of Relational Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html"><i class="fa fa-check"></i><b>3</b> Running SQL in SAS and R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-in-sas"><i class="fa fa-check"></i><b>3.1</b> Running SQL in SAS</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#loading-data"><i class="fa fa-check"></i><b>3.1.1</b> Loading Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#basic-sql-syntax-and-clauses"><i class="fa fa-check"></i><b>3.1.2</b> Basic SQL Syntax and Clauses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sas-in-r"><i class="fa fa-check"></i><b>3.2</b> Running SAS in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#connect-r-to-existing-database"><i class="fa fa-check"></i><b>3.2.1</b> Connect R to Existing Database</a></li>
+<li class="chapter" data-level="3.2.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#create-sqlite-database-with-r"><i class="fa fa-check"></i><b>3.2.2</b> Create SQLite Database with R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-queries-in-r-code-chunks"><i class="fa fa-check"></i><b>3.2.3</b> Running SQL Queries in R Code chunks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis (EDA)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#tools-of-eda-and-applications"><i class="fa fa-check"></i><b>4.1</b> Tools of EDA and Applications</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#descriptive-statistics-approach"><i class="fa fa-check"></i><b>4.1.1</b> Descriptive Statistics Approach</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#graphical-approach"><i class="fa fa-check"></i><b>4.1.2</b> Graphical Approach</a></li>
+<li class="chapter" data-level="4.1.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#algorithm-based-method"><i class="fa fa-check"></i><b>4.1.3</b> Algorithm-based Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-techniques-of-eda"><i class="fa fa-check"></i><b>4.2</b> Visual Techniques of EDA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#univariate-eda"><i class="fa fa-check"></i><b>4.2.1</b> Univariate EDA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#two-variables"><i class="fa fa-check"></i><b>4.2.2</b> Two Variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#three-or-more-variables"><i class="fa fa-check"></i><b>4.2.3</b> Three or More Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#roles-of-visualization-in-eda"><i class="fa fa-check"></i><b>4.3</b> Roles of Visualization in EDA</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#data-visualization"><i class="fa fa-check"></i><b>4.3.1</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-analytics"><i class="fa fa-check"></i><b>4.3.2</b> Visual Analytics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html"><i class="fa fa-check"></i><b>5</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#description-of-data"><i class="fa fa-check"></i><b>5.1</b> Description of Data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#eda-for-feature-engineering-1"><i class="fa fa-check"></i><b>5.2</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#missing-values---imputation"><i class="fa fa-check"></i><b>5.2.1</b> Missing Values - Imputation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#assess-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Assess Distributions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#pairwise-association"><i class="fa fa-check"></i><b>5.2.3</b> Pairwise Association</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#concluding-remarks"><i class="fa fa-check"></i><b>5.3</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>6</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-practical-question"><i class="fa fa-check"></i><b>6.1</b> The Practical Question</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-process-of-building-a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>6.2</b> The Process of Building A Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#assumptions-of-mlr"><i class="fa fa-check"></i><b>6.2.1</b> Assumptions of MLR</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>6.2.2</b> The Structure of MLR</a></li>
+<li class="chapter" data-level="6.2.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#more-on-model-specifications"><i class="fa fa-check"></i><b>6.2.3</b> More on Model Specifications</a></li>
+<li class="chapter" data-level="6.2.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#estimation-of-regression-coefficients"><i class="fa fa-check"></i><b>6.2.4</b> Estimation of Regression Coefficients</a></li>
+<li class="chapter" data-level="6.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>6.2.5</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="6.2.6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>6.2.6</b> Goodness-of-fit and Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-1"><i class="fa fa-check"></i><b>6.3</b> Case Study 1</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-2"><i class="fa fa-check"></i><b>6.4</b> Case Study 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#motivational-example-and-practical-question"><i class="fa fa-check"></i><b>7.1</b> Motivational Example and Practical Question</a></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#logistic-regression-models-and-applications"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression Models and Applications</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-structure-of-the-logistic-regression-model"><i class="fa fa-check"></i><b>7.2.1</b> The Structure of the Logistic Regression Model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#assumptions-and-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#coefficient-estimation-and-interpretation"><i class="fa fa-check"></i><b>7.2.3</b> Coefficient Estimation and Interpretation</a></li>
+<li class="chapter" data-level="7.2.4" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#use-of-glm-and-annotations"><i class="fa fa-check"></i><b>7.2.4</b> Use of <strong>glm()</strong> and Annotations</a></li>
+<li class="chapter" data-level="7.2.5" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#applications-of-logistic-regression-models"><i class="fa fa-check"></i><b>7.2.5</b> Applications of Logistic Regression Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#case-studies"><i class="fa fa-check"></i><b>7.3</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-simple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> The simple logistic regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#multiple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Multiple Logistic Regression Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html"><i class="fa fa-check"></i><b>8</b> Basics of Bootstrap Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>8.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#random-sample-from-population"><i class="fa fa-check"></i><b>8.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>8.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>8.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="8.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>8.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>8.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html"><i class="fa fa-check"></i><b>9</b> Method of Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#regression-models"><i class="fa fa-check"></i><b>9.1</b> Regression Models</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#linear-regression-model"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#logistic-regression-model"><i class="fa fa-check"></i><b>9.1.2</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#inference-about-association-and-prediction"><i class="fa fa-check"></i><b>9.1.3</b> Inference about Association and Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-splitting-methods"><i class="fa fa-check"></i><b>9.2</b> Data Splitting Methods</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#training-data"><i class="fa fa-check"></i><b>9.2.1</b> Training Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#validation-data"><i class="fa fa-check"></i><b>9.2.2</b> Validation Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#test-data"><i class="fa fa-check"></i><b>9.2.3</b> Test data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#cross-validation"><i class="fa fa-check"></i><b>9.3</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> K-fold Cross-validation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#other-cross-validation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Other Cross-Validation Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#case-study-using-fraud-data"><i class="fa fa-check"></i><b>9.4</b> Case Study Using Fraud Data</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-partition"><i class="fa fa-check"></i><b>9.4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="9.4.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#finding-optimal-cut-off-probability"><i class="fa fa-check"></i><b>9.4.2</b> Finding Optimal Cut-off Probability</a></li>
+<li class="chapter" data-level="9.4.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#reporting-test"><i class="fa fa-check"></i><b>9.4.3</b> Reporting Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html"><i class="fa fa-check"></i><b>10</b> Perfomance Measures of Algorithms and Models</a></li>
+<li class="chapter" data-level="11" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html"><i class="fa fa-check"></i><b>11</b> Classification Performance Metrics</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#confusion-matrix-for-binary-decision"><i class="fa fa-check"></i><b>11.1</b> Confusion Matrix for Binary Decision</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#local-performance-measures-for-model-development"><i class="fa fa-check"></i><b>11.2</b> Local Performance Measures (for Model Development)</a></li>
+<li class="chapter" data-level="11.3" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#global-performance-measures"><i class="fa fa-check"></i><b>11.3</b> Global Performance Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html"><i class="fa fa-check"></i><b>12</b> Case Study - Logistic regression model with the fraud data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#local-performance-meaures"><i class="fa fa-check"></i><b>12.1</b> Local Performance Meaures</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#global-measure-roc-and-auc"><i class="fa fa-check"></i><b>12.2</b> Global Measure: ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html"><i class="fa fa-check"></i><b>13</b> From Statistics Models to Machine Learning Algorithms</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#some-technical-terms-and-ml-types"><i class="fa fa-check"></i><b>13.1</b> Some Technical Terms and ML Types</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#machine-learning-problems-and-jargon"><i class="fa fa-check"></i><b>13.1.1</b> Machine Learning Problems and Jargon</a></li>
+<li class="chapter" data-level="13.1.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#types-of-machine-learning-problems"><i class="fa fa-check"></i><b>13.1.2</b> Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#categories-of-machine-learning"><i class="fa fa-check"></i><b>13.2</b> Categories of Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#supervised-learning"><i class="fa fa-check"></i><b>13.2.1</b> Supervised Learning</a></li>
+<li class="chapter" data-level="13.2.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#unsupervised-learning"><i class="fa fa-check"></i><b>13.2.2</b> Unsupervised Learning</a></li>
+<li class="chapter" data-level="13.2.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#semi-supervised-learning"><i class="fa fa-check"></i><b>13.2.3</b> Semi-Supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#from-statistics-to-machine-learning"><i class="fa fa-check"></i><b>13.3</b> From Statistics to Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#logistic-regression-model-revisited"><i class="fa fa-check"></i><b>13.3.1</b> Logistic Regression Model Revisited</a></li>
+<li class="chapter" data-level="13.3.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#single-layer-neural-network---perceptron"><i class="fa fa-check"></i><b>13.3.2</b> Single Layer Neural Network - Perceptron</a></li>
+<li class="chapter" data-level="13.3.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#multi-layer-perceptron"><i class="fa fa-check"></i><b>13.3.3</b> Multi-layer Perceptron</a></li>
+<li class="chapter" data-level="13.3.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#commonly-used-activation-functions"><i class="fa fa-check"></i><b>13.3.4</b> Commonly Used Activation Functions</a></li>
+<li class="chapter" data-level="13.3.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#algorithms-for-estimating-weights"><i class="fa fa-check"></i><b>13.3.5</b> Algorithms for Estimating Weights</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#implementing-nn-with-r"><i class="fa fa-check"></i><b>13.4</b> Implementing NN with R</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#syntax-of-neuralnet"><i class="fa fa-check"></i><b>13.4.1</b> Syntax of <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#feature-conversion-for-neuralnet"><i class="fa fa-check"></i><b>13.4.2</b> Feature Conversion for <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#numeric-feature-scaling"><i class="fa fa-check"></i><b>13.4.3</b> Numeric Feature Scaling</a></li>
+<li class="chapter" data-level="13.4.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#extract-all-feature-names"><i class="fa fa-check"></i><b>13.4.4</b> Extract All Feature Names</a></li>
+<li class="chapter" data-level="13.4.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#define-model-formula"><i class="fa fa-check"></i><b>13.4.5</b> Define Model Formula</a></li>
+<li class="chapter" data-level="13.4.6" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#training-and-testing-nn-model"><i class="fa fa-check"></i><b>13.4.6</b> Training and Testing NN Model</a></li>
+<li class="chapter" data-level="13.4.7" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#about-deep-learning"><i class="fa fa-check"></i><b>13.4.7</b> About Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#clustering-algorithms"><i class="fa fa-check"></i><b>13.5</b> Clustering Algorithms</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA551 E-Pack: Foundations of Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="case-study---logistic-regression-model-with-the-fraud-data" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Topic 12</span> Case Study - Logistic regression model with the fraud data<a href="case-study---logistic-regression-model-with-the-fraud-data.html#case-study---logistic-regression-model-with-the-fraud-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This case study shows how to calculate the local and global performance metrics for logistic predictive models. We have used the confusion matrix in the case study in the previous note. Here we will use the optimal cut-off probability as the decision threshold to define a confusion matrix and then define the performance measure based on this matrix.</p>
+<p>We reload the data and create the training and testing data sets. We pretend the optimal cut-off probability is based on what is obtained through the CV. The testing data set will be used to report the local and global performance measures.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-1" tabindex="-1"></a>fraud.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://pengdsci.github.io/datasets/FraudIndex/fraudidx.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb125-2"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-2" tabindex="-1"></a><span class="do">## recode status variable: bad = 1 and good = 0</span></span>
+<span id="cb125-3"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-3" tabindex="-1"></a>good.id <span class="ot">=</span> <span class="fu">which</span>(fraud.data<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot; good&quot;</span>) </span>
+<span id="cb125-4"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-4" tabindex="-1"></a>bad.id <span class="ot">=</span> <span class="fu">which</span>(fraud.data<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;fraud&quot;</span>)</span>
+<span id="cb125-5"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb125-6"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-6" tabindex="-1"></a>fraud.data<span class="sc">$</span>fraud.status <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb125-7"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-7" tabindex="-1"></a>fraud.data<span class="sc">$</span>fraud.status[bad.id] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb125-8"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-8" tabindex="-1"></a>nn <span class="ot">=</span> <span class="fu">dim</span>(fraud.data)[<span class="dv">1</span>]</span>
+<span id="cb125-9"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-9" tabindex="-1"></a>train.id <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>nn, <span class="fu">round</span>(nn<span class="sc">*</span><span class="fl">0.7</span>), <span class="at">replace =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb125-10"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-10" tabindex="-1"></a>training <span class="ot">=</span> fraud.data[train.id,]</span>
+<span id="cb125-11"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb125-11" tabindex="-1"></a>testing <span class="ot">=</span> fraud.data[<span class="sc">-</span>train.id,]</span></code></pre></div>
+<div id="local-performance-meaures" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Local Performance Meaures<a href="case-study---logistic-regression-model-with-the-fraud-data.html#local-performance-meaures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since we have identified the optimal cut-off probability to be 0.57. Next, we will use the <strong>testing data</strong> set to report the local measures.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb126-1" tabindex="-1"></a>test.model <span class="ot">=</span> <span class="fu">glm</span>(fraud.status <span class="sc">~</span> index, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> logit), <span class="at">data =</span> training)</span></code></pre></div>
+<pre><code>## Warning: glm.fit:拟合機率算出来是数值零或一</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-1" tabindex="-1"></a>newdata <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">index=</span> testing<span class="sc">$</span>index)</span>
+<span id="cb128-2"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-2" tabindex="-1"></a>pred.prob.test <span class="ot">=</span> <span class="fu">predict.glm</span>(test.model, newdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb128-3"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-3" tabindex="-1"></a>testing<span class="sc">$</span>test.status <span class="ot">=</span> <span class="fu">as.numeric</span>(pred.prob.test <span class="sc">&gt;</span> <span class="fl">0.57</span>)</span>
+<span id="cb128-4"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-4" tabindex="-1"></a><span class="do">### components for defining various measures</span></span>
+<span id="cb128-5"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-5" tabindex="-1"></a>TN <span class="ot">=</span> <span class="fu">sum</span>(testing<span class="sc">$</span>test.status <span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> testing<span class="sc">$</span>fraud.status<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb128-6"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-6" tabindex="-1"></a>FN <span class="ot">=</span> <span class="fu">sum</span>(testing<span class="sc">$</span>test.status <span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> testing<span class="sc">$</span>fraud.status <span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb128-7"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-7" tabindex="-1"></a>FP <span class="ot">=</span> <span class="fu">sum</span>(testing<span class="sc">$</span>test.status <span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> testing<span class="sc">$</span>fraud.status<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb128-8"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-8" tabindex="-1"></a>TP <span class="ot">=</span> <span class="fu">sum</span>(testing<span class="sc">$</span>test.status <span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> testing<span class="sc">$</span>fraud.status <span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb128-9"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-9" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb128-10"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-10" tabindex="-1"></a>sensitivity <span class="ot">=</span> TP <span class="sc">/</span> (TP <span class="sc">+</span> FN)</span>
+<span id="cb128-11"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-11" tabindex="-1"></a>specificity <span class="ot">=</span> TN <span class="sc">/</span> (TN <span class="sc">+</span> FP)</span>
+<span id="cb128-12"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-12" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb128-13"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-13" tabindex="-1"></a>precision <span class="ot">=</span> TP <span class="sc">/</span> (TP <span class="sc">+</span> FP)</span>
+<span id="cb128-14"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-14" tabindex="-1"></a>recall <span class="ot">=</span> sensitivity</span>
+<span id="cb128-15"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-15" tabindex="-1"></a>F1 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>precision<span class="sc">*</span>recall<span class="sc">/</span>(precision <span class="sc">+</span> recall)</span>
+<span id="cb128-16"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-16" tabindex="-1"></a>metric.list <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">sensitivity =</span> sensitivity, </span>
+<span id="cb128-17"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-17" tabindex="-1"></a>                    <span class="at">specificity =</span> specificity, </span>
+<span id="cb128-18"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-18" tabindex="-1"></a>                    <span class="at">precision =</span> precision,</span>
+<span id="cb128-19"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-19" tabindex="-1"></a>                    <span class="at">recall =</span> recall,</span>
+<span id="cb128-20"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-20" tabindex="-1"></a>                    <span class="at">F1 =</span> F1)</span>
+<span id="cb128-21"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb128-21" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(metric.list), <span class="at">align=</span><span class="st">&#39;c&#39;</span>, <span class="at">caption =</span> <span class="st">&quot;Local performance metrics&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-133">Table 12.1: </span>Local performance metrics</caption>
+<thead>
+<tr class="header">
+<th align="center">sensitivity</th>
+<th align="center">specificity</th>
+<th align="center">precision</th>
+<th align="center">recall</th>
+<th align="center">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0.7425021</td>
+<td align="center">0.9740736</td>
+<td align="center">0.8974625</td>
+<td align="center">0.7425021</td>
+<td align="center">0.8126612</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="global-measure-roc-and-auc" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Global Measure: ROC and AUC<a href="case-study---logistic-regression-model-with-the-fraud-data.html#global-measure-roc-and-auc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In order to create an ROC curve, we need to select a sequence of decision thresholds and calculate the corresponding sensitivity and specificity.</p>
+<p><strong>CAUTION</strong>: ROC and AUC are used for model selection, we still use the <strong>training data</strong> to construct the ROC and calculate the AUC.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb129-1" tabindex="-1"></a>cut.off.seq <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb129-2"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb129-2" tabindex="-1"></a>sensitivity.vec <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb129-3"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb129-3" tabindex="-1"></a>specificity.vec <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb129-4"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb129-4" tabindex="-1"></a><span class="do">### </span></span>
+<span id="cb129-5"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb129-5" tabindex="-1"></a>training.model <span class="ot">=</span> <span class="fu">glm</span>(fraud.status <span class="sc">~</span> index, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> logit), <span class="at">data =</span> training)</span></code></pre></div>
+<pre><code>## Warning: glm.fit:拟合機率算出来是数值零或一</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-1" tabindex="-1"></a>newdata <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">index=</span> training<span class="sc">$</span>index)</span>
+<span id="cb131-2"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-2" tabindex="-1"></a>pred.prob.train <span class="ot">=</span> <span class="fu">predict.glm</span>(training.model, newdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb131-3"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb131-4"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-4" tabindex="-1"></a>  training<span class="sc">$</span>train.status <span class="ot">=</span> <span class="fu">as.numeric</span>(pred.prob.train <span class="sc">&gt;</span> cut.off.seq[i])</span>
+<span id="cb131-5"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-5" tabindex="-1"></a><span class="do">### components for defining various measures</span></span>
+<span id="cb131-6"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-6" tabindex="-1"></a>TN <span class="ot">=</span> <span class="fu">sum</span>(training<span class="sc">$</span>train.status <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> training<span class="sc">$</span>fraud.status <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb131-7"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-7" tabindex="-1"></a>FN <span class="ot">=</span> <span class="fu">sum</span>(training<span class="sc">$</span>train.status <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> training<span class="sc">$</span>fraud.status <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb131-8"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-8" tabindex="-1"></a>FP <span class="ot">=</span> <span class="fu">sum</span>(training<span class="sc">$</span>train.status <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> training<span class="sc">$</span>fraud.status <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb131-9"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-9" tabindex="-1"></a>TP <span class="ot">=</span> <span class="fu">sum</span>(training<span class="sc">$</span>train.status <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> training<span class="sc">$</span>fraud.status <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb131-10"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-10" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb131-11"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-11" tabindex="-1"></a>sensitivity.vec[i] <span class="ot">=</span> TP <span class="sc">/</span> (TP <span class="sc">+</span> FN)</span>
+<span id="cb131-12"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-12" tabindex="-1"></a>specificity.vec[i] <span class="ot">=</span> TN <span class="sc">/</span> (TN <span class="sc">+</span> FP)</span>
+<span id="cb131-13"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-13" tabindex="-1"></a>}</span>
+<span id="cb131-14"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-14" tabindex="-1"></a>one.minus.spec <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> specificity.vec</span>
+<span id="cb131-15"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-15" tabindex="-1"></a>sens.vec <span class="ot">=</span> sensitivity.vec</span>
+<span id="cb131-16"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-16" tabindex="-1"></a><span class="do">## A better approx of ROC, need library {pROC}</span></span>
+<span id="cb131-17"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-17" tabindex="-1"></a>  prediction <span class="ot">=</span> pred.prob.train</span>
+<span id="cb131-18"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-18" tabindex="-1"></a>  category <span class="ot">=</span> training<span class="sc">$</span>fraud.status <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb131-19"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb131-19" tabindex="-1"></a>  ROCobj <span class="ot">&lt;-</span> <span class="fu">roc</span>(category, prediction)</span></code></pre></div>
+<pre><code>## Setting levels: control = FALSE, case = TRUE</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-1" tabindex="-1"></a>  AUC <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">auc</span>(ROCobj),<span class="dv">4</span>)</span>
+<span id="cb134-2"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-2" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb134-3"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">&quot;s&quot;</span>)   <span class="co"># make a square figure</span></span>
+<span id="cb134-4"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-4" tabindex="-1"></a><span class="fu">plot</span>(one.minus.spec, sens.vec, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb134-5"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-5" tabindex="-1"></a>     <span class="at">xlab =</span><span class="st">&quot;1 - specificity&quot;</span>,</span>
+<span id="cb134-6"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-6" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;sensitivity&quot;</span>,</span>
+<span id="cb134-7"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-7" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;ROC curve of Logistic Fraud Model&quot;</span>,</span>
+<span id="cb134-8"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-8" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb134-9"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-9" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, )</span>
+<span id="cb134-10"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-10" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb134-11"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-11" tabindex="-1"></a><span class="co">#AUC = round(sum(sens.vec*(one.minus.spec[-101]-one.minus.spec[-1])),4)</span></span>
+<span id="cb134-12"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#cb134-12" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.8</span>, <span class="fl">0.3</span>, <span class="fu">paste</span>(<span class="st">&quot;AUC = &quot;</span>, AUC), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="STA551EB_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+
+<p><br />
+</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="classification-performance-metrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="from-statistics-models-to-machine-learning-algorithms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA551EB/edit/master/09-Performance-Measures.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA551EB.pdf", "STA551EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

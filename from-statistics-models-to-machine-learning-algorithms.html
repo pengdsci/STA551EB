@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 13 From Statistics Models to Machine Learning Algorithms | STA551 E-Pack: Foundations of Data Science</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 13 From Statistics Models to Machine Learning Algorithms | STA551 E-Pack: Foundations of Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/STA551EB" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 13 From Statistics Models to Machine Learning Algorithms | STA551 E-Pack: Foundations of Data Science" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="case-study---logistic-regression-model-with-the-fraud-data.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 551 E-Pack: Foundations of Data Science</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-origin-of-data-science"><i class="fa fa-check"></i><b>1.1</b> The Origin of Data Science</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#the-coverage-of-the-first-data-science-course"><i class="fa fa-check"></i><b>1.2</b> The Coverage of the First Data Science Course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tentative-topics"><i class="fa fa-check"></i><b>1.3</b> Tentative Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html"><i class="fa fa-check"></i><b>2</b> Data Science - A Big Picture</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-science-process"><i class="fa fa-check"></i><b>2.1</b> Data Science Process</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-data"><i class="fa fa-check"></i><b>2.1.1</b> What is Data?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-storage-and-retrieval"><i class="fa fa-check"></i><b>2.1.2</b> Data Storage and Retrieval</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#different-da-roles-in-industry"><i class="fa fa-check"></i><b>2.1.3</b> Different DA Roles in Industry</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#cloud-computing"><i class="fa fa-check"></i><b>2.1.4</b> Cloud Computing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#from-business-questions-to-analytic-question"><i class="fa fa-check"></i><b>2.2</b> From Business Questions to Analytic Question</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#business-goal"><i class="fa fa-check"></i><b>2.2.1</b> Business Goal</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#analytic-question"><i class="fa fa-check"></i><b>2.2.2</b> Analytic Question</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#concepts-of-relational-databases-and-sql"><i class="fa fa-check"></i><b>2.3</b> Concepts of Relational Databases and SQL</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-database"><i class="fa fa-check"></i><b>2.3.1</b> What is Database?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-a-data-warehouse"><i class="fa fa-check"></i><b>2.3.2</b> What is a Data Warehouse?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#difference-between-database-and-data-warehouse"><i class="fa fa-check"></i><b>2.3.3</b> Difference between Database and Data Warehouse</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#database-management-system-dbms"><i class="fa fa-check"></i><b>2.3.4</b> Database Management System (DBMS)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#some-definitions-and-notations-of-relational-tables"><i class="fa fa-check"></i><b>2.3.5</b> Some Definitions and Notations of Relational Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html"><i class="fa fa-check"></i><b>3</b> Running SQL in SAS and R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-in-sas"><i class="fa fa-check"></i><b>3.1</b> Running SQL in SAS</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#loading-data"><i class="fa fa-check"></i><b>3.1.1</b> Loading Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#basic-sql-syntax-and-clauses"><i class="fa fa-check"></i><b>3.1.2</b> Basic SQL Syntax and Clauses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sas-in-r"><i class="fa fa-check"></i><b>3.2</b> Running SAS in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#connect-r-to-existing-database"><i class="fa fa-check"></i><b>3.2.1</b> Connect R to Existing Database</a></li>
+<li class="chapter" data-level="3.2.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#create-sqlite-database-with-r"><i class="fa fa-check"></i><b>3.2.2</b> Create SQLite Database with R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-queries-in-r-code-chunks"><i class="fa fa-check"></i><b>3.2.3</b> Running SQL Queries in R Code chunks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis (EDA)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#tools-of-eda-and-applications"><i class="fa fa-check"></i><b>4.1</b> Tools of EDA and Applications</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#descriptive-statistics-approach"><i class="fa fa-check"></i><b>4.1.1</b> Descriptive Statistics Approach</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#graphical-approach"><i class="fa fa-check"></i><b>4.1.2</b> Graphical Approach</a></li>
+<li class="chapter" data-level="4.1.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#algorithm-based-method"><i class="fa fa-check"></i><b>4.1.3</b> Algorithm-based Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-techniques-of-eda"><i class="fa fa-check"></i><b>4.2</b> Visual Techniques of EDA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#univariate-eda"><i class="fa fa-check"></i><b>4.2.1</b> Univariate EDA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#two-variables"><i class="fa fa-check"></i><b>4.2.2</b> Two Variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#three-or-more-variables"><i class="fa fa-check"></i><b>4.2.3</b> Three or More Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#roles-of-visualization-in-eda"><i class="fa fa-check"></i><b>4.3</b> Roles of Visualization in EDA</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#data-visualization"><i class="fa fa-check"></i><b>4.3.1</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-analytics"><i class="fa fa-check"></i><b>4.3.2</b> Visual Analytics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html"><i class="fa fa-check"></i><b>5</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#description-of-data"><i class="fa fa-check"></i><b>5.1</b> Description of Data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#eda-for-feature-engineering-1"><i class="fa fa-check"></i><b>5.2</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#missing-values---imputation"><i class="fa fa-check"></i><b>5.2.1</b> Missing Values - Imputation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#assess-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Assess Distributions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#pairwise-association"><i class="fa fa-check"></i><b>5.2.3</b> Pairwise Association</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#concluding-remarks"><i class="fa fa-check"></i><b>5.3</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>6</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-practical-question"><i class="fa fa-check"></i><b>6.1</b> The Practical Question</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-process-of-building-a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>6.2</b> The Process of Building A Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#assumptions-of-mlr"><i class="fa fa-check"></i><b>6.2.1</b> Assumptions of MLR</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>6.2.2</b> The Structure of MLR</a></li>
+<li class="chapter" data-level="6.2.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#more-on-model-specifications"><i class="fa fa-check"></i><b>6.2.3</b> More on Model Specifications</a></li>
+<li class="chapter" data-level="6.2.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#estimation-of-regression-coefficients"><i class="fa fa-check"></i><b>6.2.4</b> Estimation of Regression Coefficients</a></li>
+<li class="chapter" data-level="6.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>6.2.5</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="6.2.6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>6.2.6</b> Goodness-of-fit and Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-1"><i class="fa fa-check"></i><b>6.3</b> Case Study 1</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-2"><i class="fa fa-check"></i><b>6.4</b> Case Study 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#motivational-example-and-practical-question"><i class="fa fa-check"></i><b>7.1</b> Motivational Example and Practical Question</a></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#logistic-regression-models-and-applications"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression Models and Applications</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-structure-of-the-logistic-regression-model"><i class="fa fa-check"></i><b>7.2.1</b> The Structure of the Logistic Regression Model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#assumptions-and-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#coefficient-estimation-and-interpretation"><i class="fa fa-check"></i><b>7.2.3</b> Coefficient Estimation and Interpretation</a></li>
+<li class="chapter" data-level="7.2.4" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#use-of-glm-and-annotations"><i class="fa fa-check"></i><b>7.2.4</b> Use of <strong>glm()</strong> and Annotations</a></li>
+<li class="chapter" data-level="7.2.5" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#applications-of-logistic-regression-models"><i class="fa fa-check"></i><b>7.2.5</b> Applications of Logistic Regression Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#case-studies"><i class="fa fa-check"></i><b>7.3</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-simple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> The simple logistic regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#multiple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Multiple Logistic Regression Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html"><i class="fa fa-check"></i><b>8</b> Basics of Bootstrap Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>8.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#random-sample-from-population"><i class="fa fa-check"></i><b>8.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>8.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>8.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="8.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>8.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>8.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html"><i class="fa fa-check"></i><b>9</b> Method of Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#regression-models"><i class="fa fa-check"></i><b>9.1</b> Regression Models</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#linear-regression-model"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#logistic-regression-model"><i class="fa fa-check"></i><b>9.1.2</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#inference-about-association-and-prediction"><i class="fa fa-check"></i><b>9.1.3</b> Inference about Association and Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-splitting-methods"><i class="fa fa-check"></i><b>9.2</b> Data Splitting Methods</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#training-data"><i class="fa fa-check"></i><b>9.2.1</b> Training Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#validation-data"><i class="fa fa-check"></i><b>9.2.2</b> Validation Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#test-data"><i class="fa fa-check"></i><b>9.2.3</b> Test data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#cross-validation"><i class="fa fa-check"></i><b>9.3</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> K-fold Cross-validation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#other-cross-validation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Other Cross-Validation Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#case-study-using-fraud-data"><i class="fa fa-check"></i><b>9.4</b> Case Study Using Fraud Data</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-partition"><i class="fa fa-check"></i><b>9.4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="9.4.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#finding-optimal-cut-off-probability"><i class="fa fa-check"></i><b>9.4.2</b> Finding Optimal Cut-off Probability</a></li>
+<li class="chapter" data-level="9.4.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#reporting-test"><i class="fa fa-check"></i><b>9.4.3</b> Reporting Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html"><i class="fa fa-check"></i><b>10</b> Perfomance Measures of Algorithms and Models</a></li>
+<li class="chapter" data-level="11" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html"><i class="fa fa-check"></i><b>11</b> Classification Performance Metrics</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#confusion-matrix-for-binary-decision"><i class="fa fa-check"></i><b>11.1</b> Confusion Matrix for Binary Decision</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#local-performance-measures-for-model-development"><i class="fa fa-check"></i><b>11.2</b> Local Performance Measures (for Model Development)</a></li>
+<li class="chapter" data-level="11.3" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#global-performance-measures"><i class="fa fa-check"></i><b>11.3</b> Global Performance Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html"><i class="fa fa-check"></i><b>12</b> Case Study - Logistic regression model with the fraud data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#local-performance-meaures"><i class="fa fa-check"></i><b>12.1</b> Local Performance Meaures</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#global-measure-roc-and-auc"><i class="fa fa-check"></i><b>12.2</b> Global Measure: ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html"><i class="fa fa-check"></i><b>13</b> From Statistics Models to Machine Learning Algorithms</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#some-technical-terms-and-ml-types"><i class="fa fa-check"></i><b>13.1</b> Some Technical Terms and ML Types</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#machine-learning-problems-and-jargon"><i class="fa fa-check"></i><b>13.1.1</b> Machine Learning Problems and Jargon</a></li>
+<li class="chapter" data-level="13.1.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#types-of-machine-learning-problems"><i class="fa fa-check"></i><b>13.1.2</b> Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#categories-of-machine-learning"><i class="fa fa-check"></i><b>13.2</b> Categories of Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#supervised-learning"><i class="fa fa-check"></i><b>13.2.1</b> Supervised Learning</a></li>
+<li class="chapter" data-level="13.2.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#unsupervised-learning"><i class="fa fa-check"></i><b>13.2.2</b> Unsupervised Learning</a></li>
+<li class="chapter" data-level="13.2.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#semi-supervised-learning"><i class="fa fa-check"></i><b>13.2.3</b> Semi-Supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#from-statistics-to-machine-learning"><i class="fa fa-check"></i><b>13.3</b> From Statistics to Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#logistic-regression-model-revisited"><i class="fa fa-check"></i><b>13.3.1</b> Logistic Regression Model Revisited</a></li>
+<li class="chapter" data-level="13.3.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#single-layer-neural-network---perceptron"><i class="fa fa-check"></i><b>13.3.2</b> Single Layer Neural Network - Perceptron</a></li>
+<li class="chapter" data-level="13.3.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#multi-layer-perceptron"><i class="fa fa-check"></i><b>13.3.3</b> Multi-layer Perceptron</a></li>
+<li class="chapter" data-level="13.3.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#commonly-used-activation-functions"><i class="fa fa-check"></i><b>13.3.4</b> Commonly Used Activation Functions</a></li>
+<li class="chapter" data-level="13.3.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#algorithms-for-estimating-weights"><i class="fa fa-check"></i><b>13.3.5</b> Algorithms for Estimating Weights</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#implementing-nn-with-r"><i class="fa fa-check"></i><b>13.4</b> Implementing NN with R</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#syntax-of-neuralnet"><i class="fa fa-check"></i><b>13.4.1</b> Syntax of <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#feature-conversion-for-neuralnet"><i class="fa fa-check"></i><b>13.4.2</b> Feature Conversion for <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#numeric-feature-scaling"><i class="fa fa-check"></i><b>13.4.3</b> Numeric Feature Scaling</a></li>
+<li class="chapter" data-level="13.4.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#extract-all-feature-names"><i class="fa fa-check"></i><b>13.4.4</b> Extract All Feature Names</a></li>
+<li class="chapter" data-level="13.4.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#define-model-formula"><i class="fa fa-check"></i><b>13.4.5</b> Define Model Formula</a></li>
+<li class="chapter" data-level="13.4.6" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#training-and-testing-nn-model"><i class="fa fa-check"></i><b>13.4.6</b> Training and Testing NN Model</a></li>
+<li class="chapter" data-level="13.4.7" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#about-deep-learning"><i class="fa fa-check"></i><b>13.4.7</b> About Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#clustering-algorithms"><i class="fa fa-check"></i><b>13.5</b> Clustering Algorithms</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA551 E-Pack: Foundations of Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="from-statistics-models-to-machine-learning-algorithms" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Topic 13</span> From Statistics Models to Machine Learning Algorithms<a href="from-statistics-models-to-machine-learning-algorithms.html#from-statistics-models-to-machine-learning-algorithms" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are a lot of debates on the difference between statistics and machine learning in statistics and machine learning communities. It is sure that statistics and machine learning are not the same although there is an overlap. A major difference between machine learning and statistics is indeed their purpose.</p>
+<ul>
+<li><p>Statistics focuses on the inference and interpretability of the relationships between variables.</p></li>
+<li><p>Machine learning focuses on the accuracy of the prediction of future values of (response) variables and detecting hidden patterns. Machine learning is traditionally considered to be a subfield of artificial intelligence, which is broadly defined as the capability of a machine to imitate intelligent human behavior.</p></li>
+</ul>
+<p>A lot of statistical models can make predictions, but predictive accuracy is not their strength while machine learning models provide various degrees of interpretability sacrifice interpretability for predictive power. For example, regularized regressions as machine learning algorithms are interpretable but neural networks (particularly multi-layer networks ) are almost uninterpretable.</p>
+<p>Statistics and machine learning are two of the key players in data science. As data science practitioners, our primary interest is to develop and select the right tools to build data solutions for real-world applications.</p>
+<div id="some-technical-terms-and-ml-types" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Some Technical Terms and ML Types<a href="from-statistics-models-to-machine-learning-algorithms.html#some-technical-terms-and-ml-types" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before discussing machine learning algorithms, we first introduce some technical terms in ML and types of machine learning algorithms.</p>
+<div id="machine-learning-problems-and-jargon" class="section level3 hasAnchor" number="13.1.1">
+<h3><span class="header-section-number">13.1.1</span> Machine Learning Problems and Jargon<a href="from-statistics-models-to-machine-learning-algorithms.html#machine-learning-problems-and-jargon" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="23%" />
+<col width="30%" />
+<col width="45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Statistics</th>
+<th align="left">Machine Learning</th>
+<th align="left">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">data point, record, row of data</td>
+<td align="left">example, instance</td>
+<td align="left">Both domains also use “observation,” which can refer to a single measurement or an entire vector of attributes depending on context.</td>
+</tr>
+<tr class="even">
+<td align="left">response variable, dependent variable</td>
+<td align="left">label, output</td>
+<td align="left">Both domains also use “target.” Since practically all variables depend on other variables, the term “dependent variable” is potentially misleading.</td>
+</tr>
+<tr class="odd">
+<td align="left">regressions</td>
+<td align="left">supervised learners, machines</td>
+<td align="left">Both estimate output(s) in terms of input(s).</td>
+</tr>
+<tr class="even">
+<td align="left">regression intercept</td>
+<td align="left">bias</td>
+<td align="left">the default prediction of a linear model in the special case where all inputs are 0.</td>
+</tr>
+<tr class="odd">
+<td align="left">Maximize the likelihood to estimate model parameters</td>
+<td align="left">Minimize the entropy to derive the best parameters in categorical regression or maximize the likelihood for continuous regression.</td>
+<td align="left">For discrete distributions, maximizing the likelihood is equivalent to minimizing the entropy.</td>
+</tr>
+<tr class="even">
+<td align="left">logistic/multinomial regression</td>
+<td align="left">maximum entropy, MaxEnt</td>
+<td align="left">They are equivalent except in special multinomial settings like ordinal logistic regression.</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+<div id="types-of-machine-learning-problems" class="section level3 hasAnchor" number="13.1.2">
+<h3><span class="header-section-number">13.1.2</span> Types of Machine Learning Problems<a href="from-statistics-models-to-machine-learning-algorithms.html#types-of-machine-learning-problems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the type of problems that we are trying to solve, we can classify the Machine learning problem into three different categories.</p>
+<p><strong>Classification Problem</strong>: Classification is a problem that requires machine learning algorithms to assign a class label (response value) to examples (vector of predictor values) from the problem domain. A very intuitive example is classifying credit card transactions into two labels “fraud” or “not a fraud.”</p>
+<p><strong>Regression Problem</strong>: Regression is a problem that requires machine learning algorithms to predict continuous (response) variables. An elementary example will be to predict the temperature of the city. (Temperature can take any numeric value between -50 to +150 degrees.)</p>
+<p><strong>Clustering Problem</strong>: Clustering is a type of problem that requires the use of Machine Learning algorithms to group the given data records into a specified number of cohesive units. A simple example will be to group the credit card holders according to their monthly spending.</p>
+<p>There are many machine learning algorithms and statistical models running in the practice. This note primarily overviews the commonly used methods for classification and prediction.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="categories-of-machine-learning" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Categories of Machine Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#categories-of-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are different ways to categorize machine learning algorithms using different criteria. But none of them are perfect although each has its own merits.</p>
+<div id="supervised-learning" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Supervised Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#supervised-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Input data is called training data and has a known label (i.e., the response in statistics) or result such as spam/not-spam (classification) or a stock price at a time (forecasting/prediction).</p>
+<p>Supervised learning is a subcategory of machine learning. It is defined by its use of labeled data (i.e., the response is available in the data) sets to train algorithms that classify data or predict outcomes accurately. As input data is fed into the model, it adjusts its weights until the model has been fitted appropriately, which occurs as part of the <strong>cross-validation</strong> process.</p>
+<p>Supervised learning helps organizations solve a variety of real-world problems at scale, such as classifying spam in a separate folder from an email inbox, classifying credit transactions into fraud or non-fraud categories, etc.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-136"></span>
+<img src="img07/w07-superised.jpg" alt=" Illustration of supervised machine learning." width="576" height="30%" />
+<p class="caption">
+Figure 13.1:  Illustration of supervised machine learning.
+</p>
+</div>
+<p>There are a lot of supervised machine learning algorithms. Example algorithms include <strong>Logistic Regression</strong>, Decision Trees, Support Vector Machines, Neural Networks, etc.</p>
+</div>
+<div id="unsupervised-learning" class="section level3 hasAnchor" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> Unsupervised Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#unsupervised-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unsupervised learning uses machine learning algorithms to analyze and cluster unlabeled (i.e., no response variable is used or required in) data sets. These algorithms discover hidden patterns or data groupings without the need for human intervention. Its ability to discover similarities and differences in information makes it the ideal solution for exploratory data analysis, cross-selling strategies, customer segmentation, and image recognition. We have briefly mentioned this clustering algorithm when discussing feature engineering.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-137"></span>
+<img src="img07/w07-unsuperised.jpg" alt="Illustration of unsupervised machine learning." width="80%" />
+<p class="caption">
+Figure 13.2: Illustration of unsupervised machine learning.
+</p>
+</div>
+<p>Example problems are clustering, dimensionality reduction, and association rule learning.</p>
+<p>Example algorithms include clustering analysis and K-Means.</p>
+</div>
+<div id="semi-supervised-learning" class="section level3 hasAnchor" number="13.2.3">
+<h3><span class="header-section-number">13.2.3</span> Semi-Supervised Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#semi-supervised-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Input data is a mixture of labeled and unlabeled examples, that is, some records have response values and some don’t.</p>
+<p>We can use either a predictive ML model trained based on the labeled data to predict the labels of the unlabeled data or a clustering algorithm such as k-means to assign labels to the unlabeled data to make a larger pseudo-labeled data for ML model with a better performance.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-138"></span>
+<img src="img07/w07-semi-superised.jpg" alt="Illustration of semi-supervised machine learning." width="80%" />
+<p class="caption">
+Figure 13.3: Illustration of semi-supervised machine learning.
+</p>
+</div>
+<p>The following chart gives a non-numerical example of how semi-supervised learning works.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-139"></span>
+<img src="img07/w07-semi-superised.jpg" alt="Illustration of how semi-supervised machine learning works." width="80%" />
+<p class="caption">
+Figure 13.4: Illustration of how semi-supervised machine learning works.
+</p>
+</div>
+<p>Semi-supervised learning and reinforcement learning are hot topics in the machine learning community. Example algorithms are extensions to other flexible methods that make assumptions about how to model the unlabeled data.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="from-statistics-to-machine-learning" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> From Statistics to Machine Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#from-statistics-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As mentioned earlier, most statistical models can be used as a learning algorithm. In this section, we use two examples to demonstrate the equivalent between some of the basic statistical models and their corresponding machine learning models.</p>
+<div id="logistic-regression-model-revisited" class="section level3 hasAnchor" number="13.3.1">
+<h3><span class="header-section-number">13.3.1</span> Logistic Regression Model Revisited<a href="from-statistics-models-to-machine-learning-algorithms.html#logistic-regression-model-revisited" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recall that the binary logistic regression model with n feature variables <span class="math inline">\(x_1, x_2, \cdots, x_n\)</span> is given by</p>
+<p><span class="math display">\[
+P[Y = 1] = \frac{\exp(w_0 + w_1x_1 + w_2x_2 + \cdots + w_nx_n)}{1+\exp(w_0 + w_1x_1 + w_2x_2 + \cdots + w_nx_n)} = \frac{\exp(w_0+\sum_{i=1}^n w_ix_i)}{1 + \exp(w_0+\sum_{i=1}^n w_ix_i)}
+\]</span></p>
+<p>where <span class="math inline">\(w_0, w_1, \cdots, w_n\)</span> are regression coefficients. The model can be rewritten as</p>
+<p><span class="math display">\[
+P[Y=1] = \frac{1}{1+ \exp[-(w_0+\sum_{i=1}^n w_ix_i)]}
+\]</span></p>
+<p>Let
+<span class="math display">\[
+f(x) = \frac{1}{1+\exp(-x)}.
+\]</span></p>
+<p>This function is the well-known <strong>logistic function</strong>. The curve of the logistic function is given by</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb135-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb135-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb135-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb135-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb135-3" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">xlab =</span><span class="st">&quot; &quot;</span>, <span class="at">ylab =</span> <span class="st">&quot; &quot;</span>, </span>
+<span id="cb135-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb135-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Logistic Curve&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-140"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-140-1.png" alt="The curve of the logistic function." width="672" />
+<p class="caption">
+Figure 13.5: The curve of the logistic function.
+</p>
+</div>
+<p>Using this logistic function, we can re-express the logistic model as</p>
+<p><span class="math display">\[
+P[Y = 1] = f\left(w_0+\sum_{i=1}^n w_ix_i\right)
+\]</span></p>
+<p>Next, we represent the above logistic regression model in the following diagram.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-141"></span>
+<img src="img07/w07-logisticDiagram.jpg" alt="Diagram Representation of logistic regression models." width="70%" />
+<p class="caption">
+Figure 13.6: Diagram Representation of logistic regression models.
+</p>
+</div>
+<p>We will see that the above diagram of the logistic regression model is the architecture of the basic single layer <strong>sigmoid</strong> neural network model - perceptron.</p>
+</div>
+<div id="single-layer-neural-network---perceptron" class="section level3 hasAnchor" number="13.3.2">
+<h3><span class="header-section-number">13.3.2</span> Single Layer Neural Network - Perceptron<a href="from-statistics-models-to-machine-learning-algorithms.html#single-layer-neural-network---perceptron" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Perceptron is a type of artificial neural network, which is a fundamental concept in machine learning. Its architecture is the same as the diagram of the logistic regression model.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
+<img src="img07/w07-PerceptronNetwork.jpg" alt="Architecture of Single layer neural network models (perceptron)." width="70%" />
+<p class="caption">
+Figure 13.7: Architecture of Single layer neural network models (perceptron).
+</p>
+</div>
+<p>Each input <span class="math inline">\(x_i\)</span> has an associated weight <span class="math inline">\(w_i\)</span> (like regression coefficient). The sum of all weighted inputs, <span class="math inline">\(\sum_{i=1}^n w_ix_i\)</span> , is then passed through a nonlinear activation function <span class="math inline">\(f()\)</span>, to transform the pre-activation level of the neuron to an output <span class="math inline">\(y_j\)</span>. For simplicity, the bias term is set to <strong>b</strong> which is equivalent to the intercept of a regression model.</p>
+<p>To summarize, we explicitly list the major components of perceptron in the following.</p>
+<ul>
+<li><p><strong>Input Layer</strong>: The input layer consists of one or more input neurons, which receive input signals from the external world or from other layers of the neural network.</p></li>
+<li><p><strong>Weights</strong>: Each input neuron is associated with a weight, which represents the strength of the connection between the input neuron and the output neuron.</p></li>
+<li><p><strong>Bias</strong>: A bias term is added to the input layer to provide the perceptron with additional flexibility in modeling complex patterns in the input data.</p></li>
+<li><p><strong>Activation Function</strong>: The activation function determines the output of the perceptron based on the weighted sum of the inputs and the bias term. Common activation functions used in perceptrons include the <code>step function</code>, <code>sigmoid function</code>, and <code>ReLU function</code>, etc.</p></li>
+<li><p><strong>Output</strong>: The output of the perceptron is a single binary value, either 0 or 1, which indicates the class or category to which the input data belongs.</p></li>
+</ul>
+<p>Note that when the sigmoid (i.e., logistic) function</p>
+<p><span class="math display">\[
+f(x) = \frac{\exp(x)}{1 + \exp(x)} = \frac{1}{1+\exp(-x)}.
+\]</span></p>
+<p>is used in the perceptron. This means that the single-layer perception with logistic activation is equivalent to the binary logistic regression.</p>
+<p><br />
+</p>
+<p><strong>Remarks</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>The output of the above perceptron network is binary, i.e., <span class="math inline">\(\hat{Y} = 0\)</span> or <span class="math inline">\(1\)</span> since an implicit decision boundary based on the sign of the value of the transfer function <span class="math inline">\(\sum_{i=1}^m w_ix_i + b\)</span>. In the sigmoid perceptron network, this is equivalent to setting the threshold probability to 0.5. To see this, not that, if <span class="math inline">\(\sum_{i=1}^m w_ix_i + b = 0\)</span>, then
+<span class="math display">\[
+P\left[Y=1 \Bigg| \sum_{i=1}^m w_ix_i + b\right]=\frac{1}{1+\exp\left[-(\sum_{i=1}^m w_ix_i + b) \right]} = \frac{1}{1+\exp(0)} = \frac{1}{2}
+\]</span>
+This means, if the cut-off probability <span class="math inline">\(0.5\)</span> is used in the logistic predictive model, this logistic predictive model is equivalent to the perceptron with sigmoid being the activation function.</p></li>
+<li><p>There are several other commonly used activation functions in perceptron. The sigmoid activation function is only one of them. This implies that the binary logistic regression model is a special perceptron network model.</p></li>
+</ol>
+</div>
+<div id="multi-layer-perceptron" class="section level3 hasAnchor" number="13.3.3">
+<h3><span class="header-section-number">13.3.3</span> Multi-layer Perceptron<a href="from-statistics-models-to-machine-learning-algorithms.html#multi-layer-perceptron" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Multi-Layer Perceptron (MLP) contains one or more hidden layers (apart from one input and one output layer). While a single-layer perceptron can only learn linear functions, a multi-layer perceptron can also learn non-linear functions. The following is an illustrative MLP.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-143"></span>
+<img src="img07/w07-Multilayer-Perceptron.jpg" alt="Multi-layer perceptron." width="80%" />
+<p class="caption">
+Figure 13.8: Multi-layer perceptron.
+</p>
+</div>
+<p>The <code>major components</code> in the above MLP are described in the following.</p>
+<p><strong>Input Layer</strong>: The Input layer has three nodes. The Bias node has a value of 1. The other two nodes take <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> as external inputs (which are numerical values depending upon the input data set). No computation is performed in the Input layer, so the outputs from nodes in the Input layer are 1, <span class="math inline">\(X_1\)</span>, and <span class="math inline">\(X_2\)</span> respectively, which are fed into the Hidden Layer.</p>
+<p><strong>Hidden Layer</strong>: The Hidden layer also has three nodes with the Bias node having an output of 1. The output of the other two nodes in the Hidden layer depends on the outputs from the Input layer (1, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>) as well as the weights associated with the connections (edges). Figure 16 shows the output calculations for the hidden nodes. Remember that <span class="math inline">\(f()\)</span> refers to the activation function. These outputs are then fed to the nodes in the Output layer.</p>
+<p><strong>Output Layer</strong>: The Output layer has two nodes that take inputs from the Hidden layer and perform similar computations as shown in the above figure. The values calculated (<span class="math inline">\(Y_1\)</span> and <span class="math inline">\(Y_2\)</span>) as a result of these computations act as outputs of the Multi-Layer Perceptron.</p>
+</div>
+<div id="commonly-used-activation-functions" class="section level3 hasAnchor" number="13.3.4">
+<h3><span class="header-section-number">13.3.4</span> Commonly Used Activation Functions<a href="from-statistics-models-to-machine-learning-algorithms.html#commonly-used-activation-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The sigmoid function is only one of the activation functions used in neural networks. The table below lists several other commonly used activation functions in neural network modeling.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-144"></span>
+<img src="img07/w07-commonlyUsedActivationFuns.jpg" alt="Popular activation functions in neural networks." width="60%" />
+<p class="caption">
+Figure 13.9: Popular activation functions in neural networks.
+</p>
+</div>
+</div>
+<div id="algorithms-for-estimating-weights" class="section level3 hasAnchor" number="13.3.5">
+<h3><span class="header-section-number">13.3.5</span> Algorithms for Estimating Weights<a href="from-statistics-models-to-machine-learning-algorithms.html#algorithms-for-estimating-weights" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We know that the estimation of the regression coefficient in logistic regression is to maximize the likelihood function defined based on the binomial distribution. Algorithms such as Newton and its variants, scoring methods, etc. are used to obtain the estimated regression coefficients.</p>
+<p>In neural network models, the weights are estimated by minimizing the loss function (also called cost function) when training neural networks. The loss function could be defined as <strong>mean square error (MSE)</strong> for regression tasks and <strong>cross-entropy (cs)</strong> for classification tasks.</p>
+<p>Learning algorithms <strong>forward and backward propagation</strong> that depend on each other are used in minimizing the underlying <strong>loss function</strong>.</p>
+<ul>
+<li><p><strong>Forward propagation</strong> is where input data is fed through a network, in a forward direction, to generate an output. The data is accepted by hidden layers and processed, as per the activation function, and moves to the successive layer. During forward propagation, the activation function is applied, based on the weighted sum, to make the neural network flow non-linearly using bias. Forward propagation is the way data moves from left (input layer) to right (output layer) in the neural network.</p></li>
+<li><p><strong>Backpropagation</strong> is used to improve the prediction accuracy of a node is expressed as a loss function or error rate. Backpropagation calculates the slope of (gradient) a <strong>loss function</strong> of other weights in the neural network and updates the weights using gradient descent through the learning rate.</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-145"></span>
+<img src="img07/w07-backpropagationGradient.jpg" alt="Updating weights with backpropagation algorithm." width="60%" />
+<p class="caption">
+Figure 13.10: Updating weights with backpropagation algorithm.
+</p>
+</div>
+<p>The general architecture of the backpropagation network model is depicted in the following diagram.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-146"></span>
+<img src="img07/w07-backpropagationNN.jpg" alt="The idea of backpropagation neural networks." width="60%" />
+<p class="caption">
+Figure 13.11: The idea of backpropagation neural networks.
+</p>
+</div>
+<p>The algorithm of backpropagation is not used in classical statistics. This is why the neural network model outperformed the classical logistic model in terms of predictive power.</p>
+<p>The R library <code>neuralnet</code> has the following five algorithms:</p>
+<p><strong>backprop</strong> - traditional <code>backpropagation</code>.</p>
+<p><strong>rprop+</strong> - resilient backpropagation with weight backtracking.</p>
+<p><strong>rprop-</strong> - resilient backpropagation without weight backtracking.</p>
+<p><strong>sag</strong> - modified globally convergent algorithm (gr-prop) with the smallest absolute gradient.</p>
+<p><strong>slr</strong> - modified globally convergent algorithm (gr-prop) with the smallest learning rate.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="implementing-nn-with-r" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Implementing NN with R<a href="from-statistics-models-to-machine-learning-algorithms.html#implementing-nn-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Several R libraries can run neural network models. <code>nnet</code> is the simplest one that only implements single-layer networks. <code>neuralnet</code> can run both single-layer and multiple-layer neural networks. <code>RSNNS</code> (R Stuttgart Neural Network Simulator) is a wrapper of multiple R libraries that implements different network models.</p>
+<div id="syntax-of-neuralnet" class="section level3 hasAnchor" number="13.4.1">
+<h3><span class="header-section-number">13.4.1</span> Syntax of <code>neuralnet</code><a href="from-statistics-models-to-machine-learning-algorithms.html#syntax-of-neuralnet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use <code>neuralnet</code> library to run the neural network model in the example (code for installing and loading this library is placed in the setup code chunk).</p>
+<p>The syntax of <code>neuralnet()</code> is given below</p>
+<pre><code> neuralnet(formula, 
+           data, 
+           hidden = 1,
+           threshold = 0.01, 
+           stepmax = 1e+05, 
+           rep = 1, 
+           startweights = NULL,
+           learningrate.limit = NULL,
+           learningrate.factor =list(minus = 0.5, plus = 1.2),
+           learningrate=NULL, 
+           lifesign = &quot;none&quot;,
+           lifesign.step = 1000, 
+           algorithm = &quot;rprop+&quot;,
+           err.fct = &quot;sse&quot;, 
+           act.fct = &quot;logistic&quot;,
+           linear.output = TRUE, 
+           exclude = NULL,
+           constant.weights = NULL, 
+           likelihood = FALSE)</code></pre>
+<p>The detailed <code>help document</code> can be found at <a href="https://www.rdocumentation.org/packages/neuralnet/versions/1.44.2/topics/neuralnet" class="uri">https://www.rdocumentation.org/packages/neuralnet/versions/1.44.2/topics/neuralnet</a>.</p>
+</div>
+<div id="feature-conversion-for-neuralnet" class="section level3 hasAnchor" number="13.4.2">
+<h3><span class="header-section-number">13.4.2</span> Feature Conversion for <code>neuralnet</code><a href="from-statistics-models-to-machine-learning-algorithms.html#feature-conversion-for-neuralnet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>neuralnet()</code> requires all features to be in the numeric form (dummy variable for categorical features, normalization of numerical features). The model formula in <code>neuralnet()</code> requires dummy variables to be explicitly defined. It is also highly recommended to scale all numerical features before being included in the network model. The objective is to find all feature names (numeric and all dummy variables) and write them in the model formula like the one in <code>glm</code>: <code>response ~ var_1 + var_2 + ... +var_k</code></p>
+<p>To explain the modeling process in detail, we will outline major steps in the following subsections.</p>
+</div>
+<div id="numeric-feature-scaling" class="section level3 hasAnchor" number="13.4.3">
+<h3><span class="header-section-number">13.4.3</span> Numeric Feature Scaling<a href="from-statistics-models-to-machine-learning-algorithms.html#numeric-feature-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are different types of scaling and standardization. The one we use in the following has</p>
+<p><span class="math display">\[
+scaled.var = \frac{orig.var - \min(orig.var)}{\max(orig.var)-\min(orig.var)}
+\]</span>
+The scaled numeric feature is unitless (similar to the well-known z-score transformation).</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb137-1" tabindex="-1"></a>Pima <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://pengdsci.github.io/STA551/w03/AnalyticPimaDiabetes.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb137-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb137-2" tabindex="-1"></a>Pima<span class="sc">$</span>pedigree <span class="ot">=</span> (Pima<span class="sc">$</span>pedigree<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>pedigree))<span class="sc">/</span>(<span class="fu">max</span>(Pima<span class="sc">$</span>pedigree)<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>pedigree))</span>
+<span id="cb137-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb137-3" tabindex="-1"></a>Pima<span class="sc">$</span>impute.log.insulin <span class="ot">=</span> (Pima<span class="sc">$</span>impute.log.insulin<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>impute.log.insulin))<span class="sc">/</span>(<span class="fu">max</span>(Pima<span class="sc">$</span>impute.log.insulin)<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>impute.log.insulin))</span>
+<span id="cb137-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb137-4" tabindex="-1"></a>Pima<span class="sc">$</span>impute.triceps <span class="ot">=</span> (Pima<span class="sc">$</span>impute.triceps<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>impute.triceps))<span class="sc">/</span>(<span class="fu">max</span>(Pima<span class="sc">$</span>impute.triceps)<span class="sc">-</span><span class="fu">min</span>(Pima<span class="sc">$</span>impute.triceps))</span></code></pre></div>
+</div>
+<div id="extract-all-feature-names" class="section level3 hasAnchor" number="13.4.4">
+<h3><span class="header-section-number">13.4.4</span> Extract All Feature Names<a href="from-statistics-models-to-machine-learning-algorithms.html#extract-all-feature-names" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In practical applications, there may be many categorical features in the model and each category could have many categories. It is practically infeasible to write all resulting dummy features explicitly. We can use the R function to extract variables from a model formula that will be used in a model. Make sure, all categorical feature variables must be defined in a non-numerical form (i.e., should not be numerically encoded). We can also use the R function <code>relevel()</code> to change the baseline of an unordered categorical feature variable.</p>
+<p>Next, we use the R function <code>model.matrix()</code> to extract the names of all feature variables (including implicitly defined dummy feature variables from <code>model.matrix()</code>).</p>
+<pre><code>PimaMtx0 = model.matrix(~ mass + pedigree + impute.log.insulin + impute.triceps + grp.glucose + grp.diastolic + grp.age + grp.pregnant + diabetes, data = Pima)
+colnames(PimaMtx0)</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb139-1" tabindex="-1"></a>PimaMtx <span class="ot">=</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> ., <span class="at">data =</span> Pima)</span>
+<span id="cb139-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb139-2" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)</span></code></pre></div>
+<pre><code>##  [1] &quot;(Intercept)&quot;          &quot;mass&quot;                 &quot;pedigree&quot;             &quot;impute.log.insulin&quot;  
+##  [5] &quot;impute.triceps&quot;       &quot;grp.glucose[117,137]&quot; &quot;grp.glucose&gt; 137&quot;     &quot;grp.diastolic[80,90]&quot;
+##  [9] &quot;grp.diastolic&gt; 90&quot;    &quot;grp.age[45, 64]&quot;      &quot;grp.age65+&quot;           &quot;grp.pregnant1&quot;       
+## [13] &quot;grp.pregnant2&quot;        &quot;grp.pregnant3-4&quot;      &quot;grp.pregnant5-7&quot;      &quot;grp.pregnant8+&quot;      
+## [17] &quot;diabetespos&quot;</code></pre>
+<p>There are some naming issues in the above dummy feature variables for network modeling (although they are good for regular linear and generalized linear regression models). We need to rename them by excluding special characters in order to build neural network models. These issues can be avoided at the stage of feature engineering (if we initially planned to build neural network models). Next, we clean up the variables before defining the network model formula.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-1" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="st">&quot;logInsulin&quot;</span></span>
+<span id="cb141-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-2" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">&quot;triceps&quot;</span></span>
+<span id="cb141-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-3" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">6</span>] <span class="ot">&lt;-</span> <span class="st">&quot;glucose117To137&quot;</span></span>
+<span id="cb141-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-4" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="st">&quot;glucoseGt137&quot;</span></span>
+<span id="cb141-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-5" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">8</span>] <span class="ot">&lt;-</span> <span class="st">&quot;diastolic80To90&quot;</span></span>
+<span id="cb141-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-6" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">9</span>] <span class="ot">&lt;-</span> <span class="st">&quot;diastolicGt90&quot;</span></span>
+<span id="cb141-7"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-7" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">&quot;age45To64&quot;</span></span>
+<span id="cb141-8"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-8" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">11</span>] <span class="ot">&lt;-</span> <span class="st">&quot;age65older&quot;</span></span>
+<span id="cb141-9"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-9" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">12</span>] <span class="ot">&lt;-</span> <span class="st">&quot;pregnant1&quot;</span></span>
+<span id="cb141-10"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-10" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">13</span>] <span class="ot">&lt;-</span> <span class="st">&quot;pregnant2&quot;</span></span>
+<span id="cb141-11"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-11" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">14</span>] <span class="ot">&lt;-</span> <span class="st">&quot;pregnant3To4&quot;</span></span>
+<span id="cb141-12"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-12" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">15</span>] <span class="ot">&lt;-</span> <span class="st">&quot;pregnant5To7&quot;</span></span>
+<span id="cb141-13"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb141-13" tabindex="-1"></a><span class="fu">colnames</span>(PimaMtx)[<span class="dv">16</span>] <span class="ot">&lt;-</span> <span class="st">&quot;pregnant8Plus&quot;</span></span></code></pre></div>
+</div>
+<div id="define-model-formula" class="section level3 hasAnchor" number="13.4.5">
+<h3><span class="header-section-number">13.4.5</span> Define Model Formula<a href="from-statistics-models-to-machine-learning-algorithms.html#define-model-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For convenience, we encourage you to use <strong>CamelCase</strong> notation (<code>CamelCase</code> is a way to separate the words in a phrase by making the first letter of each word capitalized and not using spaces) in naming feature variables.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb142-1" tabindex="-1"></a>columnNames <span class="ot">=</span> <span class="fu">colnames</span>(PimaMtx)</span>
+<span id="cb142-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb142-2" tabindex="-1"></a>columnList <span class="ot">=</span> <span class="fu">paste</span>(columnNames[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">length</span>(columnNames))], <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>)</span>
+<span id="cb142-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb142-3" tabindex="-1"></a>columnList <span class="ot">=</span> <span class="fu">paste</span>(<span class="fu">c</span>(columnNames[<span class="fu">length</span>(columnNames)],<span class="st">&quot;~&quot;</span>,columnList), <span class="at">collapse=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb142-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb142-4" tabindex="-1"></a>modelFormula <span class="ot">=</span> <span class="fu">formula</span>(columnList)</span>
+<span id="cb142-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb142-5" tabindex="-1"></a>modelFormula</span></code></pre></div>
+<pre><code>## diabetespos ~ mass + pedigree + logInsulin + triceps + glucose117To137 + 
+##     glucoseGt137 + diastolic80To90 + diastolicGt90 + age45To64 + 
+##     age65older + pregnant1 + pregnant2 + pregnant3To4 + pregnant5To7 + 
+##     pregnant8Plus</code></pre>
+<p><br />
+</p>
+</div>
+<div id="training-and-testing-nn-model" class="section level3 hasAnchor" number="13.4.6">
+<h3><span class="header-section-number">13.4.6</span> Training and Testing NN Model<a href="from-statistics-models-to-machine-learning-algorithms.html#training-and-testing-nn-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We follow the routine steps for building a neural network model to predict diabetes.</p>
+<div id="data-splitting" class="section level4 hasAnchor" number="13.4.6.1">
+<h4><span class="header-section-number">13.4.6.1</span> Data Splitting<a href="from-statistics-models-to-machine-learning-algorithms.html#data-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We split the data into 70% for training the neural network and 30% for testing.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb144-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">dim</span>(PimaMtx)[<span class="dv">1</span>]</span>
+<span id="cb144-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb144-2" tabindex="-1"></a>testID <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="fu">round</span>(n<span class="sc">*</span><span class="fl">0.7</span>), <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb144-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb144-3" tabindex="-1"></a>testDat <span class="ot">=</span> PimaMtx[testID,]</span>
+<span id="cb144-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb144-4" tabindex="-1"></a>trainDat <span class="ot">=</span> PimaMtx[<span class="sc">-</span>testID,]</span></code></pre></div>
+</div>
+<div id="build-nn-model" class="section level4 hasAnchor" number="13.4.6.2">
+<h4><span class="header-section-number">13.4.6.2</span> Build NN Model<a href="from-statistics-models-to-machine-learning-algorithms.html#build-nn-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-1" tabindex="-1"></a>NetworkModel <span class="ot">=</span> <span class="fu">neuralnet</span>(modelFormula,</span>
+<span id="cb145-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-2" tabindex="-1"></a>                         <span class="at">data =</span> trainDat,</span>
+<span id="cb145-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-3" tabindex="-1"></a>                         <span class="at">hidden =</span> <span class="dv">1</span>,               <span class="co"># single layer NN</span></span>
+<span id="cb145-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-4" tabindex="-1"></a>                         <span class="at">rep =</span> <span class="dv">1</span>,                  <span class="co"># number of replicates in training NN</span></span>
+<span id="cb145-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-5" tabindex="-1"></a>                         <span class="at">threshold =</span> <span class="fl">0.01</span>,         <span class="co"># threshold for the partial derivatives as stopping criteria.</span></span>
+<span id="cb145-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-6" tabindex="-1"></a>                         <span class="at">learningrate =</span> <span class="fl">0.1</span>,       <span class="co"># user selected rate</span></span>
+<span id="cb145-7"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-7" tabindex="-1"></a>                         <span class="at">algorithm =</span> <span class="st">&quot;rprop+&quot;</span></span>
+<span id="cb145-8"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-8" tabindex="-1"></a>                         )</span>
+<span id="cb145-9"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb145-9" tabindex="-1"></a><span class="fu">kable</span>(NetworkModel<span class="sc">$</span>result.matrix)</span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">error</td>
+<td align="right">25.5069125</td>
+</tr>
+<tr class="even">
+<td align="left">reached.threshold</td>
+<td align="right">0.0045225</td>
+</tr>
+<tr class="odd">
+<td align="left">steps</td>
+<td align="right">59.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Intercept.to.1layhid1</td>
+<td align="right">-1.0648974</td>
+</tr>
+<tr class="odd">
+<td align="left">mass.to.1layhid1</td>
+<td align="right">-0.9888017</td>
+</tr>
+<tr class="even">
+<td align="left">pedigree.to.1layhid1</td>
+<td align="right">0.1815514</td>
+</tr>
+<tr class="odd">
+<td align="left">logInsulin.to.1layhid1</td>
+<td align="right">-1.0481429</td>
+</tr>
+<tr class="even">
+<td align="left">triceps.to.1layhid1</td>
+<td align="right">-1.5563374</td>
+</tr>
+<tr class="odd">
+<td align="left">glucose117To137.to.1layhid1</td>
+<td align="right">0.6986667</td>
+</tr>
+<tr class="even">
+<td align="left">glucoseGt137.to.1layhid1</td>
+<td align="right">-0.8189058</td>
+</tr>
+<tr class="odd">
+<td align="left">diastolic80To90.to.1layhid1</td>
+<td align="right">0.1872705</td>
+</tr>
+<tr class="even">
+<td align="left">diastolicGt90.to.1layhid1</td>
+<td align="right">1.0498194</td>
+</tr>
+<tr class="odd">
+<td align="left">age45To64.to.1layhid1</td>
+<td align="right">-2.0340623</td>
+</tr>
+<tr class="even">
+<td align="left">age65older.to.1layhid1</td>
+<td align="right">-0.9628778</td>
+</tr>
+<tr class="odd">
+<td align="left">pregnant1.to.1layhid1</td>
+<td align="right">-3.0452829</td>
+</tr>
+<tr class="even">
+<td align="left">pregnant2.to.1layhid1</td>
+<td align="right">0.4914881</td>
+</tr>
+<tr class="odd">
+<td align="left">pregnant3To4.to.1layhid1</td>
+<td align="right">0.3089551</td>
+</tr>
+<tr class="even">
+<td align="left">pregnant5To7.to.1layhid1</td>
+<td align="right">-0.1415613</td>
+</tr>
+<tr class="odd">
+<td align="left">pregnant8Plus.to.1layhid1</td>
+<td align="right">0.6553359</td>
+</tr>
+<tr class="even">
+<td align="left">Intercept.to.diabetespos</td>
+<td align="right">0.3779010</td>
+</tr>
+<tr class="odd">
+<td align="left">1layhid1.to.diabetespos</td>
+<td align="right">-1.6839569</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb146-1" tabindex="-1"></a><span class="fu">plot</span>(NetworkModel, <span class="at">rep=</span><span class="st">&quot;best&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-153"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-153-1.png" alt="Single-layer backpropagation Neural network model for Pima Indian diabetes" width="768" />
+<p class="caption">
+Figure 13.12: Single-layer backpropagation Neural network model for Pima Indian diabetes
+</p>
+</div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb147-1" tabindex="-1"></a>logiModel <span class="ot">=</span> <span class="fu">glm</span>(<span class="fu">factor</span>(diabetes) <span class="sc">~</span>., <span class="at">family =</span> binomial, <span class="at">data =</span> Pima)</span>
+<span id="cb147-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb147-2" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">summary</span>(logiModel)<span class="sc">$</span>coefficients)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="14%" />
+<col width="17%" />
+<col width="14%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">z value</th>
+<th align="center">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">-5.303</td>
+<td align="center">0.7241</td>
+<td align="center">-7.324</td>
+<td align="center">2.411e-13</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>mass</strong></td>
+<td align="center">0.08627</td>
+<td align="center">0.01911</td>
+<td align="center">4.514</td>
+<td align="center">6.357e-06</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>pedigree</strong></td>
+<td align="center">2.366</td>
+<td align="center">0.6969</td>
+<td align="center">3.395</td>
+<td align="center">0.000685</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>impute.log.insulin</strong></td>
+<td align="center">0.3452</td>
+<td align="center">0.7145</td>
+<td align="center">0.4831</td>
+<td align="center">0.629</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>impute.triceps</strong></td>
+<td align="center">-0.06055</td>
+<td align="center">1.082</td>
+<td align="center">-0.05595</td>
+<td align="center">0.9554</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.glucose[117,137]</strong></td>
+<td align="center">0.8903</td>
+<td align="center">0.2431</td>
+<td align="center">3.663</td>
+<td align="center">0.0002494</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>grp.glucose&gt; 137</strong></td>
+<td align="center">1.92</td>
+<td align="center">0.2639</td>
+<td align="center">7.277</td>
+<td align="center">3.414e-13</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.diastolic[80,90]</strong></td>
+<td align="center">-0.1163</td>
+<td align="center">0.2245</td>
+<td align="center">-0.5179</td>
+<td align="center">0.6045</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>grp.diastolic&gt; 90</strong></td>
+<td align="center">-0.242</td>
+<td align="center">0.4281</td>
+<td align="center">-0.5654</td>
+<td align="center">0.5718</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.age[45, 64]</strong></td>
+<td align="center">0.3513</td>
+<td align="center">0.2616</td>
+<td align="center">1.343</td>
+<td align="center">0.1793</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>grp.age65+</strong></td>
+<td align="center">-0.6649</td>
+<td align="center">0.6581</td>
+<td align="center">-1.01</td>
+<td align="center">0.3124</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.pregnant1</strong></td>
+<td align="center">-0.2712</td>
+<td align="center">0.3609</td>
+<td align="center">-0.7517</td>
+<td align="center">0.4523</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>grp.pregnant2</strong></td>
+<td align="center">-0.2223</td>
+<td align="center">0.3913</td>
+<td align="center">-0.568</td>
+<td align="center">0.5701</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.pregnant3-4</strong></td>
+<td align="center">0.435</td>
+<td align="center">0.3381</td>
+<td align="center">1.287</td>
+<td align="center">0.1982</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>grp.pregnant5-7</strong></td>
+<td align="center">0.6543</td>
+<td align="center">0.3326</td>
+<td align="center">1.967</td>
+<td align="center">0.04919</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>grp.pregnant8+</strong></td>
+<td align="center">1.107</td>
+<td align="center">0.3553</td>
+<td align="center">3.114</td>
+<td align="center">0.001844</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="about-cross-validation-in-neural-network" class="section level4 hasAnchor" number="13.4.6.3">
+<h4><span class="header-section-number">13.4.6.3</span> About Cross-validation in Neural Network<a href="from-statistics-models-to-machine-learning-algorithms.html#about-cross-validation-in-neural-network" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The algorithm of Cross-validation is primarily used for tuning hyper-parameters. For example, in the sigmoid perceptron, the optimal cut-off scores for the binary decision can be obtained through cross-validation. One of the important hyperparameters in the neural network model is the learning rate <span class="math inline">\(\alpha\)</span> (in the backpropagation algorithm) that impacts the learning speed in training neural network models.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-1" tabindex="-1"></a>n0 <span class="ot">=</span> <span class="fu">dim</span>(trainDat)[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb148-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-2" tabindex="-1"></a>cut.off.score <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">length =</span> <span class="dv">22</span>)[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">22</span>)]        <span class="co"># candidate cut off prob</span></span>
+<span id="cb148-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-3" tabindex="-1"></a>pred.accuracy <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="at">ncol=</span><span class="dv">20</span>, <span class="at">nrow=</span><span class="dv">5</span>, <span class="at">byrow =</span> T)  <span class="co"># null vector for storing prediction accuracy</span></span>
+<span id="cb148-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-4" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb148-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
+<span id="cb148-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-6" tabindex="-1"></a>  valid.id <span class="ot">=</span> ((i<span class="dv">-1</span>)<span class="sc">*</span>n0 <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(i<span class="sc">*</span>n0)</span>
+<span id="cb148-7"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-7" tabindex="-1"></a>  valid.data <span class="ot">=</span> trainDat[valid.id,]</span>
+<span id="cb148-8"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-8" tabindex="-1"></a>  train.data <span class="ot">=</span> trainDat[<span class="sc">-</span>valid.id,]</span>
+<span id="cb148-9"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-9" tabindex="-1"></a>  <span class="do">####</span></span>
+<span id="cb148-10"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-10" tabindex="-1"></a>  train.model <span class="ot">=</span> <span class="fu">neuralnet</span>(modelFormula,</span>
+<span id="cb148-11"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-11" tabindex="-1"></a>                         <span class="at">data =</span> train.data,</span>
+<span id="cb148-12"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-12" tabindex="-1"></a>                         <span class="at">hidden =</span> <span class="dv">1</span>,               <span class="co"># single layer NN</span></span>
+<span id="cb148-13"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-13" tabindex="-1"></a>                         <span class="at">rep =</span> <span class="dv">1</span>,                  <span class="co"># number of replicates in training NN</span></span>
+<span id="cb148-14"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-14" tabindex="-1"></a>                         <span class="at">threshold =</span> <span class="fl">0.01</span>,         <span class="co"># threshold for the partial derivatives as stopping criteria.</span></span>
+<span id="cb148-15"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-15" tabindex="-1"></a>                         <span class="at">learningrate =</span> <span class="fl">0.1</span>,       <span class="co"># user selected rate</span></span>
+<span id="cb148-16"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-16" tabindex="-1"></a>                         <span class="at">algorithm =</span> <span class="st">&quot;rprop+&quot;</span></span>
+<span id="cb148-17"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-17" tabindex="-1"></a>                         )</span>
+<span id="cb148-18"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-18" tabindex="-1"></a>    pred.nn.score <span class="ot">=</span> <span class="fu">predict</span>(train.model, valid.data)</span>
+<span id="cb148-19"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-19" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb148-20"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-20" tabindex="-1"></a>    <span class="co">#pred.status = rep(0,length(pred.nn.score))</span></span>
+<span id="cb148-21"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-21" tabindex="-1"></a>    pred.status <span class="ot">=</span> <span class="fu">as.numeric</span>(pred.nn.score <span class="sc">&gt;</span> cut.off.score[j])</span>
+<span id="cb148-22"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-22" tabindex="-1"></a>    a11 <span class="ot">=</span> <span class="fu">sum</span>(pred.status <span class="sc">==</span> valid.data[,<span class="dv">17</span>])</span>
+<span id="cb148-23"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-23" tabindex="-1"></a>    pred.accuracy[i,j] <span class="ot">=</span> a11<span class="sc">/</span><span class="fu">length</span>(pred.nn.score)</span>
+<span id="cb148-24"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-24" tabindex="-1"></a>  }</span>
+<span id="cb148-25"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-25" tabindex="-1"></a>}</span>
+<span id="cb148-26"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-26" tabindex="-1"></a><span class="do">###  </span></span>
+<span id="cb148-27"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-27" tabindex="-1"></a>avg.accuracy <span class="ot">=</span> <span class="fu">apply</span>(pred.accuracy, <span class="dv">2</span>, mean)</span>
+<span id="cb148-28"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-28" tabindex="-1"></a>max.id <span class="ot">=</span> <span class="fu">which</span>(avg.accuracy <span class="sc">==</span><span class="fu">max</span>(avg.accuracy ))</span>
+<span id="cb148-29"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-29" tabindex="-1"></a><span class="do">### visual representation</span></span>
+<span id="cb148-30"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-30" tabindex="-1"></a>tick.label <span class="ot">=</span> <span class="fu">as.character</span>(<span class="fu">round</span>(cut.off.score,<span class="dv">2</span>))</span>
+<span id="cb148-31"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-31" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, avg.accuracy, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb148-32"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-32" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">20</span>), </span>
+<span id="cb148-33"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-33" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>), </span>
+<span id="cb148-34"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-34" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb148-35"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-35" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Cut-off Score&quot;</span>,</span>
+<span id="cb148-36"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-36" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Accuracy&quot;</span>,</span>
+<span id="cb148-37"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-37" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;5-fold CV performance&quot;</span></span>
+<span id="cb148-38"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-38" tabindex="-1"></a>     )</span>
+<span id="cb148-39"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-39" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">label =</span> tick.label, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb148-40"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-40" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>)</span>
+<span id="cb148-41"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-41" tabindex="-1"></a><span class="fu">segments</span>(max.id, <span class="fl">0.5</span>, max.id, avg.accuracy[max.id], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb148-42"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb148-42" tabindex="-1"></a><span class="fu">text</span>(max.id, avg.accuracy[max.id]<span class="sc">+</span><span class="fl">0.03</span>, <span class="fu">as.character</span>(<span class="fu">round</span>(avg.accuracy[max.id],<span class="dv">4</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="STA551EB_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<p><br />
+</p>
+</div>
+<div id="testing-model-performance" class="section level4 hasAnchor" number="13.4.6.4">
+<h4><span class="header-section-number">13.4.6.4</span> Testing Model Performance<a href="from-statistics-models-to-machine-learning-algorithms.html#testing-model-performance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-1" tabindex="-1"></a><span class="co">#Test the resulting output</span></span>
+<span id="cb149-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-2" tabindex="-1"></a>nn.results <span class="ot">&lt;-</span> <span class="fu">predict</span>(NetworkModel, testDat)</span>
+<span id="cb149-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-3" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">actual =</span> testDat[,<span class="dv">17</span>], <span class="at">prediction =</span> nn.results <span class="sc">&gt;</span> .<span class="dv">57</span>)</span>
+<span id="cb149-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-4" tabindex="-1"></a>confMatrix <span class="ot">=</span> <span class="fu">table</span>(results<span class="sc">$</span>prediction, results<span class="sc">$</span>actual)               <span class="co"># confusion matrix</span></span>
+<span id="cb149-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-5" tabindex="-1"></a>accuracy<span class="ot">=</span><span class="fu">sum</span>(results<span class="sc">$</span>actua <span class="sc">==</span> results<span class="sc">$</span>prediction)<span class="sc">/</span><span class="fu">length</span>(results<span class="sc">$</span>prediction)</span>
+<span id="cb149-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb149-6" tabindex="-1"></a><span class="fu">list</span>(<span class="at">confusion.matrix =</span> confMatrix, <span class="at">accuracy =</span> accuracy)       </span></code></pre></div>
+<pre><code>## $confusion.matrix
+##        
+##           0   1
+##   FALSE 340 167
+## 
+## $accuracy
+## [1] 0.6706114</code></pre>
+</div>
+<div id="roc-analysis" class="section level4 hasAnchor" number="13.4.6.5">
+<h4><span class="header-section-number">13.4.6.5</span> ROC Analysis<a href="from-statistics-models-to-machine-learning-algorithms.html#roc-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Recall that the ROC curve is the plot of sensitivity against (1 - specificity) calculated from the confusion matrix based on a sequence of selected cut-off scores. Definitions of sensitivity and specificity are given in the following confusion matrix</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-157"></span>
+<img src="img07/w07-SenSpec.jpg" alt="Confusion matrix and sensitivity and specificity." width="95%" />
+<p class="caption">
+Figure 13.13: Confusion matrix and sensitivity and specificity.
+</p>
+</div>
+<p>Next, we construct a ROC for the above NN model based on the training data set.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-1" tabindex="-1"></a>nn.results <span class="ot">=</span> <span class="fu">predict</span>(NetworkModel, trainDat)  <span class="co"># Keep in mind that trainDat is a matrix!</span></span>
+<span id="cb151-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-2" tabindex="-1"></a>cut0 <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">length =</span> <span class="dv">20</span>)</span>
+<span id="cb151-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-3" tabindex="-1"></a>SenSpe <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol =</span> <span class="fu">length</span>(cut0), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb151-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(cut0)){</span>
+<span id="cb151-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-5" tabindex="-1"></a>    a <span class="ot">=</span> <span class="fu">sum</span>(trainDat[,<span class="st">&quot;diabetespos&quot;</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> (nn.results <span class="sc">&gt;</span> cut0[i]))</span>
+<span id="cb151-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-6" tabindex="-1"></a>    d <span class="ot">=</span> <span class="fu">sum</span>(trainDat[,<span class="st">&quot;diabetespos&quot;</span>] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> (nn.results <span class="sc">&lt;</span> cut0[i]))</span>
+<span id="cb151-7"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-7" tabindex="-1"></a>    b <span class="ot">=</span> <span class="fu">sum</span>(trainDat[,<span class="st">&quot;diabetespos&quot;</span>] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> (nn.results <span class="sc">&gt;</span> cut0[i]))    </span>
+<span id="cb151-8"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-8" tabindex="-1"></a>    c <span class="ot">=</span> <span class="fu">sum</span>(trainDat[,<span class="st">&quot;diabetespos&quot;</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> (nn.results <span class="sc">&lt;</span> cut0[i]))   </span>
+<span id="cb151-9"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-9" tabindex="-1"></a>    sen <span class="ot">=</span> a<span class="sc">/</span>(a <span class="sc">+</span> c)</span>
+<span id="cb151-10"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-10" tabindex="-1"></a>    spe <span class="ot">=</span> d<span class="sc">/</span>(b <span class="sc">+</span> d)</span>
+<span id="cb151-11"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-11" tabindex="-1"></a>    SenSpe[,i] <span class="ot">=</span> <span class="fu">c</span>(sen, spe)</span>
+<span id="cb151-12"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-12" tabindex="-1"></a>}</span>
+<span id="cb151-13"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-13" tabindex="-1"></a><span class="co"># plotting ROC</span></span>
+<span id="cb151-14"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-14" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">-</span>SenSpe[<span class="dv">2</span>,], SenSpe[<span class="dv">1</span>,], <span class="at">type =</span><span class="st">&quot;l&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb151-15"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-15" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;1 - specificity&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Sensitivity&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>,</span>
+<span id="cb151-16"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-16" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;ROC Curve&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb151-17"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb151-18"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-18" tabindex="-1"></a></span>
+<span id="cb151-19"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-19" tabindex="-1"></a><span class="do">## A better approx of ROC, need library {pROC}</span></span>
+<span id="cb151-20"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-20" tabindex="-1"></a>  prediction <span class="ot">=</span> <span class="fu">as.vector</span>(nn.results)</span>
+<span id="cb151-21"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-21" tabindex="-1"></a>  category <span class="ot">=</span> trainDat[,<span class="st">&quot;diabetespos&quot;</span>] <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb151-22"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb151-22" tabindex="-1"></a>  ROCobj <span class="ot">&lt;-</span> <span class="fu">roc</span>(category, prediction)</span></code></pre></div>
+<pre><code>## Setting levels: control = FALSE, case = TRUE</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-1" tabindex="-1"></a>  AUC <span class="ot">=</span> <span class="fu">auc</span>(ROCobj)[<span class="dv">1</span>]</span>
+<span id="cb154-2"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-2" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb154-3"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-3" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb154-4"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-4" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.8</span>, <span class="fl">0.3</span>, <span class="fu">paste</span>(<span class="st">&quot;AUC = &quot;</span>, <span class="fu">round</span>(AUC,<span class="dv">4</span>)), <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>, <span class="at">cex =</span> <span class="fl">0.9</span>)</span>
+<span id="cb154-5"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;ROC of the model&quot;</span>, <span class="st">&quot;Random guessing&quot;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb154-6"><a href="from-statistics-models-to-machine-learning-algorithms.html#cb154-6" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-158"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-158-1.png" alt="Figure 14: ROC Curve of the neural network model." width="480" />
+<p class="caption">
+Figure 13.14: Figure 14: ROC Curve of the neural network model.
+</p>
+</div>
+<p>The above ROC curve indicates that the underlying neural network is better than the random guess since the area under the curve is significantly greater than 0.5. In general, if the area under the ROC curve is greater than 0.65, we say the predictive power of the underlying model is acceptable.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="about-deep-learning" class="section level3 hasAnchor" number="13.4.7">
+<h3><span class="header-section-number">13.4.7</span> About Deep Learning<a href="from-statistics-models-to-machine-learning-algorithms.html#about-deep-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>From Wikipedia, the free encyclopedia</em></p>
+<p>Deep learning is part of a broader family of machine learning methods, which is based on artificial neural networks with representation learning. The adjective “deep” in deep learning refers to the use of multiple layers in the network. Methods used can be either supervised, semi-supervised, or unsupervised.</p>
+<p>Deep-learning architectures such as deep neural networks, deep belief networks, deep reinforcement learning, recurrent neural networks, convolutional neural networks, and transformers have been applied to fields including computer vision, speech recognition, natural language processing, machine translation, bioinformatics, drug design, medical image analysis, climate science, material inspection and board game programs, where they have produced results comparable to and in some cases surpassing human expert performance.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="clustering-algorithms" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Clustering Algorithms<a href="from-statistics-models-to-machine-learning-algorithms.html#clustering-algorithms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Clustering and principal component analysis are two classical multivariate statistical methods. These two methods and their extensions are now the core methods in machine learning. We will briefly introduce both of them in this class.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="case-study---logistic-regression-model-with-the-fraud-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA551EB/edit/master/10-FromStats2MachineLearning.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA551EB.pdf", "STA551EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

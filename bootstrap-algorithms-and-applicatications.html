@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 14 Bootstrap Algorithms and Applicatications | STA551 E-Pack: Foundations of Data Science</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 14 Bootstrap Algorithms and Applicatications | STA551 E-Pack: Foundations of Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/STA551EB" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 14 Bootstrap Algorithms and Applicatications | STA551 E-Pack: Foundations of Data Science" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="an-overview-of-unsupervised-ml-algorithms.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 551 E-Pack: Foundations of Data Science</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-origin-of-data-science"><i class="fa fa-check"></i><b>1.1</b> The Origin of Data Science</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#the-coverage-of-the-first-data-science-course"><i class="fa fa-check"></i><b>1.2</b> The Coverage of the First Data Science Course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tentative-topics"><i class="fa fa-check"></i><b>1.3</b> Tentative Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html"><i class="fa fa-check"></i><b>2</b> Data Science - A Big Picture</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-science-process"><i class="fa fa-check"></i><b>2.1</b> Data Science Process</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-data"><i class="fa fa-check"></i><b>2.1.1</b> What is Data?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-storage-and-retrieval"><i class="fa fa-check"></i><b>2.1.2</b> Data Storage and Retrieval</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#different-da-roles-in-industry"><i class="fa fa-check"></i><b>2.1.3</b> Different DA Roles in Industry</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#cloud-computing"><i class="fa fa-check"></i><b>2.1.4</b> Cloud Computing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#from-business-questions-to-analytic-question"><i class="fa fa-check"></i><b>2.2</b> From Business Questions to Analytic Question</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#business-goal"><i class="fa fa-check"></i><b>2.2.1</b> Business Goal</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#analytic-question"><i class="fa fa-check"></i><b>2.2.2</b> Analytic Question</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#concepts-of-relational-databases-and-sql"><i class="fa fa-check"></i><b>2.3</b> Concepts of Relational Databases and SQL</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-database"><i class="fa fa-check"></i><b>2.3.1</b> What is Database?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-a-data-warehouse"><i class="fa fa-check"></i><b>2.3.2</b> What is a Data Warehouse?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#difference-between-database-and-data-warehouse"><i class="fa fa-check"></i><b>2.3.3</b> Difference between Database and Data Warehouse</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#database-management-system-dbms"><i class="fa fa-check"></i><b>2.3.4</b> Database Management System (DBMS)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#some-definitions-and-notations-of-relational-tables"><i class="fa fa-check"></i><b>2.3.5</b> Some Definitions and Notations of Relational Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html"><i class="fa fa-check"></i><b>3</b> Running SQL in SAS and R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-in-sas"><i class="fa fa-check"></i><b>3.1</b> Running SQL in SAS</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#loading-data"><i class="fa fa-check"></i><b>3.1.1</b> Loading Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#basic-sql-syntax-and-clauses"><i class="fa fa-check"></i><b>3.1.2</b> Basic SQL Syntax and Clauses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sas-in-r"><i class="fa fa-check"></i><b>3.2</b> Running SAS in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#connect-r-to-existing-database"><i class="fa fa-check"></i><b>3.2.1</b> Connect R to Existing Database</a></li>
+<li class="chapter" data-level="3.2.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#create-sqlite-database-with-r"><i class="fa fa-check"></i><b>3.2.2</b> Create SQLite Database with R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-queries-in-r-code-chunks"><i class="fa fa-check"></i><b>3.2.3</b> Running SQL Queries in R Code chunks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis (EDA)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#tools-of-eda-and-applications"><i class="fa fa-check"></i><b>4.1</b> Tools of EDA and Applications</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#descriptive-statistics-approach"><i class="fa fa-check"></i><b>4.1.1</b> Descriptive Statistics Approach</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#graphical-approach"><i class="fa fa-check"></i><b>4.1.2</b> Graphical Approach</a></li>
+<li class="chapter" data-level="4.1.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#algorithm-based-method"><i class="fa fa-check"></i><b>4.1.3</b> Algorithm-based Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-techniques-of-eda"><i class="fa fa-check"></i><b>4.2</b> Visual Techniques of EDA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#univariate-eda"><i class="fa fa-check"></i><b>4.2.1</b> Univariate EDA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#two-variables"><i class="fa fa-check"></i><b>4.2.2</b> Two Variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#three-or-more-variables"><i class="fa fa-check"></i><b>4.2.3</b> Three or More Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#roles-of-visualization-in-eda"><i class="fa fa-check"></i><b>4.3</b> Roles of Visualization in EDA</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#data-visualization"><i class="fa fa-check"></i><b>4.3.1</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-analytics"><i class="fa fa-check"></i><b>4.3.2</b> Visual Analytics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html"><i class="fa fa-check"></i><b>5</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#description-of-data"><i class="fa fa-check"></i><b>5.1</b> Description of Data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#eda-for-feature-engineering-1"><i class="fa fa-check"></i><b>5.2</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#missing-values---imputation"><i class="fa fa-check"></i><b>5.2.1</b> Missing Values - Imputation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#assess-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Assess Distributions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#pairwise-association"><i class="fa fa-check"></i><b>5.2.3</b> Pairwise Association</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#concluding-remarks"><i class="fa fa-check"></i><b>5.3</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>6</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-practical-question"><i class="fa fa-check"></i><b>6.1</b> The Practical Question</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-process-of-building-a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>6.2</b> The Process of Building A Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#assumptions-of-mlr"><i class="fa fa-check"></i><b>6.2.1</b> Assumptions of MLR</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>6.2.2</b> The Structure of MLR</a></li>
+<li class="chapter" data-level="6.2.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#more-on-model-specifications"><i class="fa fa-check"></i><b>6.2.3</b> More on Model Specifications</a></li>
+<li class="chapter" data-level="6.2.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#estimation-of-regression-coefficients"><i class="fa fa-check"></i><b>6.2.4</b> Estimation of Regression Coefficients</a></li>
+<li class="chapter" data-level="6.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>6.2.5</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="6.2.6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>6.2.6</b> Goodness-of-fit and Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-1"><i class="fa fa-check"></i><b>6.3</b> Case Study 1</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-2"><i class="fa fa-check"></i><b>6.4</b> Case Study 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#motivational-example-and-practical-question"><i class="fa fa-check"></i><b>7.1</b> Motivational Example and Practical Question</a></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#logistic-regression-models-and-applications"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression Models and Applications</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-structure-of-the-logistic-regression-model"><i class="fa fa-check"></i><b>7.2.1</b> The Structure of the Logistic Regression Model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#assumptions-and-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#coefficient-estimation-and-interpretation"><i class="fa fa-check"></i><b>7.2.3</b> Coefficient Estimation and Interpretation</a></li>
+<li class="chapter" data-level="7.2.4" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#use-of-glm-and-annotations"><i class="fa fa-check"></i><b>7.2.4</b> Use of <strong>glm()</strong> and Annotations</a></li>
+<li class="chapter" data-level="7.2.5" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#applications-of-logistic-regression-models"><i class="fa fa-check"></i><b>7.2.5</b> Applications of Logistic Regression Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#case-studies"><i class="fa fa-check"></i><b>7.3</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-simple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> The simple logistic regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#multiple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Multiple Logistic Regression Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html"><i class="fa fa-check"></i><b>8</b> Basics of Bootstrap Method</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#random-sample-from-population"><i class="fa fa-check"></i><b>8.0.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="8.0.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>8.0.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="8.0.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>8.0.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+<li class="chapter" data-level="8.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>8.1</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="8.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>8.2.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>8.2.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html"><i class="fa fa-check"></i><b>9</b> Method of Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#regression-models"><i class="fa fa-check"></i><b>9.1</b> Regression Models</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#linear-regression-model"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#logistic-regression-model"><i class="fa fa-check"></i><b>9.1.2</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#inference-about-association-and-prediction"><i class="fa fa-check"></i><b>9.1.3</b> Inference about Association and Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-splitting-methods"><i class="fa fa-check"></i><b>9.2</b> Data Splitting Methods</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#training-data"><i class="fa fa-check"></i><b>9.2.1</b> Training Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#validation-data"><i class="fa fa-check"></i><b>9.2.2</b> Validation Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#test-data"><i class="fa fa-check"></i><b>9.2.3</b> Test data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#cross-validation"><i class="fa fa-check"></i><b>9.3</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> K-fold Cross-validation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#other-cross-validation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Other Cross-Validation Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#case-study-using-fraud-data"><i class="fa fa-check"></i><b>9.4</b> Case Study Using Fraud Data</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-partition"><i class="fa fa-check"></i><b>9.4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="9.4.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#finding-optimal-cut-off-probability"><i class="fa fa-check"></i><b>9.4.2</b> Finding Optimal Cut-off Probability</a></li>
+<li class="chapter" data-level="9.4.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#reporting-test"><i class="fa fa-check"></i><b>9.4.3</b> Reporting Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html"><i class="fa fa-check"></i><b>10</b> Perfomance Measures of Algorithms and Models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#classification-performance-metrics"><i class="fa fa-check"></i><b>10.1</b> Classification Performance Metrics</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#confusion-matrix-for-binary-decision"><i class="fa fa-check"></i><b>10.1.1</b> Confusion Matrix for Binary Decision</a></li>
+<li class="chapter" data-level="10.1.2" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#local-performance-measures-for-model-development"><i class="fa fa-check"></i><b>10.1.2</b> Local Performance Measures (for Model Development)</a></li>
+<li class="chapter" data-level="10.1.3" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#global-performance-measures"><i class="fa fa-check"></i><b>10.1.3</b> Global Performance Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#case-study---logistic-regression-model-with-the-fraud-data"><i class="fa fa-check"></i><b>10.2</b> Case Study - Logistic regression model with the fraud data</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#local-performance-meaures"><i class="fa fa-check"></i><b>10.2.1</b> Local Performance Meaures</a></li>
+<li class="chapter" data-level="10.2.2" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html#global-measure-roc-and-auc"><i class="fa fa-check"></i><b>10.2.2</b> Global Measure: ROC and AUC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html"><i class="fa fa-check"></i><b>11</b> From Statistics Models to ML Algorithms</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#some-technical-terms-and-ml-types"><i class="fa fa-check"></i><b>11.1</b> Some Technical Terms and ML Types</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#machine-learning-problems-and-jargon"><i class="fa fa-check"></i><b>11.1.1</b> Machine Learning Problems and Jargon</a></li>
+<li class="chapter" data-level="11.1.2" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#types-of-machine-learning-problems"><i class="fa fa-check"></i><b>11.1.2</b> Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#categories-of-machine-learning"><i class="fa fa-check"></i><b>11.2</b> Categories of Machine Learning</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#supervised-learning"><i class="fa fa-check"></i><b>11.2.1</b> Supervised Learning</a></li>
+<li class="chapter" data-level="11.2.2" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#unsupervised-learning"><i class="fa fa-check"></i><b>11.2.2</b> Unsupervised Learning</a></li>
+<li class="chapter" data-level="11.2.3" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#semi-supervised-learning"><i class="fa fa-check"></i><b>11.2.3</b> Semi-Supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#from-statistics-to-machine-learning"><i class="fa fa-check"></i><b>11.3</b> From Statistics to Machine Learning</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#logistic-regression-model-revisited"><i class="fa fa-check"></i><b>11.3.1</b> Logistic Regression Model Revisited</a></li>
+<li class="chapter" data-level="11.3.2" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#single-layer-neural-network---perceptron"><i class="fa fa-check"></i><b>11.3.2</b> Single Layer Neural Network - Perceptron</a></li>
+<li class="chapter" data-level="11.3.3" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#multi-layer-perceptron"><i class="fa fa-check"></i><b>11.3.3</b> Multi-layer Perceptron</a></li>
+<li class="chapter" data-level="11.3.4" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#commonly-used-activation-functions"><i class="fa fa-check"></i><b>11.3.4</b> Commonly Used Activation Functions</a></li>
+<li class="chapter" data-level="11.3.5" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#algorithms-for-estimating-weights"><i class="fa fa-check"></i><b>11.3.5</b> Algorithms for Estimating Weights</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#implementing-nn-with-r"><i class="fa fa-check"></i><b>11.4</b> Implementing NN with R</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#syntax-of-neuralnet"><i class="fa fa-check"></i><b>11.4.1</b> Syntax of <code>neuralnet</code></a></li>
+<li class="chapter" data-level="11.4.2" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#feature-conversion-for-neuralnet"><i class="fa fa-check"></i><b>11.4.2</b> Feature Conversion for <code>neuralnet</code></a></li>
+<li class="chapter" data-level="11.4.3" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#numeric-feature-scaling"><i class="fa fa-check"></i><b>11.4.3</b> Numeric Feature Scaling</a></li>
+<li class="chapter" data-level="11.4.4" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#extract-all-feature-names"><i class="fa fa-check"></i><b>11.4.4</b> Extract All Feature Names</a></li>
+<li class="chapter" data-level="11.4.5" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#define-model-formula"><i class="fa fa-check"></i><b>11.4.5</b> Define Model Formula</a></li>
+<li class="chapter" data-level="11.4.6" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#training-and-testing-nn-model"><i class="fa fa-check"></i><b>11.4.6</b> Training and Testing NN Model</a></li>
+<li class="chapter" data-level="11.4.7" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#about-deep-learning"><i class="fa fa-check"></i><b>11.4.7</b> About Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="from-statistics-models-to-ml-algorithms.html"><a href="from-statistics-models-to-ml-algorithms.html#clustering-algorithms"><i class="fa fa-check"></i><b>11.5</b> Clustering Algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html"><i class="fa fa-check"></i><b>12</b> An Overview of Supervised ML Algorithms</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#statistical-algorithms"><i class="fa fa-check"></i><b>12.1</b> Statistical Algorithms</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#loess-regression"><i class="fa fa-check"></i><b>12.1.1</b> LOESS Regression</a></li>
+<li class="chapter" data-level="12.1.2" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#regularized-regression"><i class="fa fa-check"></i><b>12.1.2</b> Regularized Regression</a></li>
+<li class="chapter" data-level="12.1.3" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#instance-based-algorithms"><i class="fa fa-check"></i><b>12.1.3</b> Instance-based Algorithms</a></li>
+<li class="chapter" data-level="12.1.4" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#naïve-bayes---a-bayesian-algorithm"><i class="fa fa-check"></i><b>12.1.4</b> Naïve Bayes - A Bayesian Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#decision-tree-algorithms"><i class="fa fa-check"></i><b>12.2</b> Decision Tree Algorithms</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#structure-and-technical-terms"><i class="fa fa-check"></i><b>12.2.1</b> Structure and Technical Terms</a></li>
+<li class="chapter" data-level="12.2.2" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#decision-tree-growing---impurity-measures"><i class="fa fa-check"></i><b>12.2.2</b> Decision Tree Growing - Impurity Measures</a></li>
+<li class="chapter" data-level="12.2.3" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#binary-v.s.-multi-way-splits"><i class="fa fa-check"></i><b>12.2.3</b> Binary v.s. Multi-way Splits</a></li>
+<li class="chapter" data-level="12.2.4" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#boosted-trees---ensemble-algorithms"><i class="fa fa-check"></i><b>12.2.4</b> Boosted Trees - Ensemble Algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#case-study---predicting-diabetes"><i class="fa fa-check"></i><b>12.3</b> Case Study - Predicting Diabetes</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#rpart-library"><i class="fa fa-check"></i><b>12.3.1</b> <code>rpart</code> Library</a></li>
+<li class="chapter" data-level="12.3.2" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#roc-for-model-selection"><i class="fa fa-check"></i><b>12.3.2</b> ROC for Model Selection</a></li>
+<li class="chapter" data-level="12.3.3" data-path="an-overview-of-supervised-ml-algorithms.html"><a href="an-overview-of-supervised-ml-algorithms.html#optimal-cut-off-score-determination"><i class="fa fa-check"></i><b>12.3.3</b> Optimal Cut-off Score Determination</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html"><i class="fa fa-check"></i><b>13</b> An Overview of Unsupervised ML Algorithms</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#k-means-clustering"><i class="fa fa-check"></i><b>13.1</b> K-means Clustering</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#select-a-pre-determined-number-of-classes"><i class="fa fa-check"></i><b>13.1.1</b> Select A Pre-determined Number of Classes</a></li>
+<li class="chapter" data-level="13.1.2" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#initialize-centroids."><i class="fa fa-check"></i><b>13.1.2</b> Initialize Centroids.</a></li>
+<li class="chapter" data-level="13.1.3" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#update-centroids"><i class="fa fa-check"></i><b>13.1.3</b> Update Centroids</a></li>
+<li class="chapter" data-level="13.1.4" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#some-remarks-on-k-means"><i class="fa fa-check"></i><b>13.1.4</b> Some Remarks on K-means</a></li>
+<li class="chapter" data-level="13.1.5" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#case-study"><i class="fa fa-check"></i><b>13.1.5</b> Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#hierarchical-clustering"><i class="fa fa-check"></i><b>13.2</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#types-of-hierarchical-clustering"><i class="fa fa-check"></i><b>13.2.1</b> Types of Hierarchical Clustering</a></li>
+<li class="chapter" data-level="13.2.2" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#case-study-i-clustering-with-two-features"><i class="fa fa-check"></i><b>13.2.2</b> Case Study I – Clustering with Two Features</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#case-study-ii-multi-feature-clustering"><i class="fa fa-check"></i><b>13.3</b> Case Study II: Multi-feature Clustering</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#memory-usage-of-clustering"><i class="fa fa-check"></i><b>13.3.1</b> Memory Usage of Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#dimensionality-reduction-algorithms"><i class="fa fa-check"></i><b>13.4</b> Dimensionality Reduction Algorithms</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#the-logic-of-pca"><i class="fa fa-check"></i><b>13.4.1</b> The Logic of PCA</a></li>
+<li class="chapter" data-level="13.4.2" data-path="an-overview-of-unsupervised-ml-algorithms.html"><a href="an-overview-of-unsupervised-ml-algorithms.html#case-study---iris-data"><i class="fa fa-check"></i><b>13.4.2</b> Case Study - Iris Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html"><i class="fa fa-check"></i><b>14</b> Bootstrap Algorithms and Applicatications</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>14.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#sampling-true-population---monte-carlo-sampling"><i class="fa fa-check"></i><b>14.1.1</b> Sampling True Population - Monte Carlo Sampling</a></li>
+<li class="chapter" data-level="14.1.2" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#sampling-random-sample---bootstrap-sampling"><i class="fa fa-check"></i><b>14.1.2</b> Sampling Random Sample - Bootstrap Sampling</a></li>
+<li class="chapter" data-level="14.1.3" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#case-study-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>14.1.3</b> Case Study: Confidence Interval of Correlation Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#bootstrap-confidence-interval-of-auc-for-logistic-model"><i class="fa fa-check"></i><b>14.2</b> Bootstrap Confidence Interval of AUC for Logistic Model</a></li>
+<li class="chapter" data-level="14.3" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#bootstrap-sampling-for-logistic-modeling"><i class="fa fa-check"></i><b>14.3</b> Bootstrap Sampling for Logistic Modeling</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#case-study---confidence-interval-of-auc"><i class="fa fa-check"></i><b>14.3.1</b> Case Study - Confidence Interval of AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#concepts-of-ensemble-algorithms"><i class="fa fa-check"></i><b>14.4</b> Concepts of Ensemble Algorithms</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#overfitting-v.s.-underfitting"><i class="fa fa-check"></i><b>14.4.1</b> Overfitting v.s. Underfitting</a></li>
+<li class="chapter" data-level="14.4.2" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#the-logic-ensemble-learning-method"><i class="fa fa-check"></i><b>14.4.2</b> The Logic Ensemble Learning Method</a></li>
+<li class="chapter" data-level="14.4.3" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#bagging-ensemble-methods"><i class="fa fa-check"></i><b>14.4.3</b> BAGGING Ensemble Methods</a></li>
+<li class="chapter" data-level="14.4.4" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#boosting-ensemble-methods"><i class="fa fa-check"></i><b>14.4.4</b> Boosting Ensemble Methods</a></li>
+<li class="chapter" data-level="14.4.5" data-path="bootstrap-algorithms-and-applicatications.html"><a href="bootstrap-algorithms-and-applicatications.html#bagging-versus-boosting"><i class="fa fa-check"></i><b>14.4.5</b> Bagging Versus Boosting</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA551 E-Pack: Foundations of Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bootstrap-algorithms-and-applicatications" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Topic 14</span> Bootstrap Algorithms and Applicatications<a href="bootstrap-algorithms-and-applicatications.html#bootstrap-algorithms-and-applicatications" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The bootstrap method is a data-based simulation method for statistical inference. The method assumes that</p>
+<ul>
+<li><p>The sample is a random sample representing the population;</p></li>
+<li><p>The sample size is large enough such that the empirical distribution can be close to the true distribution.</p></li>
+</ul>
+<div id="basic-idea-of-bootstrap-method." class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Basic Idea of Bootstrap Method.<a href="bootstrap-algorithms-and-applicatications.html#basic-idea-of-bootstrap-method." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The objective is to estimate a population parameter such as mean, variance, correlation coefficient, regression coefficients, etc. from a random sample without assuming any probability distribution of the underlying distribution of the population.</p>
+<p>For convenience, we assume that the population of interest has a cumulative distribution function <span class="math inline">\(F(x: \theta)\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of the population. For example, You can think about the following distributions</p>
+<ul>
+<li><p><strong>Normal distribution</strong>: <span class="math inline">\(N(\mu, \sigma^2)\)</span>, the distribution function is given by</p>
+<p><span class="math display">\[f(x:\theta) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\]</span>
+where <span class="math inline">\(\theta = (\mu, \sigma)\)</span>. Since the normal distribution is so fundamental in statistics, we use the special notation for the cumulative distribution <span class="math inline">\(\phi_{\mu, \sigma^2}(x)\)</span> or simply <span class="math inline">\(\phi(x)\)</span>. The corresponding probability function</p></li>
+<li><p><strong>Binomial distribution</strong>: <span class="math inline">\(Binom(n, p)\)</span>, the probability distribution is given by</p></li>
+</ul>
+<p><span class="math display">\[ P(x) = \frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}, x = 0, 1, 2, \cdots, n-1, n.\]</span>
+where <span class="math inline">\(\theta = p\)</span>. <em>Caution</em>: <span class="math inline">\(n\)</span> is NOT a parameter!</p>
+<p>We have already learned how to make inferences about population means and variances under various assumptions in elementary statistics. In this note, we introduce a <strong>new approach</strong> to making inferences only based on a given random sample taken from the underlying population.</p>
+<p>As an example, we focus on the population mean. For other parameters, we can follow the same idea to make bootstrap inferences.</p>
+<div id="sampling-true-population---monte-carlo-sampling" class="section level3 hasAnchor" number="14.1.1">
+<h3><span class="header-section-number">14.1.1</span> Sampling True Population - Monte Carlo Sampling<a href="bootstrap-algorithms-and-applicatications.html#sampling-true-population---monte-carlo-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have introduced various study designs and sampling plans to obtain random samples from a given population with the distribution function <span class="math inline">\(F(x:\theta)\)</span>. Let <span class="math inline">\(\mu\)</span> be the population mean.</p>
+<ul>
+<li><strong>Random Sample</strong>. Let</li>
+</ul>
+<p><span class="math display">\[\{x_1, x_2, \cdots, x_n\} \to F(x:\theta)\]</span>
+be a random sample from population <span class="math inline">\(F(x:\theta)\)</span>.</p>
+<ul>
+<li><strong>Sample Mean</strong>. The point estimate is given by</li>
+</ul>
+<p><span class="math display">\[\hat{\mu} = \frac{\sum_{i=1}^n x_i}{n}\]</span></p>
+<ul>
+<li><p><strong>Sampling Distribution of <span class="math inline">\(\hat{\mu}\)</span></strong>. In order to construct the confidence interval of <span class="math inline">\(\mu\)</span> or make hypothesis testing about <span class="math inline">\(\mu\)</span>, we need to know the sampling distribution of <span class="math inline">\(\hat{\mu}\)</span>. From elementary statistics, we have the following results.</p>
+<ul>
+<li><p><span class="math inline">\(\hat{\mu}\)</span> is normally distributed if (1). <span class="math inline">\(n\)</span> is large; or (2). the population is normal and population variance is known.</p></li>
+<li><p>the standardized <span class="math inline">\(\hat{\mu}\)</span> follows a t-distribution if the population is normal and population variance is unknown.</p></li>
+<li><p><span class="math inline">\(\hat{\mu}\)</span> is <strong>unknown</strong> of the population is not normal and the sample size is not large enough.</p></li>
+</ul></li>
+<li><p>In the last case of the previous bullet point, we don’t have the theory to derive the sampling distribution based on a <strong>single</strong> sample. However, if the sampling is not too expensive and time-consuming, we take following the sample study design and sampling plan to repeatedly take a large number, 1000, samples of the same size from the population. We calculate the mean of each of the 1000 samples and obtain 1000 sample means <span class="math inline">\(\{\hat{\mu}_1, \hat{\mu}_2, \cdots, \hat{\mu}_{1000}\}\)</span>. Then the empirical distribution of <span class="math inline">\(\hat{\mu}\)</span>.</p></li>
+</ul>
+<p>The following figure depicts the process of how to sample the true population and approximate the sampling distribution of the point estimator of the population parameter.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="img09/w09-ApproxSamplingDist.jpg" alt="Steps for estimating the sampling distribution of a point estimator of the population parameter" width="80%" />
+<p class="caption">
+Figure 14.1: Steps for estimating the sampling distribution of a point estimator of the population parameter
+</p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="sampling-random-sample---bootstrap-sampling" class="section level3 hasAnchor" number="14.1.2">
+<h3><span class="header-section-number">14.1.2</span> Sampling Random Sample - Bootstrap Sampling<a href="bootstrap-algorithms-and-applicatications.html#sampling-random-sample---bootstrap-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sampling the true population can be very expensive in practice! That means the method of Monte Carlo sampling is infeasible from a practical perspective. The question is whether there are ways to estimate the sampling distribution of the sample means from <strong>a single given random sample</strong>? The answer is YES under the assumption the sample yields a valid estimation of the original population distribution.</p>
+<ul>
+<li><p><strong>Bootstrap Sampling</strong> With the assumption that the sample yields a good approximation of the population distribution, we can take bootstrap samples from the <strong>actual</strong> sample. Let
+<span class="math display">\[\{x_1, x_2, \cdots, x_n\} \to F(x:\theta)\]</span> be the actual random sample taken from the population. A <strong>bootstrap sample</strong> is obtained by taking a sample <strong>with replacement</strong> from the original data set (not the population!) with the same size as the original sample. Because <strong>with replacement</strong> was used, some values in the bootstrap sample appear once, some twice, and so on, and some do not appear at all.</p></li>
+<li><p><strong>Notation of Bootstrap Sample</strong>. We use <span class="math inline">\(\{x_1^{(i*)}, x_2^{(i*)}, \cdots, x_n^{(i*)}\}\)</span> to denote the <span class="math inline">\(i^{th}\)</span> bootstrap sample. Then the corresponding mean is called bootstrap sample mean and denoted by <span class="math inline">\(\hat{\mu}_i^*\)</span>, for <span class="math inline">\(i = 1, 2, ..., n\)</span>.</p></li>
+<li><p><strong>Bootstrap sampling distribution</strong> of the sample mean can be estimated by taking a large number, say B, of bootstrap samples. The resulting B bootstrap sample means are used to estimate the sampling distribution. Note that, in practice, B is bigger than 1000.</p></li>
+</ul>
+<p>The above Bootstrap sampling process is illustrated in the following figure.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="img09/w09-BootSamplingDist.jpg" alt="Steps for the Bootstrap sampling distribution of a point estimator of the population parameter" width="80%" />
+<p class="caption">
+Figure 14.2: Steps for the Bootstrap sampling distribution of a point estimator of the population parameter
+</p>
+</div>
+<p><br />
+</p>
+</div>
+<div id="case-study-confidence-interval-of-correlation-coefficient" class="section level3 hasAnchor" number="14.1.3">
+<h3><span class="header-section-number">14.1.3</span> Case Study: Confidence Interval of Correlation Coefficient<a href="bootstrap-algorithms-and-applicatications.html#case-study-confidence-interval-of-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There is no exact formula for the correlation coefficient of the two variables. Different approximate confidence intervals are available. One of them is based on Pearson transformation. The explicit form of the interval has the following form.</p>
+<p><span class="math display">\[
+\left( \frac{e^{2L}-1}{e^{2L}+1},  \frac{e^{2U}-1}{e^{2U}+1}\right)
+\]</span></p>
+<p>where
+<span class="math display">\[
+L = z_r - \frac{Z_{0.975}}{\sqrt{n-3}}, \ \ \ U = z_r + \frac{Z_{0.975}}{\sqrt{n-3}}
+\]</span></p>
+<p>and
+<span class="math display">\[
+z_r = \frac{\ln(1+r)-\ln(1-r)}{2} \ \ \ \text{and} \ \ \ z_{0.975} = \text{97.5 th percentile of the standard normal distribution.}
+\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bootstrap-algorithms-and-applicatications.html#cb1-1" tabindex="-1"></a>y <span class="ot">=</span> Carseats<span class="sc">$</span>Sales</span>
+<span id="cb1-2"><a href="bootstrap-algorithms-and-applicatications.html#cb1-2" tabindex="-1"></a>x <span class="ot">=</span> Carseats<span class="sc">$</span>Price</span>
+<span id="cb1-3"><a href="bootstrap-algorithms-and-applicatications.html#cb1-3" tabindex="-1"></a><span class="fu">plot</span>(Sales <span class="sc">~</span> Price, <span class="at">data =</span> Carseats, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-4-1.png" alt="The scatter plot between sales and price in car seats data set" width="672" />
+<p class="caption">
+Figure 14.3: The scatter plot between sales and price in car seats data set
+</p>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="bootstrap-algorithms-and-applicatications.html#cb2-1" tabindex="-1"></a><span class="do">##  The following is the translation of the given formula</span></span>
+<span id="cb2-2"><a href="bootstrap-algorithms-and-applicatications.html#cb2-2" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(y)</span>
+<span id="cb2-3"><a href="bootstrap-algorithms-and-applicatications.html#cb2-3" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">cor</span>(x,y)    <span class="co"># sample Pearson correlation coefficient</span></span>
+<span id="cb2-4"><a href="bootstrap-algorithms-and-applicatications.html#cb2-4" tabindex="-1"></a>zr <span class="ot">=</span> (<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span>r)<span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>r))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb2-5"><a href="bootstrap-algorithms-and-applicatications.html#cb2-5" tabindex="-1"></a>z<span class="fl">.975</span> <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb2-6"><a href="bootstrap-algorithms-and-applicatications.html#cb2-6" tabindex="-1"></a>L <span class="ot">=</span> zr <span class="sc">-</span> z<span class="fl">.975</span><span class="sc">/</span><span class="fu">sqrt</span>(n<span class="dv">-3</span>)</span>
+<span id="cb2-7"><a href="bootstrap-algorithms-and-applicatications.html#cb2-7" tabindex="-1"></a>U <span class="ot">=</span> zr <span class="sc">+</span> z<span class="fl">.975</span><span class="sc">/</span><span class="fu">sqrt</span>(n<span class="dv">-3</span>)</span>
+<span id="cb2-8"><a href="bootstrap-algorithms-and-applicatications.html#cb2-8" tabindex="-1"></a>LCI <span class="ot">=</span> (<span class="fu">exp</span>(<span class="dv">2</span><span class="sc">*</span>L)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="fu">exp</span>(<span class="dv">2</span><span class="sc">*</span>L)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="bootstrap-algorithms-and-applicatications.html#cb2-9" tabindex="-1"></a>UCI <span class="ot">=</span> (<span class="fu">exp</span>(<span class="dv">2</span><span class="sc">*</span>U)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="fu">exp</span>(<span class="dv">2</span><span class="sc">*</span>U)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="bootstrap-algorithms-and-applicatications.html#cb2-10" tabindex="-1"></a>CI <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">LCI =</span> LCI, <span class="at">UCI =</span> UCI)</span>
+<span id="cb2-11"><a href="bootstrap-algorithms-and-applicatications.html#cb2-11" tabindex="-1"></a><span class="do">### Bootstrap CI</span></span>
+<span id="cb2-12"><a href="bootstrap-algorithms-and-applicatications.html#cb2-12" tabindex="-1"></a>B <span class="ot">=</span> <span class="dv">1000</span>              <span class="co"># Take 1000 bootstrap sample</span></span>
+<span id="cb2-13"><a href="bootstrap-algorithms-and-applicatications.html#cb2-13" tabindex="-1"></a>bt.r <span class="ot">=</span> <span class="fu">c</span>()            <span class="co"># empty vector to store bootstrap coefficient</span></span>
+<span id="cb2-14"><a href="bootstrap-algorithms-and-applicatications.html#cb2-14" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B){</span>
+<span id="cb2-15"><a href="bootstrap-algorithms-and-applicatications.html#cb2-15" tabindex="-1"></a>  bt.id <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)   <span class="co"># bootstrapping observation IDs</span></span>
+<span id="cb2-16"><a href="bootstrap-algorithms-and-applicatications.html#cb2-16" tabindex="-1"></a>  bt.x <span class="ot">=</span> x[bt.id]     <span class="co"># bootstrap x , must use the above bt.id</span></span>
+<span id="cb2-17"><a href="bootstrap-algorithms-and-applicatications.html#cb2-17" tabindex="-1"></a>  bt.y <span class="ot">=</span> y[bt.id]     <span class="co"># bootstrap y , must use the above bt.id</span></span>
+<span id="cb2-18"><a href="bootstrap-algorithms-and-applicatications.html#cb2-18" tabindex="-1"></a>  bt.r[i] <span class="ot">=</span> <span class="fu">cor</span>(bt.x, bt.y)</span>
+<span id="cb2-19"><a href="bootstrap-algorithms-and-applicatications.html#cb2-19" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="bootstrap-algorithms-and-applicatications.html#cb2-20" tabindex="-1"></a><span class="do">## 2.5% and 97.5% of the 1000 bootstrap correlation coefficients are the</span></span>
+<span id="cb2-21"><a href="bootstrap-algorithms-and-applicatications.html#cb2-21" tabindex="-1"></a><span class="do">## lower and upper limits of the 95% bootstrap confidence interval</span></span>
+<span id="cb2-22"><a href="bootstrap-algorithms-and-applicatications.html#cb2-22" tabindex="-1"></a>bt.CI <span class="ot">=</span> <span class="fu">quantile</span>(bt.r, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb2-23"><a href="bootstrap-algorithms-and-applicatications.html#cb2-23" tabindex="-1"></a><span class="fu">list</span>(<span class="at">CI =</span> CI, <span class="at">bt.CI =</span> <span class="fu">as.vector</span>(bt.CI))</span></code></pre></div>
+<pre><code>## $CI
+##             LCI       UCI
+## [1,] -0.5203026 -0.362724
+## 
+## $bt.CI
+## [1] -0.5240189 -0.3599991</code></pre>
+<p><br />
+</p>
+</div>
+</div>
+<div id="bootstrap-confidence-interval-of-auc-for-logistic-model" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Bootstrap Confidence Interval of AUC for Logistic Model<a href="bootstrap-algorithms-and-applicatications.html#bootstrap-confidence-interval-of-auc-for-logistic-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we demonstrate how to find the confidence interval of the area of the ROC curve. This confidence interval is of practical importance.</p>
+</div>
+<div id="bootstrap-sampling-for-logistic-modeling" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Bootstrap Sampling for Logistic Modeling<a href="bootstrap-algorithms-and-applicatications.html#bootstrap-sampling-for-logistic-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In logistic regression models, the residuals are not defined as those in the linear regression (i.e., <span class="math inline">\(e_i = \text{observed }y - \text{fitted }y\)</span>). Bootstrapping residuals does not work for logistic regression. We can use the following two steps to take bootstrap samples:</p>
+<ol style="list-style-type: decimal">
+<li><p>Take a bootstrap sample from the observation IDs with the same size (and with replacement): <span class="math inline">\(\{1, 2, 3, \cdots, n \}\)</span>. Note that some of the IDs will be sampled multiple times.</p></li>
+<li><p>Using the bootstrap IDs to identify the corresponding records in the data set and defined a new data set called <strong>Bootstrap sample</strong>. Some of the records appear multiple times. These duplicate records with be kept in the sample. In other words, the distinct records in a bootstrap sample are less than the sample size!</p></li>
+</ol>
+<p>Following the above steps, we can take many bootstrap samples. Recall that we can build a logistic regression for a given data set and construct an ROC curve and calculate the area under the curve. This means, if we draw <span class="math inline">\(B = 1000\)</span> bootstrap samples, we can then build 1000 logistic regression models (also called <strong>bootstrap logistic regression models</strong>), hence, will have 1000 <strong>bootstrap AUCs</strong> (one for each bootstrap logistic model).</p>
+<p>This further means that the histogram of these <strong>bootstrap AUCs</strong> can be considered as the sampling distribution of the actual sample <strong>AUC</strong>. The <strong>95% Bootstrap confidence interval</strong> of <strong>AUC</strong> is defined as the 2.5% and 97.5% quantiles of the <strong>bootstrap AUCs</strong>.</p>
+<p><br />
+</p>
+<div id="case-study---confidence-interval-of-auc" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> Case Study - Confidence Interval of AUC<a href="bootstrap-algorithms-and-applicatications.html#case-study---confidence-interval-of-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We present two examples showing how to calculate the bootstrap confidence interval of the AUC using a logistic regression model. One can apply the same steps for neural net and decision tree algorithms.</p>
+<div id="predicting-graduate-admission" class="section level4 hasAnchor" number="14.3.1.1">
+<h4><span class="header-section-number">14.3.1.1</span> Predicting Graduate Admission<a href="bootstrap-algorithms-and-applicatications.html#predicting-graduate-admission" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We use the following admission data set to illustrate the steps.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="bootstrap-algorithms-and-applicatications.html#cb4-1" tabindex="-1"></a>admitted <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/STA551/main/w09/w09-admitted.csv&quot;</span>)</span>
+<span id="cb4-2"><a href="bootstrap-algorithms-and-applicatications.html#cb4-2" tabindex="-1"></a>notadmitted <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/STA551/main/w09/w09-notAdmitted.csv&quot;</span>)</span>
+<span id="cb4-3"><a href="bootstrap-algorithms-and-applicatications.html#cb4-3" tabindex="-1"></a><span class="do">## add an admission status variable to both sub-samples.</span></span>
+<span id="cb4-4"><a href="bootstrap-algorithms-and-applicatications.html#cb4-4" tabindex="-1"></a>admitted<span class="sc">$</span>status <span class="ot">=</span> <span class="st">&quot;yes&quot;</span>                         <span class="co"># admitted</span></span>
+<span id="cb4-5"><a href="bootstrap-algorithms-and-applicatications.html#cb4-5" tabindex="-1"></a>notadmitted<span class="sc">$</span>status <span class="ot">=</span> <span class="st">&quot;no &quot;</span>                      <span class="co"># not admitted</span></span>
+<span id="cb4-6"><a href="bootstrap-algorithms-and-applicatications.html#cb4-6" tabindex="-1"></a>admission <span class="ot">=</span> <span class="fu">rbind</span>(admitted, notadmitted)        <span class="co"># combining the two sub-samples</span></span>
+<span id="cb4-7"><a href="bootstrap-algorithms-and-applicatications.html#cb4-7" tabindex="-1"></a><span class="do">## Define an empty vector to store bootstrap AUCs.</span></span>
+<span id="cb4-8"><a href="bootstrap-algorithms-and-applicatications.html#cb4-8" tabindex="-1"></a>btAUC.vec <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb4-9"><a href="bootstrap-algorithms-and-applicatications.html#cb4-9" tabindex="-1"></a><span class="do">## Select the number of bootstrap samples to be generated</span></span>
+<span id="cb4-10"><a href="bootstrap-algorithms-and-applicatications.html#cb4-10" tabindex="-1"></a>B <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb4-11"><a href="bootstrap-algorithms-and-applicatications.html#cb4-11" tabindex="-1"></a><span class="do">## Size of the original sample</span></span>
+<span id="cb4-12"><a href="bootstrap-algorithms-and-applicatications.html#cb4-12" tabindex="-1"></a>sample.size <span class="ot">=</span> <span class="fu">dim</span>(admission)[<span class="dv">1</span>]</span>
+<span id="cb4-13"><a href="bootstrap-algorithms-and-applicatications.html#cb4-13" tabindex="-1"></a><span class="do">## Vector of cut-off probabilities for construct ROC</span></span>
+<span id="cb4-14"><a href="bootstrap-algorithms-and-applicatications.html#cb4-14" tabindex="-1"></a>cut.off.seq <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb4-15"><a href="bootstrap-algorithms-and-applicatications.html#cb4-15" tabindex="-1"></a><span class="co"># bootstrap procedure starts here</span></span>
+<span id="cb4-16"><a href="bootstrap-algorithms-and-applicatications.html#cb4-16" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B){</span>
+<span id="cb4-17"><a href="bootstrap-algorithms-and-applicatications.html#cb4-17" tabindex="-1"></a>  boot.id <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>sample.size, sample.size, <span class="at">replace =</span> <span class="cn">TRUE</span>)   <span class="co"># Bootstrap IDs</span></span>
+<span id="cb4-18"><a href="bootstrap-algorithms-and-applicatications.html#cb4-18" tabindex="-1"></a>  boot.sample <span class="ot">=</span> admission[boot.id,]      <span class="co"># Bootstrap samples         </span></span>
+<span id="cb4-19"><a href="bootstrap-algorithms-and-applicatications.html#cb4-19" tabindex="-1"></a>  <span class="do">## Bootstrap logistic regression model is given below</span></span>
+<span id="cb4-20"><a href="bootstrap-algorithms-and-applicatications.html#cb4-20" tabindex="-1"></a>  boot.logistic <span class="ot">=</span> <span class="fu">glm</span>(<span class="fu">factor</span>(status)<span class="sc">~</span>., <span class="at">family =</span> binomial, <span class="at">data =</span> boot.sample)</span>
+<span id="cb4-21"><a href="bootstrap-algorithms-and-applicatications.html#cb4-21" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb4-22"><a href="bootstrap-algorithms-and-applicatications.html#cb4-22" tabindex="-1"></a>  pred.prob <span class="ot">=</span> <span class="fu">predict.glm</span>(boot.logistic, <span class="at">newdata =</span> boot.sample, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb4-23"><a href="bootstrap-algorithms-and-applicatications.html#cb4-23" tabindex="-1"></a>  <span class="do">## vectors to store sensitivity and specificity</span></span>
+<span id="cb4-24"><a href="bootstrap-algorithms-and-applicatications.html#cb4-24" tabindex="-1"></a>  sensitivity.vec <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb4-25"><a href="bootstrap-algorithms-and-applicatications.html#cb4-25" tabindex="-1"></a>  specificity.vec <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb4-26"><a href="bootstrap-algorithms-and-applicatications.html#cb4-26" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb4-27"><a href="bootstrap-algorithms-and-applicatications.html#cb4-27" tabindex="-1"></a>   pred.status <span class="ot">=</span> <span class="fu">as.numeric</span>(pred.prob <span class="sc">&gt;</span> cut.off.seq[i])</span>
+<span id="cb4-28"><a href="bootstrap-algorithms-and-applicatications.html#cb4-28" tabindex="-1"></a>   <span class="do">### components for defining various measures</span></span>
+<span id="cb4-29"><a href="bootstrap-algorithms-and-applicatications.html#cb4-29" tabindex="-1"></a>   TN <span class="ot">=</span> <span class="fu">sum</span>(pred.status <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> boot.sample<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;no &quot;</span>)</span>
+<span id="cb4-30"><a href="bootstrap-algorithms-and-applicatications.html#cb4-30" tabindex="-1"></a>   FN <span class="ot">=</span> <span class="fu">sum</span>(pred.status <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> boot.sample<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb4-31"><a href="bootstrap-algorithms-and-applicatications.html#cb4-31" tabindex="-1"></a>   FP <span class="ot">=</span> <span class="fu">sum</span>(pred.status <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> boot.sample<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;no &quot;</span>)</span>
+<span id="cb4-32"><a href="bootstrap-algorithms-and-applicatications.html#cb4-32" tabindex="-1"></a>   TP <span class="ot">=</span> <span class="fu">sum</span>(pred.status <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> boot.sample<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb4-33"><a href="bootstrap-algorithms-and-applicatications.html#cb4-33" tabindex="-1"></a>   <span class="do">###</span></span>
+<span id="cb4-34"><a href="bootstrap-algorithms-and-applicatications.html#cb4-34" tabindex="-1"></a>   sensitivity.vec[i] <span class="ot">=</span> TP <span class="sc">/</span> (TP <span class="sc">+</span> FN)</span>
+<span id="cb4-35"><a href="bootstrap-algorithms-and-applicatications.html#cb4-35" tabindex="-1"></a>   specificity.vec[i] <span class="ot">=</span> TN <span class="sc">/</span> (TN <span class="sc">+</span> FP)</span>
+<span id="cb4-36"><a href="bootstrap-algorithms-and-applicatications.html#cb4-36" tabindex="-1"></a>  }</span>
+<span id="cb4-37"><a href="bootstrap-algorithms-and-applicatications.html#cb4-37" tabindex="-1"></a>  one.minus.spec <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> specificity.vec</span>
+<span id="cb4-38"><a href="bootstrap-algorithms-and-applicatications.html#cb4-38" tabindex="-1"></a>  sens.vec <span class="ot">=</span> sensitivity.vec</span>
+<span id="cb4-39"><a href="bootstrap-algorithms-and-applicatications.html#cb4-39" tabindex="-1"></a>  <span class="do">## A better approx of ROC, need library {pROC}</span></span>
+<span id="cb4-40"><a href="bootstrap-algorithms-and-applicatications.html#cb4-40" tabindex="-1"></a>  prediction <span class="ot">=</span> pred.prob</span>
+<span id="cb4-41"><a href="bootstrap-algorithms-and-applicatications.html#cb4-41" tabindex="-1"></a>  category <span class="ot">=</span> boot.sample<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb4-42"><a href="bootstrap-algorithms-and-applicatications.html#cb4-42" tabindex="-1"></a>  ROCobj <span class="ot">&lt;-</span> <span class="fu">roc</span>(category, prediction, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-43"><a href="bootstrap-algorithms-and-applicatications.html#cb4-43" tabindex="-1"></a>  btAUC.vec[k] <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">auc</span>(ROCobj),<span class="dv">4</span>)</span>
+<span id="cb4-44"><a href="bootstrap-algorithms-and-applicatications.html#cb4-44" tabindex="-1"></a>}</span>
+<span id="cb4-45"><a href="bootstrap-algorithms-and-applicatications.html#cb4-45" tabindex="-1"></a><span class="fu">hist</span>(btAUC.vec, <span class="at">xlab =</span> <span class="st">&quot;Bootstrap AUC&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Bootstrap Sampling Distribution </span></span>
+<span id="cb4-46"><a href="bootstrap-algorithms-and-applicatications.html#cb4-46" tabindex="-1"></a><span class="st">     of AUCs </span><span class="sc">\n</span><span class="st"> (Admission Prediction Model)&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-6-1.png" alt=" The bootstrap sampling distribution of the area under the curve of ROC (graduate admission prediction)" width="480" />
+<p class="caption">
+Figure 14.4:  The bootstrap sampling distribution of the area under the curve of ROC (graduate admission prediction)
+</p>
+</div>
+<p>The 95% bootstrap confidence interval of the AUC is defined to be 2.5% and 97.5% quantiles of the bootstrap AUCs.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="bootstrap-algorithms-and-applicatications.html#cb5-1" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">quantile</span>(btAUC.vec, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span></code></pre></div>
+<table style="width:25%;">
+<colgroup>
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">2.5%</th>
+<th align="center">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0.6431</td>
+<td align="center">0.7465</td>
+</tr>
+</tbody>
+</table>
+<p>The confidence interval of AUC can be used for variable selection: if two confidence intervals of AUC overlapped, the predictive performances of the two corresponding predictive models are not significantly different. A simpler model should be recommended for implementation.</p>
+<p><br />
+</p>
+</div>
+<div id="fraud-detection-data" class="section level4 hasAnchor" number="14.3.1.2">
+<h4><span class="header-section-number">14.3.1.2</span> Fraud Detection Data<a href="bootstrap-algorithms-and-applicatications.html#fraud-detection-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We use the same fraud data that was used in an earlier mote.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="bootstrap-algorithms-and-applicatications.html#cb6-1" tabindex="-1"></a>fraud.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://pengdsci.github.io/datasets/FraudIndex/fraudidx.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb6-2"><a href="bootstrap-algorithms-and-applicatications.html#cb6-2" tabindex="-1"></a><span class="do">## recode status variable: bad = 1 and good = 0</span></span>
+<span id="cb6-3"><a href="bootstrap-algorithms-and-applicatications.html#cb6-3" tabindex="-1"></a>good.id <span class="ot">=</span> <span class="fu">which</span>(fraud.data<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot; good&quot;</span>) </span>
+<span id="cb6-4"><a href="bootstrap-algorithms-and-applicatications.html#cb6-4" tabindex="-1"></a>bad.id <span class="ot">=</span> <span class="fu">which</span>(fraud.data<span class="sc">$</span>status <span class="sc">==</span> <span class="st">&quot;fraud&quot;</span>)</span>
+<span id="cb6-5"><a href="bootstrap-algorithms-and-applicatications.html#cb6-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb6-6"><a href="bootstrap-algorithms-and-applicatications.html#cb6-6" tabindex="-1"></a>fraud.data<span class="sc">$</span>fraud.status <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb6-7"><a href="bootstrap-algorithms-and-applicatications.html#cb6-7" tabindex="-1"></a>fraud.data<span class="sc">$</span>fraud.status[bad.id] <span class="ot">=</span> <span class="dv">1</span></span></code></pre></div>
+<p>Next, we perform bootstrap logistic regression with 1000 bootstrap samples and build 1000 bootstrap logistic regression models and calculate the AUC of the ROC of the corresponding bootstrap logistic regression models.</p>
+<pre><code>## Define an empty vector to store bootstrap AUCs.
+btAUC.vec = c()
+## select the number of bootstrap samples to be generated
+B = 1000
+## Size of the original sample
+sample.size = dim(fraud.data)[1]
+## Vector of cut-off probabilities for construct ROC
+cut.off.seq = seq(0,1, length = 100)
+# bootstrap procedure starts here
+for (k in 1:B){
+  boot.id = sample(1:sample.size, sample.size, replace = TRUE)   # Bootstrap IDs
+  boot.sample = fraud.data[boot.id,]      # Bootstrap samples         
+  ## Bootstrap logistic regression model is given below
+  boot.logistic = glm(factor(status) ~ index, family = binomial, data = boot.sample)
+  ##
+  newdata = data.frame(index= boot.sample$index) 
+  pred.prob = predict.glm(boot.logistic, newdata, type = &quot;response&quot;)
+  ## vectors to store sensitivity and specificity
+  sensitivity.vec = NULL
+  specificity.vec = NULL
+  for (i in 1:100){
+   pred.status = as.numeric(pred.prob &gt; cut.off.seq[i])
+   ### components for defining various measures
+   TN = sum(pred.status == 0 &amp; boot.sample$fraud.status == 0)
+   FN = sum(pred.status == 0 &amp; boot.sample$fraud.status == 1)
+   FP = sum(pred.status == 1 &amp; boot.sample$fraud.status == 0)
+   TP = sum(pred.status == 1 &amp; boot.sample$fraud.status == 1)
+   ###
+   sensitivity.vec[i] = TP / (TP + FN)
+   specificity.vec[i] = TN / (TN + FP)
+  }
+  one.minus.spec = 1 - specificity.vec
+  sens.vec = sensitivity.vec
+  ## A better approx of ROC, need library {pROC}
+  prediction = pred.prob
+  category = boot.sample$fraud.status == 1
+  ROCobj &lt;- roc(category, prediction)
+  btAUC.vec[k] = round(auc(ROCobj),4)
+}
+hist(btAUC.vec, xlab = &quot;Bootstrap AUC&quot;, main = &quot;Bootstrap Sampling Distribution of AUCs \n (Fraud Detection Model)&quot;)</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="img09/w09-BootstrapAUCFraudPred.jpg" alt="Bootstrap sampling distribution of AUC (fraud prediction)" width="80%" />
+<p class="caption">
+Figure 14.5: Bootstrap sampling distribution of AUC (fraud prediction)
+</p>
+</div>
+<p>With the bootstrap AUCs, we can similarly construct the 95% bootstrap confidence interval for the AUC of the fraud detection model is <span class="math inline">\((0.9234, 0.9313 )\)</span>.</p>
+<p><br />
+</p>
+</div>
+</div>
+</div>
+<div id="concepts-of-ensemble-algorithms" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Concepts of Ensemble Algorithms<a href="bootstrap-algorithms-and-applicatications.html#concepts-of-ensemble-algorithms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have taken many bootstrap samples and built a logistic regression model on each of these bootstrap samples and calculate the area under the ROC curve of associated logistic regression models. Using these bootstrap AUCs, we approximate the find the bootstrap sampling distribution of the AUC and, hence, find the confidence interval of the AUC.</p>
+<p>We can follow the same steps to find the bootstrap confidence intervals of the AUCs of decision trees and neural net algorithms. One important application of Bootstrap in machine learning is its ability to aggregate a set of <em>weak</em> models and algorithms to make a <em>stronger</em> combined model - This is the so-called <strong>ensemble</strong> learning method in machine learning. One way of improving the performance of a <em>weak model</em> through an ensemble approach is to reduce the risk of <strong>overfitting</strong> and <strong>underfitting</strong> by balancing the trade-off between <strong>bias</strong> and <strong>variance</strong>,</p>
+<div id="overfitting-v.s.-underfitting" class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> Overfitting v.s. Underfitting<a href="bootstrap-algorithms-and-applicatications.html#overfitting-v.s.-underfitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In predictive modeling, <strong>bias</strong> is a phenomenon that skews the result of an algorithm in favor of or against the ground truth. It describes how well the model matches the training data set:</p>
+<ul>
+<li>A model with a higher bias would not match the data set closely.</li>
+<li>A low-bias model will closely match the training data set.</li>
+</ul>
+<p><strong>Variance</strong> refers to the changes in the model when using different portions of the training data set. The variance comes from highly complex (but valid) models with a large number of features</p>
+<ul>
+<li>Models with high bias will have low variance.</li>
+<li>Models with high variance will have a low bias.</li>
+</ul>
+<p>The terms <strong>underfitting</strong> and <strong>overfitting</strong> refer to how the model fails to match the data.</p>
+<ul>
+<li><p><strong>Underfitting</strong> occurs when the model is too simple to be able to match the input data to the target data.</p></li>
+<li><p><strong>Overfitting</strong> occurs when the model is highly complex but perfectly matches almost all the given data points and performs well in training data sets. However, the model would not be able to generalize the data point in the test data set to predict the outcome accurately due to high error (variation).</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="img09/w09-BiasVarianceOverUnderFitting.jpg" alt="Bias, variance, overfitting and underfitting of predictive models" width="80%" />
+<p class="caption">
+Figure 14.6: Bias, variance, overfitting and underfitting of predictive models
+</p>
+</div>
+</div>
+<div id="the-logic-ensemble-learning-method" class="section level3 hasAnchor" number="14.4.2">
+<h3><span class="header-section-number">14.4.2</span> The Logic Ensemble Learning Method<a href="bootstrap-algorithms-and-applicatications.html#the-logic-ensemble-learning-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Ensemble learning</strong> attests to the idea of the “wisdom of crowds,” which suggests that the decision-making of a larger group of people is typically better than that of an individual expert. Similarly, ensemble learning refers to a group (or ensemble) of base learners (eg., models and algorithms), which work collectively to achieve a better final prediction.</p>
+<p>A single model or algorithm, also known as a base or weak learner, may not perform well individually due to high variance or high bias. However, when weak learners are aggregated, they can form a strong learner (with stable performance and low variance) yielding better model performance.</p>
+<p>Many different types of ensemble learning methods have been developed in the past few decades, Among them, boosting and Bootstrap aggregation (BAGGING) methods are commonly used in practice.</p>
+<p><br />
+</p>
+</div>
+<div id="bagging-ensemble-methods" class="section level3 hasAnchor" number="14.4.3">
+<h3><span class="header-section-number">14.4.3</span> BAGGING Ensemble Methods<a href="bootstrap-algorithms-and-applicatications.html#bagging-ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Bagging</strong> is an acronym for <em>Bootstrap Aggregation</em> and is used to decrease the variance in the prediction model (the idea we adopted when identifying the optimal cut-off scores and the confidence interval of AUC).</p>
+<p><strong>Bagging</strong> is a <font color = "blue"><strong>parallel</strong></font> method that fits <font color = "blue"><strong>different</strong></font>, considered learners <font color = "blue"><strong>independently</strong></font> from each other, making it possible to train them <font color = "blue"><strong>simultaneously</strong></font>.</p>
+<p><strong>Bagging</strong> generates additional data for training from the data set. This is achieved by <font color = "red"><strong>bootstrap sampling</strong></font> (random sampling with replacement) from the original data set. As discussed in earlier sections, <strong>Bootstrap Sampling</strong> may repeat some observations in each new training data set. This guarantees that every element in <strong>Bagging</strong> is equally probable for appearing in a <strong>bootstrap</strong> data set.</p>
+<p>These bootstrap data sets are used to train multiple models in <strong>parallel</strong>. The average of all the predictions from different ensemble models is calculated. The <strong>majority vote</strong> gained from the voting mechanism is considered when classification is made. <font color = "red"><em>Bagging decreases the variance and tunes the prediction to an expected outcome</em></font>.</p>
+<p>The following figure explains the BAGGING algorithm applied to the decision tree algorithm.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
+<img src="img09/w09-BAGGING.jpg" alt="The idea of Gagging ensemble algorithm." width="80%" />
+<p class="caption">
+Figure 14.7: The idea of Gagging ensemble algorithm.
+</p>
+</div>
+<p>In summary, the bagging algorithm has three basic steps:</p>
+<p><strong>Bootstrapping</strong>: Bagging leverages a bootstrapping sampling technique to create diverse samples.</p>
+<ul>
+<li><p><strong>Parallel training</strong>: These bootstrap samples are then trained independently and in parallel with each other using weak or base learners (de).</p></li>
+<li><p><strong>Aggregation</strong>: Finally, aggregating the outputs from individual algorithms/models. In the case of using a tree algorithm (like the above figure)</p>
+<ul>
+<li><font color = "red"><em>for regression</em></font>, an average of all terminal node weights is taken of all the outputs predicted by the individual classifiers; this is known as <strong>soft voting</strong>.</li>
+<li><font color = "red"><em>for classification</em></font>, the class (defined with default 0.5 in each individual tree) with the highest majority of votes is accepted; this is known as <strong>hard voting or majority voting</strong>.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<div id="case-study-i-bagging-classification-trees" class="section level4 hasAnchor" number="14.4.3.1">
+<h4><span class="header-section-number">14.4.3.1</span> Case Study I: BAGGING Classification Trees<a href="bootstrap-algorithms-and-applicatications.html#case-study-i-bagging-classification-trees" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><br />
+</p>
+<p><strong>BAGGING</strong> is implemented in R libraries <strong>ipred{}</strong> and <strong>rpart{}</strong>. They are usually used with several other libraries such as <strong>caret{}</strong> and <strong>e1071{}</strong> to extract relevant information in the bagging algorithm.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="bootstrap-algorithms-and-applicatications.html#cb8-1" tabindex="-1"></a>Pima <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://pengdsci.github.io/STA551/w03/AnalyticPimaDiabetes.csv&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb8-2"><a href="bootstrap-algorithms-and-applicatications.html#cb8-2" tabindex="-1"></a><span class="co"># We use a random split approach</span></span>
+<span id="cb8-3"><a href="bootstrap-algorithms-and-applicatications.html#cb8-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">dim</span>(Pima)[<span class="dv">1</span>]  <span class="co"># sample size</span></span>
+<span id="cb8-4"><a href="bootstrap-algorithms-and-applicatications.html#cb8-4" tabindex="-1"></a><span class="co"># caution: using without replacement</span></span>
+<span id="cb8-5"><a href="bootstrap-algorithms-and-applicatications.html#cb8-5" tabindex="-1"></a>train.id <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="fu">round</span>(<span class="fl">0.7</span><span class="sc">*</span>n), <span class="at">replace =</span> <span class="cn">FALSE</span>)  </span>
+<span id="cb8-6"><a href="bootstrap-algorithms-and-applicatications.html#cb8-6" tabindex="-1"></a>train <span class="ot">=</span> Pima[train.id, ]    <span class="co"># training data</span></span>
+<span id="cb8-7"><a href="bootstrap-algorithms-and-applicatications.html#cb8-7" tabindex="-1"></a>test <span class="ot">=</span> Pima[<span class="sc">-</span>train.id, ]    <span class="co"># testing data</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="bootstrap-algorithms-and-applicatications.html#cb9-1" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb9-2"><a href="bootstrap-algorithms-and-applicatications.html#cb9-2" tabindex="-1"></a>Diabetes.bag.train <span class="ot">&lt;-</span> <span class="fu">bagging</span>(<span class="fu">as.factor</span>(diabetes) <span class="sc">~</span> ., </span>
+<span id="cb9-3"><a href="bootstrap-algorithms-and-applicatications.html#cb9-3" tabindex="-1"></a>                              <span class="at">data =</span> train, </span>
+<span id="cb9-4"><a href="bootstrap-algorithms-and-applicatications.html#cb9-4" tabindex="-1"></a>                              <span class="at">nbagg =</span> <span class="dv">150</span>,    <span class="co"># number of trees</span></span>
+<span id="cb9-5"><a href="bootstrap-algorithms-and-applicatications.html#cb9-5" tabindex="-1"></a>                              <span class="at">coob =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb9-6"><a href="bootstrap-algorithms-and-applicatications.html#cb9-6" tabindex="-1"></a>                              <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">loss =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb9-7"><a href="bootstrap-algorithms-and-applicatications.html#cb9-7" tabindex="-1"></a>                                                          <span class="at">ncol =</span> <span class="dv">20</span>, </span>
+<span id="cb9-8"><a href="bootstrap-algorithms-and-applicatications.html#cb9-8" tabindex="-1"></a>                                                          <span class="at">byrow =</span> <span class="cn">TRUE</span>),   </span>
+<span id="cb9-9"><a href="bootstrap-algorithms-and-applicatications.html#cb9-9" tabindex="-1"></a>                                                          <span class="at">split =</span> <span class="st">&quot;gini&quot;</span>),  </span>
+<span id="cb9-10"><a href="bootstrap-algorithms-and-applicatications.html#cb9-10" tabindex="-1"></a>                              <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">10</span>,<span class="at">cp =</span> <span class="fl">0.02</span>))</span>
+<span id="cb9-11"><a href="bootstrap-algorithms-and-applicatications.html#cb9-11" tabindex="-1"></a><span class="do">### predict() returns either &quot;class&quot; or &quot;prob&quot; in the classification</span></span>
+<span id="cb9-12"><a href="bootstrap-algorithms-and-applicatications.html#cb9-12" tabindex="-1"></a><span class="do">### When specifying type = &quot;class&quot;, the default cut-off of 0.5 is used.</span></span>
+<span id="cb9-13"><a href="bootstrap-algorithms-and-applicatications.html#cb9-13" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(Diabetes.bag.train, train, <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span>
+<span id="cb9-14"><a href="bootstrap-algorithms-and-applicatications.html#cb9-14" tabindex="-1"></a><span class="do">### Optimal cut-off probability identification: no cross-validation is needed</span></span>
+<span id="cb9-15"><a href="bootstrap-algorithms-and-applicatications.html#cb9-15" tabindex="-1"></a>cut.prob <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">length =</span> <span class="dv">20</span>)</span>
+<span id="cb9-16"><a href="bootstrap-algorithms-and-applicatications.html#cb9-16" tabindex="-1"></a>  senspe.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol =</span> <span class="fu">length</span>(cut.prob), <span class="at">nrow=</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-17"><a href="bootstrap-algorithms-and-applicatications.html#cb9-17" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(cut.prob)){</span>
+<span id="cb9-18"><a href="bootstrap-algorithms-and-applicatications.html#cb9-18" tabindex="-1"></a>  <span class="co"># </span><span class="al">CAUTION</span><span class="co">: &quot;pos&quot; and &quot;neg&quot; are values of the label in this data set!</span></span>
+<span id="cb9-19"><a href="bootstrap-algorithms-and-applicatications.html#cb9-19" tabindex="-1"></a>  <span class="co"># The following line uses only &quot;pos&quot; probability: pred[, &quot;pos&quot;] !!!!</span></span>
+<span id="cb9-20"><a href="bootstrap-algorithms-and-applicatications.html#cb9-20" tabindex="-1"></a>  pred.out <span class="ot">=</span>  <span class="fu">ifelse</span>(pred[,<span class="st">&quot;pos&quot;</span>] <span class="sc">&gt;=</span> cut.prob[i], <span class="st">&quot;pos&quot;</span>, <span class="st">&quot;neg&quot;</span>)  </span>
+<span id="cb9-21"><a href="bootstrap-algorithms-and-applicatications.html#cb9-21" tabindex="-1"></a>  TP <span class="ot">=</span> <span class="fu">sum</span>(pred.out <span class="sc">==</span><span class="st">&quot;pos&quot;</span> <span class="sc">&amp;</span> train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb9-22"><a href="bootstrap-algorithms-and-applicatications.html#cb9-22" tabindex="-1"></a>  TN <span class="ot">=</span> <span class="fu">sum</span>(pred.out <span class="sc">==</span><span class="st">&quot;neg&quot;</span> <span class="sc">&amp;</span> train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb9-23"><a href="bootstrap-algorithms-and-applicatications.html#cb9-23" tabindex="-1"></a>  FP <span class="ot">=</span> <span class="fu">sum</span>(pred.out <span class="sc">==</span><span class="st">&quot;pos&quot;</span> <span class="sc">&amp;</span> train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;neg&quot;</span>)</span>
+<span id="cb9-24"><a href="bootstrap-algorithms-and-applicatications.html#cb9-24" tabindex="-1"></a>  FN <span class="ot">=</span> <span class="fu">sum</span>(pred.out <span class="sc">==</span><span class="st">&quot;neg&quot;</span> <span class="sc">&amp;</span> train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;pos&quot;</span>)</span>
+<span id="cb9-25"><a href="bootstrap-algorithms-and-applicatications.html#cb9-25" tabindex="-1"></a>  senspe.mtx[<span class="dv">1</span>,i] <span class="ot">=</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN)                  <span class="co"># sensitivity</span></span>
+<span id="cb9-26"><a href="bootstrap-algorithms-and-applicatications.html#cb9-26" tabindex="-1"></a>  senspe.mtx[<span class="dv">2</span>,i] <span class="ot">=</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP)                  <span class="co"># specificity</span></span>
+<span id="cb9-27"><a href="bootstrap-algorithms-and-applicatications.html#cb9-27" tabindex="-1"></a>  senspe.mtx[<span class="dv">3</span>,i] <span class="ot">=</span> (TP<span class="sc">+</span>TN)<span class="sc">/</span>(TP <span class="sc">+</span> FN <span class="sc">+</span> TN <span class="sc">+</span> FP)   <span class="co"># accuracy</span></span>
+<span id="cb9-28"><a href="bootstrap-algorithms-and-applicatications.html#cb9-28" tabindex="-1"></a>  }</span>
+<span id="cb9-29"><a href="bootstrap-algorithms-and-applicatications.html#cb9-29" tabindex="-1"></a>  <span class="do">## A better approx of ROC, need library {pROC}</span></span>
+<span id="cb9-30"><a href="bootstrap-algorithms-and-applicatications.html#cb9-30" tabindex="-1"></a>  prediction <span class="ot">=</span> pred[, <span class="st">&quot;pos&quot;</span>]</span>
+<span id="cb9-31"><a href="bootstrap-algorithms-and-applicatications.html#cb9-31" tabindex="-1"></a>  category <span class="ot">=</span> train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;pos&quot;</span></span>
+<span id="cb9-32"><a href="bootstrap-algorithms-and-applicatications.html#cb9-32" tabindex="-1"></a>  ROCobj <span class="ot">&lt;-</span> <span class="fu">roc</span>(category, prediction)</span></code></pre></div>
+<pre><code>## Setting levels: control = FALSE, case = TRUE</code></pre>
+<pre><code>## Setting direction: controls &lt; cases</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="bootstrap-algorithms-and-applicatications.html#cb12-1" tabindex="-1"></a>  AUC <span class="ot">=</span> <span class="fu">auc</span>(ROCobj)</span>
+<span id="cb12-2"><a href="bootstrap-algorithms-and-applicatications.html#cb12-2" tabindex="-1"></a>  AUC <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.vector</span>(AUC[<span class="dv">1</span>]),<span class="dv">3</span>)</span>
+<span id="cb12-3"><a href="bootstrap-algorithms-and-applicatications.html#cb12-3" tabindex="-1"></a>  <span class="do">###</span></span>
+<span id="cb12-4"><a href="bootstrap-algorithms-and-applicatications.html#cb12-4" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(senspe.mtx[<span class="dv">3</span>,])</span>
+<span id="cb12-5"><a href="bootstrap-algorithms-and-applicatications.html#cb12-5" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">which</span>(senspe.mtx[<span class="dv">3</span>,] <span class="sc">==</span> <span class="fu">max</span>(senspe.mtx[<span class="dv">3</span>,]))</span>
+<span id="cb12-6"><a href="bootstrap-algorithms-and-applicatications.html#cb12-6" tabindex="-1"></a>  tick.label <span class="ot">=</span> <span class="fu">as.character</span>(<span class="fu">round</span>(cut.prob,<span class="dv">2</span>))</span>
+<span id="cb12-7"><a href="bootstrap-algorithms-and-applicatications.html#cb12-7" tabindex="-1"></a>  <span class="do">###</span></span>
+<span id="cb12-8"><a href="bootstrap-algorithms-and-applicatications.html#cb12-8" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb12-9"><a href="bootstrap-algorithms-and-applicatications.html#cb12-9" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">1</span><span class="sc">-</span>senspe.mtx[<span class="dv">2</span>,], senspe.mtx[<span class="dv">1</span>,], <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb12-10"><a href="bootstrap-algorithms-and-applicatications.html#cb12-10" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;1 - specificity&quot;</span>, </span>
+<span id="cb12-11"><a href="bootstrap-algorithms-and-applicatications.html#cb12-11" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Sensitivity&quot;</span>, <span class="at">main =</span> <span class="st">&quot;ROC (Taining Data)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">cex.main =</span> <span class="fl">0.8</span>)</span>
+<span id="cb12-12"><a href="bootstrap-algorithms-and-applicatications.html#cb12-12" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;fn = 10&quot;</span>, <span class="st">&quot;fp = 1&quot;</span>, <span class="st">&quot;cp = 0.02&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;AUC =&quot;</span>, AUC)), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)       </span>
+<span id="cb12-13"><a href="bootstrap-algorithms-and-applicatications.html#cb12-13" tabindex="-1"></a>  </span>
+<span id="cb12-14"><a href="bootstrap-algorithms-and-applicatications.html#cb12-14" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(cut.prob), senspe.mtx[<span class="dv">3</span>,], <span class="at">xlab=</span><span class="st">&quot;cut-off probability&quot;</span>,</span>
+<span id="cb12-15"><a href="bootstrap-algorithms-and-applicatications.html#cb12-15" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;accuracy&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(senspe.mtx[<span class="dv">3</span>,]),<span class="dv">1</span>),</span>
+<span id="cb12-16"><a href="bootstrap-algorithms-and-applicatications.html#cb12-16" tabindex="-1"></a>               <span class="at">axes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-17"><a href="bootstrap-algorithms-and-applicatications.html#cb12-17" tabindex="-1"></a>        <span class="at">main=</span><span class="st">&quot;cut-off vs accuracy&quot;</span>,</span>
+<span id="cb12-18"><a href="bootstrap-algorithms-and-applicatications.html#cb12-18" tabindex="-1"></a>        <span class="at">cex.main =</span> <span class="fl">0.9</span>,</span>
+<span id="cb12-19"><a href="bootstrap-algorithms-and-applicatications.html#cb12-19" tabindex="-1"></a>        <span class="at">col.main =</span> <span class="st">&quot;navy&quot;</span>)</span>
+<span id="cb12-20"><a href="bootstrap-algorithms-and-applicatications.html#cb12-20" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">label =</span> tick.label, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb12-21"><a href="bootstrap-algorithms-and-applicatications.html#cb12-21" tabindex="-1"></a>        <span class="fu">axis</span>(<span class="dv">2</span>)</span>
+<span id="cb12-22"><a href="bootstrap-algorithms-and-applicatications.html#cb12-22" tabindex="-1"></a>        <span class="fu">points</span>(idx, senspe.mtx[<span class="dv">3</span>,][idx], <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb12-23"><a href="bootstrap-algorithms-and-applicatications.html#cb12-23" tabindex="-1"></a>        <span class="fu">segments</span>(idx , <span class="fu">min</span>(senspe.mtx[<span class="dv">3</span>,]), idx , senspe.mtx[<span class="dv">3</span>,][idx ], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb12-24"><a href="bootstrap-algorithms-and-applicatications.html#cb12-24" tabindex="-1"></a>       <span class="fu">text</span>(idx, senspe.mtx[<span class="dv">3</span>,][idx]<span class="sc">+</span><span class="fl">0.03</span>, <span class="fu">as.character</span>(<span class="fu">round</span>(senspe.mtx[<span class="dv">3</span>,][idx],<span class="dv">4</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-13"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-13-1.png" alt="The ROC curve and the plot for optimal cut-off determination." width="80%" />
+<p class="caption">
+Figure 14.8: The ROC curve and the plot for optimal cut-off determination.
+</p>
+</div>
+<p>Similarly, there are several <font color = "red"><strong>hyperparameters</strong></font> one can <strong>tune</strong> to find the best-bootstrapped decision tree. For those who are interested in exploring more in <strong>tunning hyperparameters</strong>, you can write a wrapper of <strong>bagging()</strong> and pass hyperparameters such as <strong>fp, fn, cp, minisplit</strong> in the list of arguments in <strong>rpart()</strong> to find the best bootstrap decision tree.</p>
+</div>
+</div>
+<div id="boosting-ensemble-methods" class="section level3 hasAnchor" number="14.4.4">
+<h3><span class="header-section-number">14.4.4</span> Boosting Ensemble Methods<a href="bootstrap-algorithms-and-applicatications.html#boosting-ensemble-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Boosting is a sequential ensemble method that iteratively <strong>adjusts the weight of data points</strong> as per the last classification. If a data point is incorrectly classified, it increases the weight of that data point. It decreases the bias and variance (hence the predictive error) and builds strong predictive models.</p>
+<p>Data points misclassified in each iteration are spotted, and their weights are increased. The Boosting algorithm allocates weights to each resulting model during training. A model (also commonly called learner) with good training data prediction results will be assigned a higher weight. When evaluating a new learner, Boosting keeps track of the learner’s errors.</p>
+<p>The steps of boosting algorithm are summarized in the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Data points in the initial training data set are equally weighted.</p></li>
+<li><p>A based model is created for the initial training data set.</p></li>
+<li><p>classification Errors are counted using actual and predicted values. The data point that was incorrectly predicted is provided a higher weight.</p></li>
+<li><p>a model is built on the modified data (re-weighted data points)</p></li>
+<li><p>the process is iterated for multiple models and each of them corrects the previous model’s errors.</p></li>
+<li><p>The final model works as a strong learner and shows the weighted mean of all the models.</p></li>
+</ol>
+<p>The following figure demonstrates the rough idea of boosting decision trees in a conceptual approach.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
+<img src="img09/w09-DemoBoostedTreeAlgorithm.jpg" alt="Graphical representation of boosting tree method" width="80%" />
+<p class="caption">
+Figure 14.9: Graphical representation of boosting tree method
+</p>
+</div>
+</div>
+<div id="bagging-versus-boosting" class="section level3 hasAnchor" number="14.4.5">
+<h3><span class="header-section-number">14.4.5</span> Bagging Versus Boosting<a href="bootstrap-algorithms-and-applicatications.html#bagging-versus-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Bagging</strong> and <strong>Boosting</strong> have a universal similarity of being classified as ensemble methods. In addition, Bagging and Boosting</p>
+<ul>
+<li><p>are ensemble methods focused on getting <span class="math inline">\(N\)</span> learners from a single learner.</p></li>
+<li><p>make random sampling and generate several training data sets.</p></li>
+<li><p>arrive upon the end decision by making an average of <span class="math inline">\(N\)</span> learners or taking the voting rank done by most of them.</p></li>
+<li><p>reduce variance and provide higher stability by minimizing errors.</p></li>
+</ul>
+<p>However, the two ensemble algorithms are very different from the technical perspective. The following table shows these structural differences.</p>
+<table>
+<colgroup>
+<col width="51%" />
+<col width="48%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Bagging</th>
+<th align="left">Boosting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Merging the same type of predictions.</td>
+<td align="left">Merging different types of predictions.</td>
+</tr>
+<tr class="even">
+<td align="left">Decreases variance, not bias, and solves over-fitting issues.</td>
+<td align="left">Decreases bias, not variance.</td>
+</tr>
+<tr class="odd">
+<td align="left">Each model receives an equal weight.</td>
+<td align="left">Models are weighed based on their performance.</td>
+</tr>
+<tr class="even">
+<td align="left">Models are built independently.</td>
+<td align="left">New models are affected by a previously built model’s performance.</td>
+</tr>
+<tr class="odd">
+<td align="left">Training data subsets are drawn randomly with a bootstrap sample.</td>
+<td align="left">Every new subset comprises the elements that were misclassified by previous models.</td>
+</tr>
+<tr class="even">
+<td align="left">Usually applied where the classifier is unstable and has a high variance.</td>
+<td align="left">Usually applied where the classifier is stable and simple and has a high bias.</td>
+</tr>
+</tbody>
+</table>
+<p>The boosting ensemble algorithms have various new development in recent years. In general, they are more mathematically and pragmatically demanded in implementation. We will not go into details about any of boosting algorithms and implement them.</p>
+<p>To conclude, we use the following figure to show the role of mathematical tools and thinking in the evolution of tree-based algorithms: the more mathematical tools you have, the more powerful models you are capable of developing!</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-15"></span>
+<img src="img09/w09-FromBagging2Boosting.jpg" alt="Evolution of tree-based algorithms with various level of technical tools." width="80%" />
+<p class="caption">
+Figure 14.10: Evolution of tree-based algorithms with various level of technical tools.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="an-overview-of-unsupervised-ml-algorithms.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA551EB/edit/master/13-BootstrapLogisticRegression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA551EB.pdf", "STA551EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

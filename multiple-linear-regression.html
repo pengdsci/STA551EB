@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 6 Multiple Linear Regression | STA551 E-Pack: Foundations of Data Science</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 6 Multiple Linear Regression | STA551 E-Pack: Foundations of Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/STA551EB" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 6 Multiple Linear Regression | STA551 E-Pack: Foundations of Data Science" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="eda-for-feature-engineering.html"/>
+<link rel="next" href="logistic-regression-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>STA 551 E-Pack: Foundations of Data Science</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-origin-of-data-science"><i class="fa fa-check"></i><b>1.1</b> The Origin of Data Science</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#the-coverage-of-the-first-data-science-course"><i class="fa fa-check"></i><b>1.2</b> The Coverage of the First Data Science Course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tentative-topics"><i class="fa fa-check"></i><b>1.3</b> Tentative Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html"><i class="fa fa-check"></i><b>2</b> Data Science - A Big Picture</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-science-process"><i class="fa fa-check"></i><b>2.1</b> Data Science Process</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-data"><i class="fa fa-check"></i><b>2.1.1</b> What is Data?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#data-storage-and-retrieval"><i class="fa fa-check"></i><b>2.1.2</b> Data Storage and Retrieval</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#different-da-roles-in-industry"><i class="fa fa-check"></i><b>2.1.3</b> Different DA Roles in Industry</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#cloud-computing"><i class="fa fa-check"></i><b>2.1.4</b> Cloud Computing</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#from-business-questions-to-analytic-question"><i class="fa fa-check"></i><b>2.2</b> From Business Questions to Analytic Question</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#business-goal"><i class="fa fa-check"></i><b>2.2.1</b> Business Goal</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#analytic-question"><i class="fa fa-check"></i><b>2.2.2</b> Analytic Question</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#concepts-of-relational-databases-and-sql"><i class="fa fa-check"></i><b>2.3</b> Concepts of Relational Databases and SQL</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-database"><i class="fa fa-check"></i><b>2.3.1</b> What is Database?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#what-is-a-data-warehouse"><i class="fa fa-check"></i><b>2.3.2</b> What is a Data Warehouse?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#difference-between-database-and-data-warehouse"><i class="fa fa-check"></i><b>2.3.3</b> Difference between Database and Data Warehouse</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#database-management-system-dbms"><i class="fa fa-check"></i><b>2.3.4</b> Database Management System (DBMS)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-science---a-big-picture.html"><a href="data-science---a-big-picture.html#some-definitions-and-notations-of-relational-tables"><i class="fa fa-check"></i><b>2.3.5</b> Some Definitions and Notations of Relational Tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html"><i class="fa fa-check"></i><b>3</b> Running SQL in SAS and R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-in-sas"><i class="fa fa-check"></i><b>3.1</b> Running SQL in SAS</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#loading-data"><i class="fa fa-check"></i><b>3.1.1</b> Loading Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#basic-sql-syntax-and-clauses"><i class="fa fa-check"></i><b>3.1.2</b> Basic SQL Syntax and Clauses</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sas-in-r"><i class="fa fa-check"></i><b>3.2</b> Running SAS in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#connect-r-to-existing-database"><i class="fa fa-check"></i><b>3.2.1</b> Connect R to Existing Database</a></li>
+<li class="chapter" data-level="3.2.2" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#create-sqlite-database-with-r"><i class="fa fa-check"></i><b>3.2.2</b> Create SQLite Database with R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="running-sql-in-sas-and-r.html"><a href="running-sql-in-sas-and-r.html#running-sql-queries-in-r-code-chunks"><i class="fa fa-check"></i><b>3.2.3</b> Running SQL Queries in R Code chunks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis (EDA)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#tools-of-eda-and-applications"><i class="fa fa-check"></i><b>4.1</b> Tools of EDA and Applications</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#descriptive-statistics-approach"><i class="fa fa-check"></i><b>4.1.1</b> Descriptive Statistics Approach</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#graphical-approach"><i class="fa fa-check"></i><b>4.1.2</b> Graphical Approach</a></li>
+<li class="chapter" data-level="4.1.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#algorithm-based-method"><i class="fa fa-check"></i><b>4.1.3</b> Algorithm-based Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-techniques-of-eda"><i class="fa fa-check"></i><b>4.2</b> Visual Techniques of EDA</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#univariate-eda"><i class="fa fa-check"></i><b>4.2.1</b> Univariate EDA</a></li>
+<li class="chapter" data-level="4.2.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#two-variables"><i class="fa fa-check"></i><b>4.2.2</b> Two Variables</a></li>
+<li class="chapter" data-level="4.2.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#three-or-more-variables"><i class="fa fa-check"></i><b>4.2.3</b> Three or More Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#roles-of-visualization-in-eda"><i class="fa fa-check"></i><b>4.3</b> Roles of Visualization in EDA</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#data-visualization"><i class="fa fa-check"></i><b>4.3.1</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis-eda.html"><a href="exploratory-data-analysis-eda.html#visual-analytics"><i class="fa fa-check"></i><b>4.3.2</b> Visual Analytics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html"><i class="fa fa-check"></i><b>5</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#description-of-data"><i class="fa fa-check"></i><b>5.1</b> Description of Data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#eda-for-feature-engineering-1"><i class="fa fa-check"></i><b>5.2</b> EDA for Feature Engineering</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#missing-values---imputation"><i class="fa fa-check"></i><b>5.2.1</b> Missing Values - Imputation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#assess-distributions"><i class="fa fa-check"></i><b>5.2.2</b> Assess Distributions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#pairwise-association"><i class="fa fa-check"></i><b>5.2.3</b> Pairwise Association</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="eda-for-feature-engineering.html"><a href="eda-for-feature-engineering.html#concluding-remarks"><i class="fa fa-check"></i><b>5.3</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>6</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-practical-question"><i class="fa fa-check"></i><b>6.1</b> The Practical Question</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-process-of-building-a-multiple-linear-regression-model"><i class="fa fa-check"></i><b>6.2</b> The Process of Building A Multiple Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#assumptions-of-mlr"><i class="fa fa-check"></i><b>6.2.1</b> Assumptions of MLR</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#the-structure-of-mlr"><i class="fa fa-check"></i><b>6.2.2</b> The Structure of MLR</a></li>
+<li class="chapter" data-level="6.2.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#more-on-model-specifications"><i class="fa fa-check"></i><b>6.2.3</b> More on Model Specifications</a></li>
+<li class="chapter" data-level="6.2.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#estimation-of-regression-coefficients"><i class="fa fa-check"></i><b>6.2.4</b> Estimation of Regression Coefficients</a></li>
+<li class="chapter" data-level="6.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>6.2.5</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="6.2.6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#goodness-of-fit-and-variable-selection"><i class="fa fa-check"></i><b>6.2.6</b> Goodness-of-fit and Variable Selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-1"><i class="fa fa-check"></i><b>6.3</b> Case Study 1</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#case-study-2"><i class="fa fa-check"></i><b>6.4</b> Case Study 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html"><i class="fa fa-check"></i><b>7</b> Logistic Regression Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#motivational-example-and-practical-question"><i class="fa fa-check"></i><b>7.1</b> Motivational Example and Practical Question</a></li>
+<li class="chapter" data-level="7.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#logistic-regression-models-and-applications"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression Models and Applications</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-structure-of-the-logistic-regression-model"><i class="fa fa-check"></i><b>7.2.1</b> The Structure of the Logistic Regression Model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#assumptions-and-diagnostics"><i class="fa fa-check"></i><b>7.2.2</b> Assumptions and Diagnostics</a></li>
+<li class="chapter" data-level="7.2.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#coefficient-estimation-and-interpretation"><i class="fa fa-check"></i><b>7.2.3</b> Coefficient Estimation and Interpretation</a></li>
+<li class="chapter" data-level="7.2.4" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#use-of-glm-and-annotations"><i class="fa fa-check"></i><b>7.2.4</b> Use of <strong>glm()</strong> and Annotations</a></li>
+<li class="chapter" data-level="7.2.5" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#applications-of-logistic-regression-models"><i class="fa fa-check"></i><b>7.2.5</b> Applications of Logistic Regression Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#case-studies"><i class="fa fa-check"></i><b>7.3</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#the-simple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> The simple logistic regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="logistic-regression-models.html"><a href="logistic-regression-models.html#multiple-logistic-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Multiple Logistic Regression Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html"><i class="fa fa-check"></i><b>8</b> Basics of Bootstrap Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#basic-idea-of-bootstrap-method."><i class="fa fa-check"></i><b>8.1</b> Basic Idea of Bootstrap Method.</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#random-sample-from-population"><i class="fa fa-check"></i><b>8.1.1</b> Random Sample from Population</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-sampling-and-bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>8.1.2</b> Bootstrap Sampling and Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#relationship-between-two-estimated-sampling-distributions"><i class="fa fa-check"></i><b>8.1.3</b> Relationship between Two Estimated Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>8.2</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="8.3" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrap-confidence-interval-of-correlation-coefficient"><i class="fa fa-check"></i><b>8.3</b> Bootstrap Confidence Interval of Correlation Coefficient</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#bootstrapping-data-set"><i class="fa fa-check"></i><b>8.3.1</b> Bootstrapping Data Set</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basics-of-bootstrap-method.html"><a href="basics-of-bootstrap-method.html#confidence-interval-of-coefficient-correlation"><i class="fa fa-check"></i><b>8.3.2</b> Confidence Interval of Coefficient Correlation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html"><i class="fa fa-check"></i><b>9</b> Method of Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#regression-models"><i class="fa fa-check"></i><b>9.1</b> Regression Models</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#linear-regression-model"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#logistic-regression-model"><i class="fa fa-check"></i><b>9.1.2</b> Logistic Regression Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#inference-about-association-and-prediction"><i class="fa fa-check"></i><b>9.1.3</b> Inference about Association and Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-splitting-methods"><i class="fa fa-check"></i><b>9.2</b> Data Splitting Methods</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#training-data"><i class="fa fa-check"></i><b>9.2.1</b> Training Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#validation-data"><i class="fa fa-check"></i><b>9.2.2</b> Validation Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#test-data"><i class="fa fa-check"></i><b>9.2.3</b> Test data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#cross-validation"><i class="fa fa-check"></i><b>9.3</b> Cross-validation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>9.3.1</b> K-fold Cross-validation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#other-cross-validation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Other Cross-Validation Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#case-study-using-fraud-data"><i class="fa fa-check"></i><b>9.4</b> Case Study Using Fraud Data</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#data-partition"><i class="fa fa-check"></i><b>9.4.1</b> Data Partition</a></li>
+<li class="chapter" data-level="9.4.2" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#finding-optimal-cut-off-probability"><i class="fa fa-check"></i><b>9.4.2</b> Finding Optimal Cut-off Probability</a></li>
+<li class="chapter" data-level="9.4.3" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#reporting-test"><i class="fa fa-check"></i><b>9.4.3</b> Reporting Test</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="method-of-cross-validation.html"><a href="method-of-cross-validation.html#concluding-remarks-1"><i class="fa fa-check"></i><b>9.5</b> Concluding Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="perfomance-measures-of-algorithms-and-models.html"><a href="perfomance-measures-of-algorithms-and-models.html"><i class="fa fa-check"></i><b>10</b> Perfomance Measures of Algorithms and Models</a></li>
+<li class="chapter" data-level="11" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html"><i class="fa fa-check"></i><b>11</b> Classification Performance Metrics</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#confusion-matrix-for-binary-decision"><i class="fa fa-check"></i><b>11.1</b> Confusion Matrix for Binary Decision</a></li>
+<li class="chapter" data-level="11.2" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#local-performance-measures-for-model-development"><i class="fa fa-check"></i><b>11.2</b> Local Performance Measures (for Model Development)</a></li>
+<li class="chapter" data-level="11.3" data-path="classification-performance-metrics.html"><a href="classification-performance-metrics.html#global-performance-measures"><i class="fa fa-check"></i><b>11.3</b> Global Performance Measures</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html"><i class="fa fa-check"></i><b>12</b> Case Study - Logistic regression model with the fraud data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#local-performance-meaures"><i class="fa fa-check"></i><b>12.1</b> Local Performance Meaures</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study---logistic-regression-model-with-the-fraud-data.html"><a href="case-study---logistic-regression-model-with-the-fraud-data.html#global-measure-roc-and-auc"><i class="fa fa-check"></i><b>12.2</b> Global Measure: ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html"><i class="fa fa-check"></i><b>13</b> From Statistics Models to Machine Learning Algorithms</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#some-technical-terms-and-ml-types"><i class="fa fa-check"></i><b>13.1</b> Some Technical Terms and ML Types</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#machine-learning-problems-and-jargon"><i class="fa fa-check"></i><b>13.1.1</b> Machine Learning Problems and Jargon</a></li>
+<li class="chapter" data-level="13.1.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#types-of-machine-learning-problems"><i class="fa fa-check"></i><b>13.1.2</b> Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#categories-of-machine-learning"><i class="fa fa-check"></i><b>13.2</b> Categories of Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#supervised-learning"><i class="fa fa-check"></i><b>13.2.1</b> Supervised Learning</a></li>
+<li class="chapter" data-level="13.2.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#unsupervised-learning"><i class="fa fa-check"></i><b>13.2.2</b> Unsupervised Learning</a></li>
+<li class="chapter" data-level="13.2.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#semi-supervised-learning"><i class="fa fa-check"></i><b>13.2.3</b> Semi-Supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#from-statistics-to-machine-learning"><i class="fa fa-check"></i><b>13.3</b> From Statistics to Machine Learning</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#logistic-regression-model-revisited"><i class="fa fa-check"></i><b>13.3.1</b> Logistic Regression Model Revisited</a></li>
+<li class="chapter" data-level="13.3.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#single-layer-neural-network---perceptron"><i class="fa fa-check"></i><b>13.3.2</b> Single Layer Neural Network - Perceptron</a></li>
+<li class="chapter" data-level="13.3.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#multi-layer-perceptron"><i class="fa fa-check"></i><b>13.3.3</b> Multi-layer Perceptron</a></li>
+<li class="chapter" data-level="13.3.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#commonly-used-activation-functions"><i class="fa fa-check"></i><b>13.3.4</b> Commonly Used Activation Functions</a></li>
+<li class="chapter" data-level="13.3.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#algorithms-for-estimating-weights"><i class="fa fa-check"></i><b>13.3.5</b> Algorithms for Estimating Weights</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#implementing-nn-with-r"><i class="fa fa-check"></i><b>13.4</b> Implementing NN with R</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#syntax-of-neuralnet"><i class="fa fa-check"></i><b>13.4.1</b> Syntax of <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.2" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#feature-conversion-for-neuralnet"><i class="fa fa-check"></i><b>13.4.2</b> Feature Conversion for <code>neuralnet</code></a></li>
+<li class="chapter" data-level="13.4.3" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#numeric-feature-scaling"><i class="fa fa-check"></i><b>13.4.3</b> Numeric Feature Scaling</a></li>
+<li class="chapter" data-level="13.4.4" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#extract-all-feature-names"><i class="fa fa-check"></i><b>13.4.4</b> Extract All Feature Names</a></li>
+<li class="chapter" data-level="13.4.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#define-model-formula"><i class="fa fa-check"></i><b>13.4.5</b> Define Model Formula</a></li>
+<li class="chapter" data-level="13.4.6" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#training-and-testing-nn-model"><i class="fa fa-check"></i><b>13.4.6</b> Training and Testing NN Model</a></li>
+<li class="chapter" data-level="13.4.7" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#about-deep-learning"><i class="fa fa-check"></i><b>13.4.7</b> About Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="from-statistics-models-to-machine-learning-algorithms.html"><a href="from-statistics-models-to-machine-learning-algorithms.html#clustering-algorithms"><i class="fa fa-check"></i><b>13.5</b> Clustering Algorithms</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STA551 E-Pack: Foundations of Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-linear-regression" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Topic 6</span> Multiple Linear Regression<a href="multiple-linear-regression.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We discussed the relationship between variables in the previous two modules. The continuous variable with a normal distribution is called the response (dependent) variable and the other variable is called the explanatory (predictor, independent, or risk) variable. If the predictor variable is a factor variable, the model is called the ANOVA model which focuses on comparing the means across all factor levels. If the predictor variable is <strong>continuous</strong>, the model is called simple linear regression (SLR). Note that all predictor variables are assumed to be non-random.</p>
+<div id="the-practical-question" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The Practical Question<a href="multiple-linear-regression.html#the-practical-question" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Maximum mouth opening (MMO) is also an important diagnostic reference for dental clinicians as a preliminary evaluation. Establishing a normal range for MMO could allow dental clinicians to objectively evaluate the treatment effects and set therapeutic goals for patients performing mandibular functional exercises.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-74"></span>
+<img src="img04/w04-MMO.jpg" alt="MMO, ML, and RA" width="80%" />
+<p class="caption">
+Figure 6.1: MMO, ML, and RA
+</p>
+</div>
+<p>To study the relationship between maximum mouth opening and measurements of the lower jaw (mandible). A researcher randomly selected a sample of 35 subjects and measured the dependent variable, maximum mouth opening (MMO, measured in mm), as well as predictor variables, mandibular length (ML, measured in mm), and angle of rotation of the mandible (RA, measured in degrees) of each of the 35 subjects.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-75"></span>
+<img src="img04/w04-DentalDataTable.jpg" alt="Dental Data for the multiple linear regression model (MLR)" width="80%" />
+<p class="caption">
+Figure 6.2: Dental Data for the multiple linear regression model (MLR)
+</p>
+</div>
+<p>The question is the maximum mouth opening (MMO) is determined by <strong>two variables simultaneously</strong>. We want to assess how these two variables (ML and RA) impact MMO <strong>simultaneously</strong>.</p>
+<p>If we pick one predictor variable at a time, ML, to build a simple linear regression model and ignore the other predictor variable (RA), you only get the marginal relationship between MMO and ML since you implicitly assume that the relationship between MMO and ML will not be impacted by RA. This implicit assumption is, in general, incorrect. We need to consider all predictor variables at the same time. This is the motivation for studying multiple linear regression (MLR).</p>
+</div>
+<div id="the-process-of-building-a-multiple-linear-regression-model" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> The Process of Building A Multiple Linear Regression Model<a href="multiple-linear-regression.html#the-process-of-building-a-multiple-linear-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The previous motivation example involves two continuous predictor variables. In real-world applications, it is common to have many predictor variables. Predictor variables are also assumed to be non-random. They could be categorical, continuous, or discrete. In a specific application, you may have a set of categorical, continuous, and discrete predictor variables in one data set.</p>
+<div id="assumptions-of-mlr" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Assumptions of MLR<a href="multiple-linear-regression.html#assumptions-of-mlr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are several assumptions of multiple linear regression models.</p>
+<ul>
+<li><p>The response variable is a normal random variable and its mean is influenced by explanatory variables but not the variance.</p></li>
+<li><p>The explanatory variables are assumed to be non-random.</p></li>
+<li><p>The explanatory variables are assumed to be uncorrelated to each other.</p></li>
+<li><p>The functional form of the explanatory variables in the regression model is correctly specified.</p></li>
+<li><p>The data is a random sample taken independently from the study population with a specified distribution.</p></li>
+</ul>
+<p>Some of these assumptions will be used directly to define model diagnostic measures. The idea is to assume all conditions are met (at least temporarily) and then fit the model to the data set.</p>
+</div>
+<div id="the-structure-of-mlr" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> The Structure of MLR<a href="multiple-linear-regression.html#the-structure-of-mlr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that there are <span class="math inline">\(p\)</span> predictor variables <span class="math inline">\(\{x_1, x_2, \cdots, x_p \}\)</span>, the first-order linear regression is defined in the following form</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \epsilon
+\]</span></p>
+<p><span class="math inline">\(\beta_0\)</span> is the intercept, <span class="math inline">\(\beta_1, \beta_2, \cdots, \beta_p\)</span> are called slope parameters. if <span class="math inline">\(\beta_i=0\)</span>, the associated predictor variable <span class="math inline">\(x_i\)</span> is uncorrelated with response vararible <span class="math inline">\(y\)</span>. If <span class="math inline">\(\beta_i &gt; 0\)</span>, then <span class="math inline">\(y\)</span> and <span class="math inline">\(x_i\)</span> are positively correlated. In fact, <span class="math inline">\(\beta_1\)</span> is the increment of <span class="math inline">\(y\)</span> as <span class="math inline">\(x_i\)</span> increases one unit and other predictors remain unchanged.</p>
+<p>The response variable is assumed to be a normal random variable with constant variance. If the first-order linear regression function is correct, then</p>
+<p><span class="math display">\[y \to N(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p, \sigma^2).\]</span>
+This also implies that <span class="math inline">\(\epsilon \to N(0,1)\)</span>. The residual of each data point can be estimated from the data with an assumed linear regression model.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:w10-RegressionPlane"></span>
+<img src="img04/w04-RegressionPlane.jpg" alt="Illustrative regression plane: MMO vs ML and RA" width="80%"  />
+<p class="caption">
+Figure 6.3: Illustrative regression plane: MMO vs ML and RA
+</p>
+</div>
+<p>For ease of illustration, let’s consider the case of the MLR with two predictor variables in the motivation example.</p>
+<p><span class="math display">\[MMO = \beta_0 + \beta_1 ML + \beta_2 RA + \epsilon\]</span></p>
+<p>is the first-order linear regression model. The following figure gives the graphical annotations of the fundamental concepts in linear regression models. This is a generalization of the regression line (see the analogous figure in the previous module for the simple linear regression model).</p>
+<p>Since <span class="math inline">\(MMO\)</span> is a normal random variable with constant variance, <span class="math inline">\(MMO \to N(\beta_0+\beta_1ML +\beta_2 RA, \sigma^2)\)</span>, or equivalently, <span class="math inline">\(\epsilon \to N(0, \sigma^2)\)</span>. The residuals are defined to be the directional vertical distances between the observed points and the regression plane.</p>
+<p>In some practical applications, we may need <strong>the second-order</strong> linear regression model to reflect the actual relationship between predictor variables and the response variable. For example, <span class="math display">\[MMO = \alpha_0 + \alpha_1 ML + \alpha_2 RA + \alpha_3 ML^2 + \alpha_4 RA^2 + \alpha_5 ML\times RA + \epsilon\]</span> is called (the second-order) linear regression model. With the second-order terms in the regression function, we obtain the regression surface as shown in Figure.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:w10-RegressionSurface"></span>
+<img src="img04/w04-RegressionSurface.jpg" alt="Illustrative regression surface: MMO vs ML and RA" width="334"  />
+<p class="caption">
+Figure 6.4: Illustrative regression surface: MMO vs ML and RA
+</p>
+</div>
+<p>If the second-order linear regression is appropriate, then <span class="math inline">\(\epsilon \to N(0, \sigma^2)\)</span> and <span class="math inline">\(E[MMO] = \alpha_0 + \alpha_1 ML + \alpha_2 RA + \alpha_3 ML^2 + \alpha_4 RA^2 + \alpha_5 ML\times RA\)</span>. The residuals of the second-order linear regression model are defined to be the directional distance between the observed points and the regression surface.</p>
+</div>
+<div id="more-on-model-specifications" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> More on Model Specifications<a href="multiple-linear-regression.html#more-on-model-specifications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the above section, we introduced both first- and second-order polynomial regression models. In general, it is not common to use high-order polynomial regression models in real-world applications.</p>
+<ul>
+<li><p><strong>Interaction effect</strong> - it is common to include interaction terms (i.e., the cross product of two or more predictor variables) in the multiple linear regression models when the effect of one variable on the response variable is dependent on the other predictor variable. In other words, the interaction terms capture the <strong>joint effect</strong> of predictor variables. <strong>It is rare to have third-order or higher-order interaction terms in a regression model</strong>.</p></li>
+<li><p><strong>Dummy variables</strong> - All categorical predictor variables are automatically converted into dummy variables (binary indicator variables). If categorical variables in the data are numerically coded, we have to turn these numerically coded variables into factor variables in the regression model.</p></li>
+<li><p><strong>Discretization and Regrouping</strong> - Discretizing numerical predictor variables and regrouping categorical or discrete predictor variables are two basic pre-process procedures that are actually very common in many practical applications.</p>
+<ul>
+<li><p>Sometimes these two procedures are required to satisfy certain model assumptions. For example, if a categorical variable has a few categories that have less than 5 observations, the resulting p-values based on certain hypothesis tests will be invalid. In this case, We have to regroup some of the categories in <strong>meaningful ways</strong> to resolve the <strong>sparsity</strong> issues in order to obtain valid results.</p></li>
+<li><p>In many other applications, we want the model to be easy to interpret. Discretizing numerical variables is common. For example, we can see grouped ages and salary ranges in different applications.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="estimation-of-regression-coefficients" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Estimation of Regression Coefficients<a href="multiple-linear-regression.html#estimation-of-regression-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A simple and straightforward method for estimating the coefficients of linear regression models is to minimize the sum of the squared residuals - least square estimation (LSE). To find the LSE of the regression coefficients, we need to</p>
+<ul>
+<li><p>choose the (first-order, second-order, or even high-order) regression function (see 3D hyper-plane or hyper-surface in the above two figures as examples).</p></li>
+<li><p>find the distances between the observed points and the hyper-plane (or hyper-surface). These distances are the residuals of the regression - which is dependent on the regression coefficients.</p></li>
+<li><p>calculate the sum of squared residuals. This sum of the residuals is still dependent on the regression coefficients.</p></li>
+<li><p>find the values for the regression coefficients that minimize the sum of the squared residuals. These values are called the least square estimates (LSEs) of the corresponding regression coefficients.</p></li>
+</ul>
+<p>R function <strong>lm()</strong> implements the above LSE algorithm to find the regression coefficients. We have used this function in ANOVA and simple linear regression models.</p>
+</div>
+<div id="model-diagnostics" class="section level3 hasAnchor" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Model Diagnostics<a href="multiple-linear-regression.html#model-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike simple linear regression models, the primary assumptions of the regression model focus on the normal distribution of the response variable and the correct regression function. For multiple linear regression models, we need to impose a couple of assumptions in addition to those in the simple linear regression models</p>
+<ul>
+<li><strong>Residual Diagnostics</strong></li>
+</ul>
+<p>One of the fundamental assumptions of linear regression modeling is that the response variable is normally distributed with a constant variance. This implies <span class="math inline">\(\epsilon \to N(0, \sigma^2)\)</span>.</p>
+<p>After obtaining the LSE of the regression coefficients, we can estimate the residuals and use these estimated residuals to detect the potential violations of the normality assumption of the response variable. To be more specific, we consider the first-order polynomial regression, the estimated residual of <span class="math inline">\(i\)</span>-th observation is defined to be <span class="math inline">\(e_i = MMO - \hat{\beta}_0 + \hat{\beta}_1 ML + \hat{\beta}_2 RA\)</span></p>
+<p>If there is no violation of the normality assumption, we would expect the following residual plot and Q-Q plot.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:w10-GoodResidualPlot"></span>
+<img src="img04/w04-GoodResidualPlots.jpg" alt="Good residual plot and normal Q-Q plot" width="582"  />
+<p class="caption">
+Figure 6.5: Good residual plot and normal Q-Q plot
+</p>
+</div>
+<p>Some of the commonly seen poor residual plots represent different violations of various assumptions. We can try to use various transformations (such Box-Cox power transformations) of the response variable to correct the issue.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:w10-BadResidualPlots"></span>
+<img src="img04/w04-BadResidualPlots.jpg" alt="Poor residual plots representing various violations of the model assumptions" width="460"  />
+<p class="caption">
+Figure 6.6: Poor residual plots representing various violations of the model assumptions
+</p>
+</div>
+<ul>
+<li><strong>Multicollinearity</strong></li>
+</ul>
+<p>Some of the predictor variables are linearly correlated. The consequence of multi-collinearity causes to unstable LSE of the regression coefficients (i.e., the LSEs of the regression coefficients are sensitive to a small change in the model). It also reduces the precision of the estimate coefficients and, hence, the p-values are not reliable.</p>
+<p>Multicollinearity affects the coefficients and p-values, but it does not influence the predictions, precision of the predictions, and the goodness-of-fit statistics. If our primary goal is to make predictions, we don’t need to understand the role of each independent variable and we don’t need to reduce severe multicollinearity.</p>
+<p>If the primary goal is to perform association analysis, we need to reduce collinearity since both LSE and p-values are the keys to association analysis.</p>
+<p>To detect multicollinearity, we can use the variance inflation factor (VIF) to inspect the multicollinearity of the individual predictor variable. There are some different methods to reduce multicollinearity. Centering predictor variables is one of them and works well sometimes. Some other advanced modeling-based methods are covered in more advanced courses.</p>
+</div>
+<div id="goodness-of-fit-and-variable-selection" class="section level3 hasAnchor" number="6.2.6">
+<h3><span class="header-section-number">6.2.6</span> Goodness-of-fit and Variable Selection<a href="multiple-linear-regression.html#goodness-of-fit-and-variable-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There several different goodness-of-fit measures are available for the linear regression model due to the assumption of the normality assumption of the response variable.</p>
+<ul>
+<li><strong>Coefficient of Determination</strong></li>
+</ul>
+<p>We only introduce <strong>the coefficient of determination <span class="math inline">\(R^2\)</span></strong> which measures the percentage of variability within the -values that can be explained by the regression model. In simple linear regression models, <strong>the coefficient of determination <span class="math inline">\(R^2\)</span></strong> is simply the square of the sample Pearson correlation coefficient.</p>
+<ul>
+<li><strong>Statistical Significance and Practical Importance</strong></li>
+</ul>
+<p>A small p-value of the significant test for a predictor variable indicates the variable is statistically significant but may not be practically important. On the other hand, some practically important predictor variables may not achieve statistical significance due to the limited sample size. In the practical applications, <strong>we may want to include some of the practically important predictor variables in the final model regardless of their statistical significance</strong>.</p>
+<ul>
+<li><strong>Model Selection</strong></li>
+</ul>
+<p>One of the criteria for assessing the goodness-of-fit is the parsimony of the model. A parsimonious model is a model that accomplishes the desired level of explanation or prediction with as few predictor variables as possible. There are generally two ways of evaluating a model: Based on predictions and based on goodness of fit on the current data such as <span class="math inline">\(R^2\)</span> and some likelihood-based measures.</p>
+<p>R has an automatic variable selection procedure, <strong>step()</strong>, which uses the goodness-of-fit measure AIC (Akaike Information Criterion) which is not formally introduced in this class due to the level of mathematics needed in the definition, but we can still use it to perform the automatic variable selection. <a href="http://rstudio-pubs-static.s3.amazonaws.com/2899_a9129debf6bd47d2a0501de9c0dc583d.html">This tutorial gives detailed examples on how to use <strong>step()</strong> (link)</a>.</p>
+</div>
+</div>
+<div id="case-study-1" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Case Study 1<a href="multiple-linear-regression.html#case-study-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We use the dental data in the motivation example for the case study.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multiple-linear-regression.html#cb87-1" tabindex="-1"></a>MMO<span class="ot">=</span><span class="fu">c</span>(<span class="fl">52.34</span>, <span class="fl">51.90</span>, <span class="fl">52.80</span>, <span class="fl">50.29</span>, <span class="fl">57.79</span>, <span class="fl">49.41</span>, <span class="fl">53.28</span>, <span class="fl">59.71</span>, <span class="fl">53.32</span>, <span class="fl">48.53</span>, <span class="fl">51.59</span>, </span>
+<span id="cb87-2"><a href="multiple-linear-regression.html#cb87-2" tabindex="-1"></a>      <span class="fl">58.52</span>, <span class="fl">62.93</span>, <span class="fl">57.62</span>, <span class="fl">65.64</span>, <span class="fl">52.85</span>, <span class="fl">64.43</span>, <span class="fl">57.25</span>, <span class="fl">50.82</span>, <span class="fl">40.48</span>, <span class="fl">59.68</span>, <span class="fl">54.35</span>, </span>
+<span id="cb87-3"><a href="multiple-linear-regression.html#cb87-3" tabindex="-1"></a>      <span class="fl">47.00</span>, <span class="fl">47.23</span>,  <span class="fl">41.19</span>, <span class="fl">42.76</span>, <span class="fl">51.88</span>, <span class="fl">42.77</span>, <span class="fl">52.34</span>, <span class="fl">50.45</span>, <span class="fl">43.18</span>, <span class="fl">41.99</span>, <span class="fl">39.45</span>, </span>
+<span id="cb87-4"><a href="multiple-linear-regression.html#cb87-4" tabindex="-1"></a>      <span class="fl">38.91</span>, <span class="fl">49.10</span>)</span>
+<span id="cb87-5"><a href="multiple-linear-regression.html#cb87-5" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb87-6"><a href="multiple-linear-regression.html#cb87-6" tabindex="-1"></a>ML<span class="ot">=</span><span class="fu">c</span>(<span class="fl">100.85</span>, <span class="fl">93.08</span>, <span class="fl">98.43</span>, <span class="fl">102.95</span>, <span class="fl">108.24</span>, <span class="fl">98.34</span>, <span class="fl">95.57</span>, <span class="fl">98.85</span>,<span class="fl">98.32</span>, <span class="fl">92.70</span>, <span class="fl">88.89</span>, </span>
+<span id="cb87-7"><a href="multiple-linear-regression.html#cb87-7" tabindex="-1"></a>     <span class="fl">104.06</span>,  <span class="fl">98.18</span>, <span class="fl">91.01</span>, <span class="fl">96.98</span>, <span class="fl">97.85</span>, <span class="fl">96.89</span>, <span class="fl">98.35</span>, <span class="fl">90.65</span>, <span class="fl">92.99</span>, <span class="fl">108.97</span>, <span class="fl">91.85</span>, </span>
+<span id="cb87-8"><a href="multiple-linear-regression.html#cb87-8" tabindex="-1"></a>     <span class="fl">104.30</span>, <span class="fl">93.16</span>, <span class="fl">94.18</span>, <span class="fl">89.56</span>, <span class="fl">105.85</span>, <span class="fl">89.29</span>, <span class="fl">92.58</span>, <span class="fl">98.64</span>, <span class="fl">83.70</span>, <span class="fl">88.46</span>, <span class="fl">94.93</span>, </span>
+<span id="cb87-9"><a href="multiple-linear-regression.html#cb87-9" tabindex="-1"></a>     <span class="fl">96.81</span>, <span class="fl">93.13</span>)</span>
+<span id="cb87-10"><a href="multiple-linear-regression.html#cb87-10" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb87-11"><a href="multiple-linear-regression.html#cb87-11" tabindex="-1"></a>RA <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">32.08</span>, <span class="fl">39.21</span>, <span class="fl">33.74</span>, <span class="fl">34.19</span>, <span class="fl">35.13</span>, <span class="fl">30.92</span>, <span class="fl">37.71</span>, <span class="fl">44.71</span>, <span class="fl">33.17</span>, <span class="fl">31.74</span>, <span class="fl">37.07</span>, </span>
+<span id="cb87-12"><a href="multiple-linear-regression.html#cb87-12" tabindex="-1"></a>       <span class="fl">38.71</span>, <span class="fl">43.89</span>, <span class="fl">41.06</span>, <span class="fl">41.92</span>, <span class="fl">35.25</span>, <span class="fl">45.11</span>, <span class="fl">39.44</span>, <span class="fl">38.33</span>, <span class="fl">25.93</span>, <span class="fl">36.78</span>, <span class="fl">42.02</span>, </span>
+<span id="cb87-13"><a href="multiple-linear-regression.html#cb87-13" tabindex="-1"></a>       <span class="fl">27.20</span>, <span class="fl">31.37</span>, <span class="fl">27.87</span>, <span class="fl">28.69</span>, <span class="fl">31.04</span>, <span class="fl">32.78</span>, <span class="fl">37.82</span>, <span class="fl">33.36</span>, <span class="fl">31.93</span>, <span class="fl">28.32</span>, <span class="fl">24.82</span>, </span>
+<span id="cb87-14"><a href="multiple-linear-regression.html#cb87-14" tabindex="-1"></a>       <span class="fl">23.88</span>, <span class="fl">36.17</span>)</span>
+<span id="cb87-15"><a href="multiple-linear-regression.html#cb87-15" tabindex="-1"></a></span>
+<span id="cb87-16"><a href="multiple-linear-regression.html#cb87-16" tabindex="-1"></a>DentalData <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(<span class="at">MMO =</span> MMO, <span class="at">ML =</span> ML, <span class="at">RA =</span> RA))</span></code></pre></div>
+<ul>
+<li><strong>Pair-wise Scatter Plot</strong></li>
+</ul>
+<p>This pairwise scatter plot tells whether there are significant correlations between <strong>numerical predictor variables</strong>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-77-1.png" alt="Pair-wise scatter plot" width="576"  />
+<p class="caption">
+Figure 6.7: Pair-wise scatter plot
+</p>
+</div>
+<p>We can see the following patterns from the above pair-wise scatter plot.</p>
+<p>(1). Both ML and RA are linearly correlated with the response variable MMO. This is what we expected.</p>
+<p>(2). ML and RA are not linearly correlated. This indicates that there is no collinearity issue.</p>
+<p>(3). We also don’t see any special patterns such as outliers and extremely skewed distribution. There is no need to perform discretization and regrouping procedures on the predictor variables.</p>
+<p>(4). In this data set, there is no categorical variables or categorical variable with a numerical coding system in this data set. There is no need to create dummy variables.</p>
+<ul>
+<li><strong>Initial model</strong></li>
+</ul>
+<p>The following initial model includes all predictor variables. The residual plots indicate that</p>
+<p>(1). One of the observations seems to be an outlier (observation 15);</p>
+<p>(2). There is a minor violation of the assumption of constant variance.</p>
+<p>(3). There is also a minor violation of the assumption of normality of the distribution of the residuals.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multiple-linear-regression.html#cb88-1" tabindex="-1"></a>ini.model <span class="ot">=</span> <span class="fu">lm</span>(MMO <span class="sc">~</span> ML <span class="sc">+</span> RA, <span class="at">data =</span> DentalData)   <span class="co"># fit a linear model with interaction effect</span></span>
+<span id="cb88-2"><a href="multiple-linear-regression.html#cb88-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb88-3"><a href="multiple-linear-regression.html#cb88-3" tabindex="-1"></a><span class="fu">plot</span>(ini.model)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-78"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-78-1.png" alt="Residual plots of the the linear regression model." width="672" />
+<p class="caption">
+Figure 6.8: Residual plots of the the linear regression model.
+</p>
+</div>
+<p>Next, we will carry the Box-Cox transformation to identify a potential power transformation of the response variable MMO.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multiple-linear-regression.html#cb89-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb89-2"><a href="multiple-linear-regression.html#cb89-2" tabindex="-1"></a><span class="fu">boxcox</span>(MMO <span class="sc">~</span> ML <span class="sc">+</span> RA, </span>
+<span id="cb89-3"><a href="multiple-linear-regression.html#cb89-3" tabindex="-1"></a>       <span class="at">data =</span> DentalData, </span>
+<span id="cb89-4"><a href="multiple-linear-regression.html#cb89-4" tabindex="-1"></a>       <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="fl">1.5</span>, <span class="at">length =</span> <span class="dv">10</span>), </span>
+<span id="cb89-5"><a href="multiple-linear-regression.html#cb89-5" tabindex="-1"></a>       <span class="at">xlab=</span><span class="fu">expression</span>(<span class="fu">paste</span>(lambda)))</span>
+<span id="cb89-6"><a href="multiple-linear-regression.html#cb89-6" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">&quot;Box-Cox Transformation: 95% CI of lambda&quot;</span>,</span>
+<span id="cb89-7"><a href="multiple-linear-regression.html#cb89-7" tabindex="-1"></a>      <span class="at">col.main =</span> <span class="st">&quot;navy&quot;</span>, <span class="at">cex.main =</span> <span class="fl">0.9</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-79"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-79-1.png" alt="Box-cox transformation for power transformation." width="384" />
+<p class="caption">
+Figure 6.9: Box-cox transformation for power transformation.
+</p>
+</div>
+<p>Since both 0 and 1 are in the <span class="math inline">\(95\%\)</span> confidence interval of <span class="math inline">\(\lambda\)</span>, technically speaking, there is no need to perform the power transformation. By the optimal <span class="math inline">\(\lambda\)</span> is closer to 0, we try to perform the log transformation (corresponding to <span class="math inline">\(\lambda =0\)</span>) to see whether there will some improvement of the initial model</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multiple-linear-regression.html#cb90-1" tabindex="-1"></a>transform.model <span class="ot">=</span> <span class="fu">lm</span>(<span class="fu">log</span>(MMO) <span class="sc">~</span> ML <span class="sc">*</span> RA, <span class="at">data  =</span> DentalData)</span>
+<span id="cb90-2"><a href="multiple-linear-regression.html#cb90-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb90-3"><a href="multiple-linear-regression.html#cb90-3" tabindex="-1"></a><span class="fu">plot</span>(transform.model)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-80"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-80-1.png" alt="Residual plots for the regression with transformed response variable." width="384" />
+<p class="caption">
+Figure 6.10: Residual plots for the regression with transformed response variable.
+</p>
+</div>
+<p>The above residual plots indicate an improvement in model fit. We will use the transformed response to build the final model.</p>
+<ul>
+<li><strong>Final Model</strong></li>
+</ul>
+<p>The model based on the log-transformed response is summarized in the following.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multiple-linear-regression.html#cb91-1" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(transform.model)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Summarized statistics of the regression </span></span>
+<span id="cb91-2"><a href="multiple-linear-regression.html#cb91-2" tabindex="-1"></a><span class="st">      coefficients of the model with a log-transformed response&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-81">Table 6.1: </span>Summarized statistics of the regression
+coefficients of the model with a log-transformed response</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">1.9957108</td>
+<td align="right">1.0023242</td>
+<td align="right">1.9910831</td>
+<td align="right">0.0553479</td>
+</tr>
+<tr class="even">
+<td align="left">ML</td>
+<td align="right">0.0124400</td>
+<td align="right">0.0104503</td>
+<td align="right">1.1903999</td>
+<td align="right">0.2429256</td>
+</tr>
+<tr class="odd">
+<td align="left">RA</td>
+<td align="right">0.0296960</td>
+<td align="right">0.0293716</td>
+<td align="right">1.0110477</td>
+<td align="right">0.3198204</td>
+</tr>
+<tr class="even">
+<td align="left">ML:RA</td>
+<td align="right">-0.0000884</td>
+<td align="right">0.0003059</td>
+<td align="right">-0.2890324</td>
+<td align="right">0.7744807</td>
+</tr>
+</tbody>
+</table>
+<p>we can see that the interaction effect is insignificant in the model. We drop the highest term in the regression model either manually or automatically. In the next code chunk, we use the automatic variable selection method to find the final model.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="multiple-linear-regression.html#cb92-1" tabindex="-1"></a>transform.model <span class="ot">=</span> <span class="fu">lm</span>(<span class="fu">log</span>(MMO)<span class="sc">~</span>ML<span class="sc">*</span>RA, <span class="at">data =</span> DentalData)</span>
+<span id="cb92-2"><a href="multiple-linear-regression.html#cb92-2" tabindex="-1"></a><span class="do">## I will use the automatic variable selection function to search the final model</span></span>
+<span id="cb92-3"><a href="multiple-linear-regression.html#cb92-3" tabindex="-1"></a>final.model <span class="ot">=</span>  <span class="fu">step</span>(transform.model, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb92-4"><a href="multiple-linear-regression.html#cb92-4" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">summary</span>(final.model)<span class="sc">$</span>coef, <span class="at">caption =</span> <span class="st">&quot;Summary statistics of the regression </span></span>
+<span id="cb92-5"><a href="multiple-linear-regression.html#cb92-5" tabindex="-1"></a><span class="st">      coefficients of the final model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-82">Table 6.2: </span>Summary statistics of the regression
+coefficients of the final model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2.2833535</td>
+<td align="right">0.1176375</td>
+<td align="right">19.410076</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">ML</td>
+<td align="right">0.0094391</td>
+<td align="right">0.0011705</td>
+<td align="right">8.064482</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">RA</td>
+<td align="right">0.0212140</td>
+<td align="right">0.0012017</td>
+<td align="right">17.653748</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Now we have three candidate models to select from. We extract the coefficient of determination (<span class="math inline">\(R^2\)</span>) of each of the three candidate models.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="multiple-linear-regression.html#cb93-1" tabindex="-1"></a>r.ini.model <span class="ot">=</span> <span class="fu">summary</span>(ini.model)<span class="sc">$</span>r.squared</span>
+<span id="cb93-2"><a href="multiple-linear-regression.html#cb93-2" tabindex="-1"></a>r.transfd.model <span class="ot">=</span> <span class="fu">summary</span>(transform.model)<span class="sc">$</span>r.squared</span>
+<span id="cb93-3"><a href="multiple-linear-regression.html#cb93-3" tabindex="-1"></a>r.final.model <span class="ot">=</span> <span class="fu">summary</span>(final.model)<span class="sc">$</span>r.squared</span>
+<span id="cb93-4"><a href="multiple-linear-regression.html#cb93-4" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb93-5"><a href="multiple-linear-regression.html#cb93-5" tabindex="-1"></a>Rsquare <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">ini.model =</span> r.ini.model, <span class="at">transfd.model =</span> r.transfd.model, </span>
+<span id="cb93-6"><a href="multiple-linear-regression.html#cb93-6" tabindex="-1"></a>                <span class="at">final.model =</span> r.final.model)</span>
+<span id="cb93-7"><a href="multiple-linear-regression.html#cb93-7" tabindex="-1"></a><span class="fu">kable</span>(Rsquare, <span class="at">caption=</span><span class="st">&quot;Coefficients of correlation of the three candidate models&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-83">Table 6.3: </span>Coefficients of correlation of the three candidate models</caption>
+<thead>
+<tr class="header">
+<th align="right">ini.model</th>
+<th align="right">transfd.model</th>
+<th align="right">final.model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.9204481</td>
+<td align="right">0.9257218</td>
+<td align="right">0.9255216</td>
+</tr>
+</tbody>
+</table>
+<p>The second and the third model have almost the same <span class="math inline">\(R^2\)</span>, <span class="math inline">\(92.56\%\)</span> and <span class="math inline">\(92.57\%\)</span>. Both models are based on the log-transformed MMO. The interpretations of these two models are not straightforward. The initial model has a slightly lower <span class="math inline">\(92.0\%\)</span>. Since the initial model has a simple structure and is easy to interpret, we choose the initial model as the final model to report. The summarized statistic is given in the following table.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="multiple-linear-regression.html#cb94-1" tabindex="-1"></a>summary.ini.model <span class="ot">=</span> <span class="fu">summary</span>(ini.model)<span class="sc">$</span>coef</span>
+<span id="cb94-2"><a href="multiple-linear-regression.html#cb94-2" tabindex="-1"></a><span class="fu">kable</span>(summary.ini.model, <span class="at">caption =</span> <span class="st">&quot;Summary of the final working model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-84">Table 6.4: </span>Summary of the final working model</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-31.4247984</td>
+<td align="right">6.1474668</td>
+<td align="right">-5.111829</td>
+<td align="right">1.44e-05</td>
+</tr>
+<tr class="even">
+<td align="left">ML</td>
+<td align="right">0.4731743</td>
+<td align="right">0.0611653</td>
+<td align="right">7.735992</td>
+<td align="right">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">RA</td>
+<td align="right">1.0711725</td>
+<td align="right">0.0627967</td>
+<td align="right">17.057792</td>
+<td align="right">0.00e+00</td>
+</tr>
+</tbody>
+</table>
+<p>In summary, both ML and RA are statistically significant (p-value <span class="math inline">\(\approx 0\)</span>) and both are positively correlated to MMO. Further, for a given angle of rotation of the mandible (RA), when mandibular length (ML) increases by 1mm, the maximum mouth opening (MMO) increases by 0.473 mm. However, for holding ML, a 1-degree increase in RA will result in a 1.071 mm increase in MMO.</p>
+</div>
+<div id="case-study-2" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Case Study 2<a href="multiple-linear-regression.html#case-study-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We discussed the ANOVA model in module 8. In fact, the ANOVA model is a special linear regression model. The location is a factor variable. We now build a linear regression using mussel shell length as the response and the location as the predictor variable in the following (code is copied from module 8).</p>
+<p>Since predictor variable location is a categorical factor variable, R function <strong>lm()</strong> will automatically define four dummy variables for each category except for the baseline category is, by default, the smallest character values (alphabetical order). In our example, the value <strong>Magadan</strong> is the smallest. Other categories will be compared with the baseline category through the corresponding dummy variable.</p>
+<p>To be more specific, the four dummy variables associated with the four categories will be defined by</p>
+<ol style="list-style-type: decimal">
+<li><p>locationNewport = 1 if the location is Newport, 0 otherwise;</p></li>
+<li><p>locationPetersburg = 1 if the location is Petersburg, 0 otherwise;</p></li>
+<li><p>locationTillamook = 1 if the location is Tillamook, 0 otherwise;</p></li>
+<li><p>locationTvarminne = 1 if the location is Tvarminne, 0 otherwise.</p></li>
+</ol>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="multiple-linear-regression.html#cb95-1" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0571</span>,<span class="fl">0.0813</span>, <span class="fl">0.0831</span>, <span class="fl">0.0976</span>, <span class="fl">0.0817</span>, <span class="fl">0.0859</span>, <span class="fl">0.0735</span>, <span class="fl">0.0659</span>, <span class="fl">0.0923</span>, <span class="fl">0.0836</span>) </span>
+<span id="cb95-2"><a href="multiple-linear-regression.html#cb95-2" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0873</span>,<span class="fl">0.0662</span>, <span class="fl">0.0672</span>, <span class="fl">0.0819</span>, <span class="fl">0.0749</span>, <span class="fl">0.0649</span>, <span class="fl">0.0835</span>, <span class="fl">0.0725</span>)</span>
+<span id="cb95-3"><a href="multiple-linear-regression.html#cb95-3" tabindex="-1"></a>x3 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0974</span>,<span class="fl">0.1352</span>, <span class="fl">0.0817</span>, <span class="fl">0.1016</span>, <span class="fl">0.0968</span>, <span class="fl">0.1064</span>, <span class="fl">0.1050</span>)</span>
+<span id="cb95-4"><a href="multiple-linear-regression.html#cb95-4" tabindex="-1"></a>x4 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.1033</span>,<span class="fl">0.0915</span>, <span class="fl">0.0781</span>, <span class="fl">0.0685</span>, <span class="fl">0.0677</span>, <span class="fl">0.0697</span>, <span class="fl">0.0764</span>, <span class="fl">0.0689</span>)</span>
+<span id="cb95-5"><a href="multiple-linear-regression.html#cb95-5" tabindex="-1"></a>x5 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.0703</span>,<span class="fl">0.1026</span>, <span class="fl">0.0956</span>, <span class="fl">0.0973</span>, <span class="fl">0.1039</span>, <span class="fl">0.1045</span>)</span>
+<span id="cb95-6"><a href="multiple-linear-regression.html#cb95-6" tabindex="-1"></a>len  <span class="ot">=</span> <span class="fu">c</span>(x1, x2, x3, x4, x5)      <span class="co"># pool all sub-samples of lengths</span></span>
+<span id="cb95-7"><a href="multiple-linear-regression.html#cb95-7" tabindex="-1"></a>location <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Tillamook&quot;</span>, <span class="fu">length</span>(x1)), </span>
+<span id="cb95-8"><a href="multiple-linear-regression.html#cb95-8" tabindex="-1"></a>             <span class="fu">rep</span>(<span class="st">&quot;Newport&quot;</span>, <span class="fu">length</span>(x2)),</span>
+<span id="cb95-9"><a href="multiple-linear-regression.html#cb95-9" tabindex="-1"></a>             <span class="fu">rep</span>(<span class="st">&quot;Petersburg&quot;</span>, <span class="fu">length</span>(x3)),</span>
+<span id="cb95-10"><a href="multiple-linear-regression.html#cb95-10" tabindex="-1"></a>             <span class="fu">rep</span>(<span class="st">&quot;Magadan&quot;</span>, <span class="fu">length</span>(x4)),</span>
+<span id="cb95-11"><a href="multiple-linear-regression.html#cb95-11" tabindex="-1"></a>             <span class="fu">rep</span>(<span class="st">&quot;Tvarminne&quot;</span>, <span class="fu">length</span>(x5)))     <span class="co"># location vector matches the lengths</span></span>
+<span id="cb95-12"><a href="multiple-linear-regression.html#cb95-12" tabindex="-1"></a>data.matrix <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">len =</span>  len, <span class="at">location =</span> location)   <span class="co"># data a data table</span></span>
+<span id="cb95-13"><a href="multiple-linear-regression.html#cb95-13" tabindex="-1"></a>musseldata <span class="ot">=</span> <span class="fu">as.data.frame</span>(data.matrix)        <span class="co"># data frame</span></span>
+<span id="cb95-14"><a href="multiple-linear-regression.html#cb95-14" tabindex="-1"></a><span class="do">## End of data set creation</span></span>
+<span id="cb95-15"><a href="multiple-linear-regression.html#cb95-15" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb95-16"><a href="multiple-linear-regression.html#cb95-16" tabindex="-1"></a><span class="do">## Starting building the ANOVA model</span></span>
+<span id="cb95-17"><a href="multiple-linear-regression.html#cb95-17" tabindex="-1"></a>anova.model<span class="fl">.01</span> <span class="ot">=</span> <span class="fu">lm</span>(len <span class="sc">~</span> location, <span class="at">data =</span> musseldata)  <span class="co"># define a model for generating the ANOVA</span></span>
+<span id="cb95-18"><a href="multiple-linear-regression.html#cb95-18" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb95-19"><a href="multiple-linear-regression.html#cb95-19" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb95-20"><a href="multiple-linear-regression.html#cb95-20" tabindex="-1"></a><span class="fu">plot</span>(anova.model<span class="fl">.01</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-85"></span>
+<img src="STA551EB_files/figure-html/unnamed-chunk-85-1.png" alt="Residual plots of the anova model." width="384" />
+<p class="caption">
+Figure 6.11: Residual plots of the anova model.
+</p>
+</div>
+<p>The above residual plots indicate no serious violation of the model assumption. The model that generates the above residual plot will be used as the final working model. The inference of the regression coefficients is summarized in the following table.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="multiple-linear-regression.html#cb96-1" tabindex="-1"></a>sum.stats <span class="ot">=</span> <span class="fu">summary</span>(anova.model<span class="fl">.01</span>)<span class="sc">$</span>coef</span>
+<span id="cb96-2"><a href="multiple-linear-regression.html#cb96-2" tabindex="-1"></a><span class="fu">kable</span>(sum.stats, <span class="at">caption =</span> <span class="st">&quot;Summary of the ANOVA model&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-86">Table 6.5: </span>Summary of the ANOVA model</caption>
+<colgroup>
+<col width="26%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.0780125</td>
+<td align="right">0.0044536</td>
+<td align="right">17.5168782</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">locationNewport</td>
+<td align="right">-0.0032125</td>
+<td align="right">0.0062983</td>
+<td align="right">-0.5100593</td>
+<td align="right">0.6133053</td>
+</tr>
+<tr class="odd">
+<td align="left">locationPetersburg</td>
+<td align="right">0.0254304</td>
+<td align="right">0.0065193</td>
+<td align="right">3.9007522</td>
+<td align="right">0.0004300</td>
+</tr>
+<tr class="even">
+<td align="left">locationTillamook</td>
+<td align="right">0.0021875</td>
+<td align="right">0.0059751</td>
+<td align="right">0.3661039</td>
+<td align="right">0.7165558</td>
+</tr>
+<tr class="odd">
+<td align="left">locationTvarminne</td>
+<td align="right">0.0176875</td>
+<td align="right">0.0068029</td>
+<td align="right">2.5999834</td>
+<td align="right">0.0136962</td>
+</tr>
+</tbody>
+</table>
+<p>From the above summary tale, we can see that P-values associated with location dummy variables locationNewport, locationTillamook are bigger than 0.05 meaning the means associated with <strong>Newport</strong>, <strong>Tillamook</strong>, and the baseline <strong>Magadan</strong> (not appearing in the summary table). The p-values associated with <strong>Petersburg</strong> and <strong>Tvarminn</strong> are less the 0.05 which implies that the mean length of these two locations is significantly different from that of the baseline location <strong>Magadan</strong>. Further, the coefficient associated with dummy variable <strong>locationPetersburg</strong> indicates that the mean length of the mussel shell in <strong>Petersburg</strong> is 0.0543 units longer than that in the baseline location <strong>Magadan</strong>. We can also interpret the coefficients associated with <strong>locationTvarminne</strong>.</p>
+<p><br />
+</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="eda-for-feature-engineering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/STA551EB/edit/master/05-MLR.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["STA551EB.pdf", "STA551EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
